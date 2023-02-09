@@ -68,5 +68,5 @@ int main()
         //cout << cSign;
     }
 
-    cout << endl;
+    //cout << endl;
 }
