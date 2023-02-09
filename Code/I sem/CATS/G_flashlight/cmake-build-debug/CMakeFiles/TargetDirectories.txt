@@ -1,0 +1,3 @@
+C:/Users/artem/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/G_flashlight/cmake-build-debug/CMakeFiles/G_flashlight.dir
+C:/Users/artem/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/G_flashlight/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/artem/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/G_flashlight/cmake-build-debug/CMakeFiles/rebuild_cache.dir

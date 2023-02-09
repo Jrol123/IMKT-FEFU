@@ -1,0 +1,3 @@
+D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/E2_soldiers_shaker/cmake-build-debug/CMakeFiles/E2_soldiers_shaker.dir
+D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/E2_soldiers_shaker/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/E2_soldiers_shaker/cmake-build-debug/CMakeFiles/rebuild_cache.dir

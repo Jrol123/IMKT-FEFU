@@ -1,0 +1,3 @@
+D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/1915_reverse_polish_math/cmake-build-debug/CMakeFiles/1915_reverse_polish_math.dir
+D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/1915_reverse_polish_math/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/1915_reverse_polish_math/cmake-build-debug/CMakeFiles/rebuild_cache.dir

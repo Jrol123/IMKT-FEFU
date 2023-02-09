@@ -1,0 +1,3 @@
+C:/Users/artem/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/112465_Long_div_short/cmake-build-debug/CMakeFiles/112465_Long_div_short.dir
+C:/Users/artem/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/112465_Long_div_short/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/artem/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/112465_Long_div_short/cmake-build-debug/CMakeFiles/rebuild_cache.dir

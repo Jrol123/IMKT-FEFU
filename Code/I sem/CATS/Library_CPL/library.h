@@ -1,0 +1,6 @@
+#ifndef LIBRARY_CPL_LIBRARY_H
+#define LIBRARY_CPL_LIBRARY_H
+
+void hello();
+
+#endif //LIBRARY_CPL_LIBRARY_H

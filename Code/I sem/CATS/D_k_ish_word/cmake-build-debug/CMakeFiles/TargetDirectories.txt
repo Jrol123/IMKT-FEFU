@@ -1,0 +1,3 @@
+D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/D_k_ish_word/cmake-build-debug/CMakeFiles/D_k_ish_word.dir
+D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/D_k_ish_word/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/D_k_ish_word/cmake-build-debug/CMakeFiles/rebuild_cache.dir

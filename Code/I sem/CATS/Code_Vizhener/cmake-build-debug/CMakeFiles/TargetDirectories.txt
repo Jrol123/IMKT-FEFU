@@ -1,0 +1,3 @@
+D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/Code_Vizhener/cmake-build-debug/CMakeFiles/Code_Vizhener.dir
+D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/Code_Vizhener/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/Code_Vizhener/cmake-build-debug/CMakeFiles/rebuild_cache.dir

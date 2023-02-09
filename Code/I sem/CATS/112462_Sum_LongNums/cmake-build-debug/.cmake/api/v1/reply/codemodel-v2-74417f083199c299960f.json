@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.23"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "112462_Sum_LongNums",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "112462_Sum_LongNums::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-112462_Sum_LongNums-Debug-0ce76dbbdeb813cc4b00.json",
+					"name" : "112462_Sum_LongNums",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/112462_Sum_LongNums/cmake-build-debug",
+		"source" : "D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/112462_Sum_LongNums"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

@@ -1,0 +1,3 @@
+D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/J_closest_biggest/cmake-build-debug/CMakeFiles/J_closest_biggest.dir
+D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/J_closest_biggest/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/J_closest_biggest/cmake-build-debug/CMakeFiles/rebuild_cache.dir

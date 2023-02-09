@@ -1,0 +1,3 @@
+D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/Lab/L5_QueueAndStack/cmake-build-debug/CMakeFiles/L5_QueueAndStack.dir
+D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/Lab/L5_QueueAndStack/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/Lab/L5_QueueAndStack/cmake-build-debug/CMakeFiles/rebuild_cache.dir

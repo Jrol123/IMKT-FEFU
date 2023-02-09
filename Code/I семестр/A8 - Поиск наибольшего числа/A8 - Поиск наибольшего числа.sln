@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32901.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "A8 - Поиск наибольшего числа", "A8 - Поиск наибольшего числа\A8 - Поиск наибольшего числа.vcxproj", "{84D00B17-19C5-49A9-90B4-48C4A03CEFAB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84D00B17-19C5-49A9-90B4-48C4A03CEFAB}.Debug|x64.ActiveCfg = Debug|x64
+		{84D00B17-19C5-49A9-90B4-48C4A03CEFAB}.Debug|x64.Build.0 = Debug|x64
+		{84D00B17-19C5-49A9-90B4-48C4A03CEFAB}.Debug|x86.ActiveCfg = Debug|Win32
+		{84D00B17-19C5-49A9-90B4-48C4A03CEFAB}.Debug|x86.Build.0 = Debug|Win32
+		{84D00B17-19C5-49A9-90B4-48C4A03CEFAB}.Release|x64.ActiveCfg = Release|x64
+		{84D00B17-19C5-49A9-90B4-48C4A03CEFAB}.Release|x64.Build.0 = Release|x64
+		{84D00B17-19C5-49A9-90B4-48C4A03CEFAB}.Release|x86.ActiveCfg = Release|Win32
+		{84D00B17-19C5-49A9-90B4-48C4A03CEFAB}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD49264D-86DB-45BB-9394-D085972F2C4E}
+	EndGlobalSection
+EndGlobal

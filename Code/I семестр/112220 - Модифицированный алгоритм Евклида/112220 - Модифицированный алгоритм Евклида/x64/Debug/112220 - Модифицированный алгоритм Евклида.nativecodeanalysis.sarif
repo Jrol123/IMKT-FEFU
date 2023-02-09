@@ -1,0 +1,35 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.33.31630.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/users/artem/onedrive/код (двфу)/i семестр/112220 - модифицированный алгоритм евклида/112220 - модифицированный алгоритм евклида/112220 - модифицированный алгоритм евклида.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "02642357efc596c044d5eed269913783bdec2d720d02db4cb84c708ed48ecbf9"
+          }
+        }
+      ]
+    }
+  ]
+}

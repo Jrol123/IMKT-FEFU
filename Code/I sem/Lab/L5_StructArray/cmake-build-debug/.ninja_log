@@ -1,0 +1,4 @@
+# ninja log v5
+2	344	6976859538185095	build.ninja	d3a539ad1a062864
+0	426	6976463054612893	CMakeFiles/L5_StructArray.dir/structArray.cpp.obj	621eb4e6abbb18be
+427	616	6976463056513312	libL5_StructArray.a	700463f581113f1b
