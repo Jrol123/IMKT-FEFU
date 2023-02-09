@@ -1,4 +1,4 @@
-﻿#include <iostream>
+﻿//#include <iostream>
 #include <fstream>
 #include <string>
 using namespace std;
@@ -10,7 +10,7 @@ int main()
     ifstream inf("input.txt");
     ofstream outf("output.txt");
     inf >> sStrings;
-    cout << sStrings << endl << endl;
+    //cout << sStrings << endl << endl;
     char cState = '='; // Состояние всех последующих струн (если настроены ниже + выше — капут)
 
     int iCount = -1;
@@ -36,7 +36,7 @@ int main()
         {
             if (cState != '=')
             {
-                cout << string(5 - iCount, '?');
+                //cout << string(5 - iCount, '?');
                 outf << string(5 - iCount, '?');
                 break;
             }
@@ -65,7 +65,7 @@ int main()
             }
         }
         outf << cSign;
-        cout << cSign;
+        //cout << cSign;
     }
 
     cout << endl;
