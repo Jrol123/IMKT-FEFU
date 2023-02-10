@@ -8,9 +8,17 @@ using namespace std;
 //
 
 template<typename type>
+struct NodeStack
+{
+    type a;
+    NodeStack<type> * nextElement = NULL;
+};
+
+template<typename type>
 struct Stack
 {
-    type * lastElement = NULL;
+    NodeStack<type>  * lastElement = NULL;
+    NodeStack<type> * firstElement = NULL;
 };
 
 template<typename type>
