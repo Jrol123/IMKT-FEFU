@@ -14,6 +14,11 @@ struct NodeStack
     NodeStack<type> * nextElement = NULL;
 };
 
+// Поскольку это Stack, то необходимо оперировать последним элементом.
+// Поскольку это list, то необходимо иметь ссылку на первый элемент.
+
+//Из этого следует, что нужно работать с системой Node
+
 template<typename type>
 struct Stack
 {
