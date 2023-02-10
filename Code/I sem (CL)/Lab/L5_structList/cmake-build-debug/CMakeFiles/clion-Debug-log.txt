@@ -1,0 +1,4 @@
+"D:\Utilities\CLion 2022.2.4\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=D:/Utilities/CLion 2022.2.4/bin/ninja/win/x64/ninja.exe" -G Ninja -S "D:\OneDrive\Docs (non WIN)\Materials\FEFU\IMKT-FEFU-REP\Code\I sem (CL)\Lab\L5_structList" -B "D:\OneDrive\Docs (non WIN)\Materials\FEFU\IMKT-FEFU-REP\Code\I sem (CL)\Lab\L5_structList\cmake-build-debug"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: D:/OneDrive/Docs (non WIN)/Materials/FEFU/IMKT-FEFU-REP/Code/I sem (CL)/Lab/L5_structList/cmake-build-debug
