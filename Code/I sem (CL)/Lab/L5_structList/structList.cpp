@@ -42,6 +42,7 @@ Stack<type> *init(type val)
 
     return pointer;
 }
+
 template<typename type>
 bool deInit(Stack<type> *root)
 {
@@ -49,17 +50,80 @@ bool deInit(Stack<type> *root)
     {
         return false;
     }
+
     NodeStack<type> * pointerOnElement = root->firstElement;
-    NodeStack<type> * pointerOnElementPr = pointerOnElement;
+    NodeStack<type> * pointerOnElementPrev = pointerOnElement;
 
     while(pointerOnElement->nextElement != NULL)
     {
         pointerOnElement = pointerOnElement->nextElement;
-        free(pointerOnElementPr);
-        pointerOnElementPr = pointerOnElement;
+        free(pointerOnElementPrev);
+        pointerOnElementPrev = pointerOnElement;
     }
     free(pointerOnElement);
     free(root);
 
+    return true;
+
     //Need to test
 }
+
+template<typename type>
+bool push(Stack<type> *root, type val)
+{
+    if(root == NULL)
+    {
+        return false;
+    }
+
+    root->lastElement->nextElement = (NodeStack<type> *)malloc(sizeof(NodeStack<type>));
+    root->lastElement = root->lastElement->nextElement;
+    *root->lastElement = val;
+
+    if(root->firstElement == NULL)
+    {
+        root->firstElement = root->lastElement;
+    }
+
+    return true;
+}
+
+template<typename type>
+bool pop(Stack<type> *root, type a)
+{
+    if(root == NULL)
+    {
+        return false;
+    }
+
+    NodeStack<type> * pointerOnElement = root->firstElement;
+
+    while(pointerOnElement->nextElement->nextElement != NULL)
+    {
+        pointerOnElement = pointerOnElement->nextElement;
+    }
+    free(pointerOnElement->nextElement);
+    root->lastElement = pointerOnElement;
+
+    return true;
+}
+
+template<typename type>
+type top(Stack<type> *root)
+{
+    return *root->lastElement;
+}
+
+template<typename type>
+bool isEmpty(Stack<type> *root)
+{
+    if (root->lastElement == NULL)
+    {
+        return true;
+    }
+    return false;
+}
+
+// Дальше идёт Queue
+
+//
