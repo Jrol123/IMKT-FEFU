@@ -4,6 +4,24 @@
 template<typename type>
 struct Stack;
 
+template<typename type>
+Stack<type> *init(int maxSize, type a);
+
+template<typename type>
+bool deInit(Stack<type> *root);
+
+template<typename type>
+bool addHead(Stack<type> *root, type a);
+
+template<typename type>
+type top(Stack<type> *root);
+
+template<typename type>
+bool pop(Stack<type> *root);
+
+template<typename type>
+bool isEmpty(Stack<type> *root);
+
 // Queue
 
 template<typename type>

@@ -2,15 +2,97 @@
 #include <iostream>
 using namespace std;
 
+
 // Дальше идёт Stack
+
+// Last in — First out
+// Фактически, это очередь наоборот
+
+// Эх, их бы объединить...
 
 template<typename type>
 struct Stack
 {
     int maxSize;
-    type top;
+    int curSize;
     type *firstElement = NULL;
 };
+
+template<typename type>
+Stack<type> *init(int maxSize, type a)
+{
+    auto *pointer = (Stack<type> *)malloc(sizeof(Stack<type>)); // Указатель на Queue
+    if (pointer == NULL)
+    {
+        return NULL;
+    }
+    pointer->maxSize = maxSize;
+    pointer->curSize = 1;
+    pointer->firstElement = (type *)malloc(maxSize * sizeof(type));
+    *(pointer->firstElement) = a;
+    return pointer;
+}
+
+template<typename type>
+bool deInit(Stack<type> *root)
+{
+    if (root == NULL)
+    {
+        return false;
+    }
+
+    for(int i = root->maxSize - 1; i >= 0; i--)
+    {
+        free(root->firstElement + i);
+    }
+    free(root);
+    return true;
+}
+
+template<typename type>
+bool addHead(Stack<type> *root, type a)
+{
+    if (root == NULL || root->curSize == root->maxSize)
+    {
+        return false;
+    }
+
+    *(root->firstElement + root->curSize) = a;
+    root->curSize ++;
+    return true;
+}
+
+template<typename type>
+type top(Stack<type> *root)
+{
+    if (root->curSize != 0)
+    {
+        return *(root->firstElement + root->curSize - 1);
+    }
+    return -int('-inf');
+}
+
+template<typename type>
+bool pop(Stack<type> *root)
+{
+    if (root == NULL)
+    {
+        return false;
+    }
+
+    root->curSize -= 1;
+    return true;
+}
+
+template<typename type>
+bool isEmpty(Stack<type> *root)
+{
+    if (root == NULL || root->curSize == 0)
+    {
+        return true;
+    }
+    return false;
+}
 
 // Дальше идёт QUEUE
 
@@ -111,7 +193,7 @@ type front(Queue<type> *root)
 template<typename type>
 bool isEmpty(Queue<type> *root)
 {
-    if (root->curSize == 0)
+    if (root == NULL || root->curSize == 0)
     {
         return true;
     }
