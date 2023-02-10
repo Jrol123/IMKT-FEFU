@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "d:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/Lab/L5_QueueAndStack/cmake-build-debug"
+			"value" : "d:/OneDrive/Docs (non WIN)/Materials/FEFU/IMKT-FEFU-REP/Code/I sem (CL)/Lab/L5_QueueAndStack/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -575,7 +575,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/Lab/L5_QueueAndStack/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "D:/OneDrive/Docs (non WIN)/Materials/FEFU/IMKT-FEFU-REP/Code/I sem (CL)/Lab/L5_QueueAndStack/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -647,7 +647,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/Lab/L5_QueueAndStack"
+			"value" : "D:/OneDrive/Docs (non WIN)/Materials/FEFU/IMKT-FEFU-REP/Code/I sem (CL)/Lab/L5_QueueAndStack"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1263,7 +1263,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/Lab/L5_QueueAndStack/cmake-build-debug"
+			"value" : "D:/OneDrive/Docs (non WIN)/Materials/FEFU/IMKT-FEFU-REP/Code/I sem (CL)/Lab/L5_QueueAndStack/cmake-build-debug"
 		},
 		{
 			"name" : "L5_QueueAndStack_IS_TOP_LEVEL",
@@ -1287,7 +1287,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/Lab/L5_QueueAndStack"
+			"value" : "D:/OneDrive/Docs (non WIN)/Materials/FEFU/IMKT-FEFU-REP/Code/I sem (CL)/Lab/L5_QueueAndStack"
 		},
 		{
 			"name" : "_CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED",

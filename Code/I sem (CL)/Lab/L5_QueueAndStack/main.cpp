@@ -1,15 +1,15 @@
 #include <iostream>
-#include "structArray.cpp"
+#include "structList.cpp"
+//#include "structArray.cpp"
+// Conflict in namings betwen Array and List
 
 int main()
 {
-    Queue<int> *pointer1 = init<int>(10, 79);
-//    cout << front(pointer1) << endl;
-//    cout << isEmpty(pointer1) << endl;
-//    cout << pop(pointer1) << endl;
-//    cout << front(pointer1) << endl;
-//    cout << isEmpty(pointer1) << endl;
-    calc()
+//    Queue<int> *pointer1 = init<int>(10, 79);
+//    Queue<bool> *pointer2 = init<bool>(3, false);
+//    Error (issue)
 
-    Queue<bool> *pointer2 = init<bool>(3, false);
+    Stack<int> *pt1 = init<int>(10);
+    pop(pt1);
+    isEmpty(pt1);
 }
