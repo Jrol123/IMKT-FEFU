@@ -4,13 +4,13 @@ using namespace std;
 
 // Дальше идёт Stack
 
-//template<typename type>
-//struct stack
-//{
-//    int maxSize;
-//    type top;
-//    NodeStack *
-//};
+template<typename type>
+struct Stack
+{
+    int maxSize;
+    type top;
+    type *firstElement = NULL;
+};
 
 // Дальше идёт QUEUE
 

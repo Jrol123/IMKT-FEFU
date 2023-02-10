@@ -1,7 +1,8 @@
 #ifndef L5_STRUCTARRAY_STRUCTARRAY_H
 #define L5_STRUCTARRAY_STRUCTARRAY_H
 
-
+template<typename type>
+struct Stack;
 
 // Queue
 
