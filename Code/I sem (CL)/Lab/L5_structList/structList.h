@@ -8,6 +8,9 @@ template<typename type>
 struct Stack;
 
 template<typename type>
-Stack<type> *init(type a);
+Stack<type> *init(type val);
+
+template<typename type>
+bool deInit(Stack<type> *root);
 
 #endif //L5_STRUCTLIST_STRUCTLIST_H

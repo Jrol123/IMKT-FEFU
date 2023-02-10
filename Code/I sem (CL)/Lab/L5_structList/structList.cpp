@@ -10,7 +10,7 @@ using namespace std;
 template<typename type>
 struct NodeStack
 {
-    type a;
+    type val;
     NodeStack<type> * nextElement = NULL;
 };
 
@@ -22,13 +22,44 @@ struct NodeStack
 template<typename type>
 struct Stack
 {
-    NodeStack<type>  * lastElement = NULL;
+    NodeStack<type> * lastElement = NULL;
     NodeStack<type> * firstElement = NULL;
 };
 
 template<typename type>
-Stack<type> *init(type a)
+Stack<type> *init(type val)
 {
     Stack<type> * pointer = (Stack<type> *)malloc(sizeof(Stack<type>));
 
+    if (pointer == NULL)
+    {
+        return NULL;
+    }
+
+    pointer->firstElement = (NodeStack<type> *)malloc(sizeof(NodeStack<type>));
+    *pointer->firstElement->val = val;
+    pointer->firstElement = pointer->lastElement;
+
+    return pointer;
+}
+template<typename type>
+bool deInit(Stack<type> *root)
+{
+    if(root == NULL)
+    {
+        return false;
+    }
+    NodeStack<type> * pointerOnElement = root->firstElement;
+    NodeStack<type> * pointerOnElementPr = pointerOnElement;
+
+    while(pointerOnElement->nextElement != NULL)
+    {
+        pointerOnElement = pointerOnElement->nextElement;
+        free(pointerOnElementPr);
+        pointerOnElementPr = pointerOnElement;
+    }
+    free(pointerOnElement);
+    free(root);
+
+    //Need to test
 }
