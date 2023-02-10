@@ -11,7 +11,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/A_bathroom/cmake-build-debug"
+			"value" : "D:/OneDrive/Docs (non WIN)/Materials/FEFU/IMKT-FEFU-REP/Code/I sem (CL)/CATS/A_bathroom/cmake-build-debug"
 		},
 		{
 			"name" : "A_bathroom_IS_TOP_LEVEL",
@@ -35,7 +35,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/A_bathroom"
+			"value" : "D:/OneDrive/Docs (non WIN)/Materials/FEFU/IMKT-FEFU-REP/Code/I sem (CL)/CATS/A_bathroom"
 		},
 		{
 			"name" : "CMAKE_ADDR2LINE",
@@ -91,7 +91,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "d:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/A_bathroom/cmake-build-debug"
+			"value" : "d:/OneDrive/Docs (non WIN)/Materials/FEFU/IMKT-FEFU-REP/Code/I sem (CL)/CATS/A_bathroom/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -151,7 +151,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "D:/Utilities/CLion 2022.2.4/bin/cmake/win/bin/cmake.exe"
+			"value" : "D:/Utilities/CLion 2022.2.4/bin/cmake/win/x64/bin/cmake.exe"
 		},
 		{
 			"name" : "CMAKE_CPACK_COMMAND",
@@ -163,7 +163,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "D:/Utilities/CLion 2022.2.4/bin/cmake/win/bin/cpack.exe"
+			"value" : "D:/Utilities/CLion 2022.2.4/bin/cmake/win/x64/bin/cpack.exe"
 		},
 		{
 			"name" : "CMAKE_CTEST_COMMAND",
@@ -175,7 +175,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "D:/Utilities/CLion 2022.2.4/bin/cmake/win/bin/ctest.exe"
+			"value" : "D:/Utilities/CLion 2022.2.4/bin/cmake/win/x64/bin/ctest.exe"
 		},
 		{
 			"name" : "CMAKE_CXX_COMPILER",
@@ -611,7 +611,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/A_bathroom/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "D:/OneDrive/Docs (non WIN)/Materials/FEFU/IMKT-FEFU-REP/Code/I sem (CL)/CATS/A_bathroom/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -683,7 +683,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/A_bathroom"
+			"value" : "D:/OneDrive/Docs (non WIN)/Materials/FEFU/IMKT-FEFU-REP/Code/I sem (CL)/CATS/A_bathroom"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -723,7 +723,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "D:/Utilities/CLion 2022.2.4/bin/ninja/win/ninja.exe"
+			"value" : "D:/Utilities/CLion 2022.2.4/bin/ninja/win/x64/ninja.exe"
 		},
 		{
 			"name" : "CMAKE_MODULE_LINKER_FLAGS",
@@ -1063,7 +1063,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "D:/Utilities/CLion 2022.2.4/bin/cmake/win/share/cmake-3.24"
+			"value" : "D:/Utilities/CLion 2022.2.4/bin/cmake/win/x64/share/cmake-3.24"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",

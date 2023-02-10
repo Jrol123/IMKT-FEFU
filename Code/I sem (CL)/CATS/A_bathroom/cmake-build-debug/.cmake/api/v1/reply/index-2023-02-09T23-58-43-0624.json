@@ -8,10 +8,10 @@
 		},
 		"paths" : 
 		{
-			"cmake" : "D:/Utilities/CLion 2022.2.4/bin/cmake/win/bin/cmake.exe",
-			"cpack" : "D:/Utilities/CLion 2022.2.4/bin/cmake/win/bin/cpack.exe",
-			"ctest" : "D:/Utilities/CLion 2022.2.4/bin/cmake/win/bin/ctest.exe",
-			"root" : "D:/Utilities/CLion 2022.2.4/bin/cmake/win/share/cmake-3.24"
+			"cmake" : "D:/Utilities/CLion 2022.2.4/bin/cmake/win/x64/bin/cmake.exe",
+			"cpack" : "D:/Utilities/CLion 2022.2.4/bin/cmake/win/x64/bin/cpack.exe",
+			"ctest" : "D:/Utilities/CLion 2022.2.4/bin/cmake/win/x64/bin/ctest.exe",
+			"root" : "D:/Utilities/CLion 2022.2.4/bin/cmake/win/x64/share/cmake-3.24"
 		},
 		"version" : 
 		{
@@ -26,7 +26,7 @@
 	"objects" : 
 	[
 		{
-			"jsonFile" : "codemodel-v2-9d65cec932d893e96f89.json",
+			"jsonFile" : "codemodel-v2-0466b053ae82196c5372.json",
 			"kind" : "codemodel",
 			"version" : 
 			{
@@ -35,7 +35,7 @@
 			}
 		},
 		{
-			"jsonFile" : "cache-v2-f7dc8dc11ce5cf81f182.json",
+			"jsonFile" : "cache-v2-c262e4b9f8ca63e2cc31.json",
 			"kind" : "cache",
 			"version" : 
 			{
@@ -44,7 +44,7 @@
 			}
 		},
 		{
-			"jsonFile" : "cmakeFiles-v1-e22c19236dfb6343940a.json",
+			"jsonFile" : "cmakeFiles-v1-6d209b5860fb40e62c23.json",
 			"kind" : "cmakeFiles",
 			"version" : 
 			{
@@ -66,7 +66,7 @@
 	{
 		"cache-v2" : 
 		{
-			"jsonFile" : "cache-v2-f7dc8dc11ce5cf81f182.json",
+			"jsonFile" : "cache-v2-c262e4b9f8ca63e2cc31.json",
 			"kind" : "cache",
 			"version" : 
 			{
@@ -76,7 +76,7 @@
 		},
 		"cmakeFiles-v1" : 
 		{
-			"jsonFile" : "cmakeFiles-v1-e22c19236dfb6343940a.json",
+			"jsonFile" : "cmakeFiles-v1-6d209b5860fb40e62c23.json",
 			"kind" : "cmakeFiles",
 			"version" : 
 			{
@@ -86,7 +86,7 @@
 		},
 		"codemodel-v2" : 
 		{
-			"jsonFile" : "codemodel-v2-9d65cec932d893e96f89.json",
+			"jsonFile" : "codemodel-v2-0466b053ae82196c5372.json",
 			"kind" : "codemodel",
 			"version" : 
 			{
