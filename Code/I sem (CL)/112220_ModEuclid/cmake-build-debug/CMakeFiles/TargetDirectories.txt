@@ -1,0 +1,3 @@
+C:/Users/artem/OneDrive/Docs (non WIN)/Materials/FEFU/IMKT-FEFU-REP/Code/I sem (CL)/112220_ModEuclid/cmake-build-debug/CMakeFiles/112220_ModEuclid.dir
+C:/Users/artem/OneDrive/Docs (non WIN)/Materials/FEFU/IMKT-FEFU-REP/Code/I sem (CL)/112220_ModEuclid/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/artem/OneDrive/Docs (non WIN)/Materials/FEFU/IMKT-FEFU-REP/Code/I sem (CL)/112220_ModEuclid/cmake-build-debug/CMakeFiles/rebuild_cache.dir

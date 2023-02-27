@@ -1,0 +1,3 @@
+C:/Users/artem/OneDrive/Docs (non WIN)/Materials/FEFU/IMKT-FEFU-REP/Code/I sem (CL)/0069_ReverseOrder/cmake-build-debug/CMakeFiles/0069_ReverseOrder.dir
+C:/Users/artem/OneDrive/Docs (non WIN)/Materials/FEFU/IMKT-FEFU-REP/Code/I sem (CL)/0069_ReverseOrder/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/artem/OneDrive/Docs (non WIN)/Materials/FEFU/IMKT-FEFU-REP/Code/I sem (CL)/0069_ReverseOrder/cmake-build-debug/CMakeFiles/rebuild_cache.dir
