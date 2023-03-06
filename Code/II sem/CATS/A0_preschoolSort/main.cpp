@@ -1,7 +1,7 @@
 //#include <iostream>
 #include <fstream>
 using namespace std;
-const short int minNum = int('a');
+const unsigned char lower = 'a';
 
 int main()
 {
@@ -13,11 +13,11 @@ int main()
 
     while(sym != '\377')
     {
-        if (sym < minNum)
+        if (sym < lower)
         {
             state = true;
         }
-        if(state && sym >= minNum)
+        if(state && sym >= lower)
         {
             finState = false;
             break;
