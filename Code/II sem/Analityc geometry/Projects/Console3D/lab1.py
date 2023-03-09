@@ -2,21 +2,50 @@ import math
 import configparser
 
 
-class Coord:
+class Coordinates:
     """
-    Different coordinates
+    Coordinates for different entities
     """
 
     def __init__(self, x, y, z):
         """
         initialization of coordinates
-        :param x:
-        :param y: 
-        :param z:
+        :param x: coords 0
+        :param y: coords 1
+        :param z: coords 2
         """
-        self.x = x
-        self.y = y
-        self.z = z
+        self.coords = [0, 0, 0]
+        self.coords[0] = x
+        self.coords[1] = y
+        self.coords[2] = z
+
+    def __getitem__(self, item):
+        return self.coords[item]
+        # Было бы круто, если бы можно было возвращать через .x, а не через массив
+
+    def __add__(self, other):
+        return Coordinates(self[0] + other[0],
+                           self[1] + other[1],
+                           self[2] + other[2]).output()
+
+    def __mul__(self, other):
+        if isinstance(other, (int, float)):
+            return Coordinates(self[0] * other,
+                               self[1] * other,
+                               self[2] * other).output()
+        elif isinstance(other, Vector):
+            return Coordinates(self[0] * other[0],
+                               self[1] * other[1],
+                               self[2] * other[2]).output()
+        else:
+            TypeError("Wrong Type!")
+
+    def output(self):
+        """
+
+        :return:
+        """
+        return self[0], self[1], self[2]
 
 
 class Point:
@@ -31,24 +60,38 @@ class Point:
         :parameter y: location of point by y
         :parameter z: location of point by z
         """
-        coordinates = Coord(x, y, z)
-
-    def distance(self, pt):
+        self.coordinates = Coordinates(x, y, z)
+# Реализовать через *obj
+    def distance(self, other):
         """
-        Distance between the self, and the pt
-        :param pt: some other point
+        Distance between the self, and the other
+        :param other: some other point
         :return: distance between points
         """
-        return math.sqrt((self.x - pt.x) ** 2 +
-                         (self.y - pt.y) ** 2 +
-                         (self.z - pt.z) ** 2)
+        return math.sqrt(sum([(self.coordinates[i] - other.coordinates[i]) ** 2 for i in range(0, 2 + 1)]))
+        # return math.sqrt((self.x - other.x) ** 2 +
+        #                  (self.y - other.y) ** 2 +
+        #                  (self.z - other.z) ** 2)
 
-    def __add__(self, pt):
+    def __getitem__(self, item):
+        return self.coordinates[item]
+
+    def __add__(self, other):
         """
         sum of two points
-        :param pt: some point
+        :param other: some point
         """
-        return Point(self.x + pt.x, self.y + pt.y, self.z + pt.z)
+        return Point(self.coordinates + other.coordinates)
+
+    # Преобразовать через map
+
+    def __sub__(self, pt):
+        """
+        subtraction of two points
+        :parameter pt:
+        :return:
+        """
+        return self + pt * (-1)
 
     def __mul__(self, num):
         """
@@ -56,14 +99,7 @@ class Point:
         :param num:
         :return:
         """
-        return Point(self.x * num, self.y * num, self.z * num)
-
-    def __sub__(self, pt):
-        """
-        subtraction of two points
-        :parameter pt:
-        """
-        return self + pt * (-1)
+        return Point(self.coordinates * num)
 
     def __truediv__(self, obj):
         """
@@ -71,19 +107,11 @@ class Point:
         :param num:
         :return:
         """
-        # if isinstance(obj, Point):
-        #     self.x /= obj.x
-        #     self.y /= obj.y
-        #     self.z /= obj.z
-        # else:
-        #     self.x /= obj
-        #     self.y /= obj
-        #     self.z /= obj
         assert obj != 0
         return self * (1 / obj)
 
     def __str__(self):
-        return f"Point({self.x}, {self.y}, {self.z})"
+        return f"Point({self[0]}, {self[1]}, {self[2]})"
 
 
 class Vector:
@@ -94,30 +122,28 @@ class Vector:
     def __init__(self, *obj):
         """
 
-        :param x:
-        :param y:
-        :param z:
+        :param obj:
         """
         if len(obj) == 1:
             if isinstance(obj[0], Point):
-                self.x = obj[0].x
-                self.y = obj[0].y
-                self.z = obj[0].z
+                self.coordinates = Coordinates(obj[0][0], obj[0][1], obj[0][2])
         elif len(obj) == 3:
-            if map(isinstance, obj, [int, float]):
-                self.x = obj[0]
-                self.y = obj[1]
-                self.z = obj[2]
+            if isinstance(obj[0], (int, float)) and isinstance(obj[1], (int, float)) and isinstance(obj[2], (int, float)):
+                self.coordinates = Coordinates(obj[0], obj[1], obj[2])
+            else:
+                raise TypeError("Not a number!")
 
-    def __add__(self, vc):
+    def __getitem__(self, item):
+        return self.coordinates[item]
+
+    def __add__(self, other):
         """
         Sum of the self-vector and vc-vector
-        :param vc: second vector
+        :param other: second vector
         """
-        self.point += vc.point
-        self.x += vc.x
-        self.y += vc.y
-        self.z += vc.z
+        return Vector(self[0] + other[0],
+                      self[1] + other[1],
+                      self[2] + other[2])
 
     def __sub__(self, vc):
         """
@@ -125,10 +151,9 @@ class Vector:
         :param vc:
         :return:
         """
-        self.point -= vc.point
-        self.x -= vc.x
-        self.y -= vc.y
-        self.z -= vc.z
+        return Vector(self[0] - other[0],
+                      self[1] - other[1],
+                      self[2] - other[2])
 
     def __mul__(self, vc):
         """
@@ -189,7 +214,7 @@ class Camera:
 
     def __int__(self, position, look_dir, fov, draw_distance):
         """
-        init
+        Init
         :param position: Point
         :param fov: Горизонтальный "радиус" просмотра
         :param vfov: Вертикальный "радиус" просмотра
@@ -217,13 +242,13 @@ class Object:
 
     def __init__(self, pos, rotation):
         """
-        object.contains (pt) - bool
+        object.contains (other) - bool
         :param pos: position of the camera
         :param rotation:
         """
 
 
 if __name__ == "__main__":
-    a = Point(1, 2, 3)
-    b = a * 2
-    print(a, b)
+    a = Point(1, 1, 1)
+    b = a.coordinates.output()
+    print(b)
