@@ -26,23 +26,23 @@ class Coordinates:
     def __add__(self, other):
         return Coordinates(self[0] + other[0],
                            self[1] + other[1],
-                           self[2] + other[2]).output()
+                           self[2] + other[2])
 
     def __mul__(self, other):
         if isinstance(other, (int, float)):
             return Coordinates(self[0] * other,
                                self[1] * other,
-                               self[2] * other).output()
-        elif isinstance(other, Vector):
+                               self[2] * other)
+        elif isinstance(other, Coordinates):
             return Coordinates(self[0] * other[0],
                                self[1] * other[1],
-                               self[2] * other[2]).output()
+                               self[2] * other[2])
         else:
             TypeError("Wrong Type!")
 
     def output(self):
         """
-
+        Output as list
         :return:
         """
         return self[0], self[1], self[2]
@@ -53,15 +53,22 @@ class Point:
     Point class
     """
 
-    def __init__(self, x, y, z):
-        """
-        Initialisation of the point class
-        :parameter x: location of point by x
-        :parameter y: location of point by y
-        :parameter z: location of point by z
-        """
-        self.coordinates = Coordinates(x, y, z)
-# Реализовать через *obj
+    # def __init__(self, x, y, z):
+    #     """
+    #     Initialisation of the point class
+    #     :parameter x: location of point by x
+    #     :parameter y: location of point by y
+    #     :parameter z: location of point by z
+    #     """
+    #     self.coordinates = Coordinates(x, y, z)
+
+    def __init__(self, *obj):
+        if isinstance(obj[0], Coordinates):
+            self.coordinates = obj[0]
+        elif isinstance(obj[0], (int, float)) and isinstance(obj[1], (int, float)) and isinstance(obj[2],(int, float)):
+            self.coordinates = Coordinates(obj[0], obj[1], obj[2])
+
+    # Реализовать через *obj
     def distance(self, other):
         """
         Distance between the self, and the other
@@ -127,42 +134,44 @@ class Vector:
         if len(obj) == 1:
             if isinstance(obj[0], Point):
                 self.coordinates = Coordinates(obj[0][0], obj[0][1], obj[0][2])
+            elif isinstance(obj[0], Coordinates):
+                self.coordinates = obj[0]
+            else:
+                raise TypeError("Wrong type")
         elif len(obj) == 3:
             if isinstance(obj[0], (int, float)) and isinstance(obj[1], (int, float)) and isinstance(obj[2], (int, float)):
                 self.coordinates = Coordinates(obj[0], obj[1], obj[2])
             else:
-                raise TypeError("Not a number!")
+                raise TypeError("Wrong type !")
 
     def __getitem__(self, item):
         return self.coordinates[item]
 
     def __add__(self, other):
         """
-        Sum of the self-vector and vc-vector
+        Sum of the self-vector and other vector
         :param other: second vector
         """
         return Vector(self[0] + other[0],
                       self[1] + other[1],
                       self[2] + other[2])
 
-    def __sub__(self, vc):
+    def __sub__(self, other):
         """
 
-        :param vc:
+        :param other:
         :return:
         """
         return Vector(self[0] - other[0],
                       self[1] - other[1],
                       self[2] - other[2])
 
-    def __mul__(self, vc):
+    def __mul__(self, other):
         """
 
-        :param vc:
+        :param other:
         """
-        self.x *= vc.x
-        self.y *= vc.y
-        self.z *= vc.z
+        return Vector(self.coordinates * other.coordinates)
 
     def vectorMul(self, vc):
         """
@@ -172,6 +181,7 @@ class Vector:
         """
         return Vector(self.point, self.y * vc.z - self.z * vc.y, -(self.x * vc.z - self.z * vc.x),
                       self.x * vc.y - self.y - vc.x)
+    def __rmul__(self, other):
 
     def length(self):
         """
@@ -249,6 +259,7 @@ class Object:
 
 
 if __name__ == "__main__":
-    a = Point(1, 1, 1)
-    b = a.coordinates.output()
-    print(b)
+    a = Vector(2, 2, 2)
+    b = Vector(2, 2, 2)
+    a *= b
+    print(a)
