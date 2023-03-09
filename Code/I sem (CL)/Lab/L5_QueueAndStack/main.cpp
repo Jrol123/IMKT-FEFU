@@ -1,5 +1,5 @@
 #include <iostream>
-#include "structList.cpp"
+#include "structList.h"
 //#include "structArray.cpp"
 // Conflict in namings betwen Array and List
 

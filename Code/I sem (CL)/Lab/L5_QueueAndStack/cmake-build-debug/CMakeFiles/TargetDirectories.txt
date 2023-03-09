@@ -1,3 +1,3 @@
-D:/OneDrive/Docs (non WIN)/Materials/FEFU/IMKT-FEFU-REP/Code/I sem (CL)/Lab/L5_QueueAndStack/cmake-build-debug/CMakeFiles/L5_QueueAndStack.dir
-D:/OneDrive/Docs (non WIN)/Materials/FEFU/IMKT-FEFU-REP/Code/I sem (CL)/Lab/L5_QueueAndStack/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/OneDrive/Docs (non WIN)/Materials/FEFU/IMKT-FEFU-REP/Code/I sem (CL)/Lab/L5_QueueAndStack/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Github/IMKT-FEFU/Code/I sem (CL)/Lab/L5_QueueAndStack/cmake-build-debug/CMakeFiles/L5_QueueAndStack.dir
+C:/Github/IMKT-FEFU/Code/I sem (CL)/Lab/L5_QueueAndStack/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Github/IMKT-FEFU/Code/I sem (CL)/Lab/L5_QueueAndStack/cmake-build-debug/CMakeFiles/rebuild_cache.dir
