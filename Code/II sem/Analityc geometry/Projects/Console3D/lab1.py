@@ -53,22 +53,12 @@ class Point:
     Point class
     """
 
-    # def __init__(self, x, y, z):
-    #     """
-    #     Initialisation of the point class
-    #     :parameter x: location of point by x
-    #     :parameter y: location of point by y
-    #     :parameter z: location of point by z
-    #     """
-    #     self.coordinates = Coordinates(x, y, z)
-
     def __init__(self, *obj):
         if isinstance(obj[0], Coordinates):
             self.coordinates = obj[0]
         elif isinstance(obj[0], (int, float)) and isinstance(obj[1], (int, float)) and isinstance(obj[2],(int, float)):
             self.coordinates = Coordinates(obj[0], obj[1], obj[2])
 
-    # Реализовать через *obj
     def distance(self, other):
         """
         Distance between the self, and the other
@@ -103,6 +93,14 @@ class Point:
     def __mul__(self, num):
         """
         multiplication point by num
+        :param num:
+        :return:
+        """
+        return Point(self.coordinates * num)
+
+    def __rmul__(self, num):
+        """
+
         :param num:
         :return:
         """
@@ -156,22 +154,21 @@ class Vector:
                       self[1] + other[1],
                       self[2] + other[2])
 
-    def __sub__(self, other):
-        """
-
-        :param other:
-        :return:
-        """
-        return Vector(self[0] - other[0],
-                      self[1] - other[1],
-                      self[2] - other[2])
-
     def __mul__(self, other):
         """
 
         :param other:
         """
-        return Vector(self.coordinates * other.coordinates)
+        if isinstance(other, Vector):
+            return Vector(self.coordinates * other.coordinates)
+        elif isinstance(other, (int, float)):
+            return Vector(self.coordinates * other)
+        else:
+            raise TypeError("Wrong type!")
+
+    def __rmul__(self, other):
+        return Vector
+
 
     def vectorMul(self, vc):
         """
@@ -181,8 +178,16 @@ class Vector:
         """
         return Vector(self.point, self.y * vc.z - self.z * vc.y, -(self.x * vc.z - self.z * vc.x),
                       self.x * vc.y - self.y - vc.x)
-    def __rmul__(self, other):
 
+    def __sub__(self, other):
+        """
+
+        :param other:
+        :return:
+        """
+        return Vector(self[0] - other[0],
+                      self[1] - other[1],
+                      self[2] - other[2])
     def length(self):
         """
         length of the vector
@@ -259,7 +264,7 @@ class Object:
 
 
 if __name__ == "__main__":
-    a = Vector(2, 2, 2)
-    b = Vector(2, 2, 2)
-    a *= b
-    print(a)
+    a = 2
+    b = Point(1, 1, 1)
+    b = a * b
+    print(b)
