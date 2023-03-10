@@ -18,7 +18,7 @@ class Coordinates:
         :param y: coords 1
         :param z: coords 2
         """
-        self.coords = [0, 0, 0]  #На данный момент для координат задаётся изначально float. Сделать конверсию?
+        self.coords = [0, 0, 0]  # На данный момент для координат задаётся изначально float. Сделать конверсию?
         self.coords[0] = x
         self.coords[1] = y
         self.coords[2] = z
@@ -33,7 +33,7 @@ class Coordinates:
                            self[2] + other[2])
 
     def __mul__(self, other: (int, float)):
-        #, Coordinates
+        # , Coordinates
         if isinstance(other, (int, float)):
             return Coordinates(self[0] * other,
                                self[1] * other,
@@ -232,7 +232,7 @@ class VectorSpace:
 
     def __init__(self, initialPt, dir1, dir2, dir3):
         """
-
+        Init for Vector Space
         :param initialPt:
         :param dir1:
         :param dir2:
@@ -255,7 +255,7 @@ class Camera:
 
     def __init__(self, position, look_at_dir, fov, draw_distance):
         """
-        Init
+        Init for Camera
         :param position: Point
         :param fov: Горизонтальный "радиус" просмотра
         :param vfov: Вертикальный "радиус" просмотра
