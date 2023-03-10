@@ -226,6 +226,7 @@ class VectorSpace:
     Main space
     At the __init__, it will be able to normalize its vectors
     """
+
     initialPt = Point(0, 0, 0)
     basis = [Point(1, 0, 0), Point(0, 1, 0), Point(0, 0, 1)]
 
@@ -249,23 +250,24 @@ class VectorSpace:
 
 class Camera:
     """
-    docstring
+    Empty
     """
 
-    def __int__(self, position, look_dir, fov, draw_distance):
+    def __init__(self, position, look_at_dir, fov, draw_distance):
         """
         Init
         :param position: Point
         :param fov: Горизонтальный "радиус" просмотра
         :param vfov: Вертикальный "радиус" просмотра
-        :param look_at: Направление взгляда
-        :param look_dir: Направление взгляда
+        :param look_at_dir: Направление взгляда. Задаётся либо с помощью точки, либо с помощью вектора
         :param draw_distance: Дистанция рисовки
         :return:
         """
         config = configparser.ConfigParser()
-        config.read(config.cfg)
-        self.vfov = fov * (config['SCREEN_PARAM']['height'] / config['SCREEN_PARAM']['width'])
+        config.read("config.cfg")
+        height = int(config['SCREEN_PARAM']['height'])
+        width = int(config['SCREEN_PARAM']['width'])
+        self.vfov = fov * (height / width)
 
     def sent_rays(self, count):
         """
