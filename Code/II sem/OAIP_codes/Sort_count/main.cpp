@@ -4,15 +4,21 @@ using namespace std;
 
 void sort_count (int mass[], int len)
 {
-//    int min = INT_MAX;
-//    int max = INT_MIN;
-    int subLen = len * 10;
+    int minNum = INT_MAX;
+    int maxNum = INT_MIN;
+    for (int i = 0; i < len; ++i)
+    {
+        minNum = min(mass[i], minNum);
+        maxNum = max(mass[i], maxNum);
+    }
+
+    int subLen = maxNum - minNum;
     int subMass [subLen];
     fill(subMass, subMass + subLen, 0);
 
     for (int i = 0; i < len; ++i)
     {
-        subMass[mass[i]] += 1;
+        subMass[mass[i] - minNum] += 1;
     }
 
     int pos = 0;
@@ -21,7 +27,7 @@ void sort_count (int mass[], int len)
     {
         for (int i = 0; i < subMass[num]; i++)
         {
-            mass[pos] = num;
+            mass[pos] = num + minNum;
             pos++;
         }
     }
