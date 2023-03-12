@@ -1,8 +1,5 @@
-//#include <iostream>
-#include <fstream>
-=======
+//#include <fstream>
 #include <iostream>
->>>>>>> Stashed changes
 using namespace std;
 
 void sort_count (int mass[], int len)
