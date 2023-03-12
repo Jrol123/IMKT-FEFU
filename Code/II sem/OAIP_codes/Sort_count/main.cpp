@@ -1,35 +1,38 @@
 //#include <iostream>
 #include <fstream>
+=======
+#include <iostream>
+>>>>>>> Stashed changes
 using namespace std;
+
+void sort_count (int mass[], int len)
+{
+//    int min = INT_MAX;
+//    int max = INT_MIN;
+    int subLen = len * 10;
+    int subMass [subLen];
+    fill(subMass, subMass + subLen, 0);
+
+    for (int i = 0; i < len; ++i)
+    {
+        subMass[mass[i]] += 1;
+    }
+
+    int pos = 0;
+
+    for (int num = 0; num < subLen; ++num)
+    {
+        for (int i = 0; i < subMass[num]; i++)
+        {
+            mass[pos] = num;
+            pos++;
+        }
+    }
+}
 
 int main()
 {
-    ifstream inf ("input.txt");
-    int minNum, maxNum; // Края определяемой зоны
-    inf >> minNum >> maxNum;
-
-    int mass [maxNum - minNum + 1];
-    fill(mass, mass + (maxNum - minNum) + 1, 0);
-
-    int num;
-    inf >> num;
-
-    while (inf.get() != '\377')
-    {
-        mass[num - minNum] ++;
-        inf >> num;
-    }
-    mass[num - minNum] ++;
-    inf.close();
-
-    ofstream outf("output.txt");
-    for (int i = 0; i <= maxNum - minNum; ++i)
-    {
-        if (mass[i] != 0)
-        {
-            outf << i + minNum << " " << mass[i] << endl;
-        }
-    }
-
-    outf.close();
+    int mass [] {3, 2, 5, 11, 3};
+    sort_count(mass, 5);
+    cout << mass[1] << " " << mass[2];
 }
