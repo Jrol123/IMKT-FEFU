@@ -18,10 +18,10 @@ class Coordinates:
         :param y: coords 1
         :param z: coords 2
         """
-        self.coords = [0, 0, 0]  # На данный момент для координат задаётся изначально float. Сделать конверсию?
-        self.coords[0] = x
-        self.coords[1] = y
-        self.coords[2] = z
+        self.coords = [0, 0, 0]
+        self.coords[0] = float(x)
+        self.coords[1] = float(y)
+        self.coords[2] = float(z)
 
     def __getitem__(self, item: int):
         return self.coords[item]
@@ -125,7 +125,7 @@ class Vector:
     def __init__(self, *obj: [Coordinates, Point, list]):
         """
         Initialization of vector
-        :param obj: Either a Coordinates, Point or a list
+        :param obj: Either a Coordinates, Point or a list of float
         """
         if len(obj) == 1:
             if isinstance(obj[0], Point):
