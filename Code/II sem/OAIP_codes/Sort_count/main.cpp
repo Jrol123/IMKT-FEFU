@@ -37,5 +37,5 @@ int main()
 {
     int mass [] {5,2,3,1};
     sort_count(mass, 4);
-    cout << mass[1] << " " << mass[2];
+    cout << mass[0] << " " << mass[1] << " " << mass[2];
 }
