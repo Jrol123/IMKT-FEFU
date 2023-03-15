@@ -18,10 +18,10 @@ class Coordinates:
         :param y: coords 1
         :param z: coords 2
         """
-        self.coords = [0, 0, 0]  # На данный момент для координат задаётся изначально float. Сделать конверсию?
-        self.coords[0] = x
-        self.coords[1] = y
-        self.coords[2] = z
+        self.coords = [0, 0, 0]
+        self.coords[0] = float(x)
+        self.coords[1] = float(y)
+        self.coords[2] = float(z)
 
     def __getitem__(self, item: int):
         return self.coords[item]
@@ -125,7 +125,7 @@ class Vector:
     def __init__(self, *obj: [Coordinates, Point, list]):
         """
         Initialization of vector
-        :param obj: Either a Coordinates, Point or a list
+        :param obj: Either a Coordinates, Point or a list of float
         """
         if len(obj) == 1:
             if isinstance(obj[0], Point):
@@ -224,28 +224,24 @@ class Vector:
 class VectorSpace:
     """
     Main space
-    At the __init__, it will be able to normalize its vectors
+
     """
-
+    # issue 13
     initialPt = Point(0, 0, 0)
-    basis = [Point(1, 0, 0), Point(0, 1, 0), Point(0, 0, 1)]
+    basis = [Vector(Point(1, 0, 0)), Vector(Point(0, 1, 0)), Vector(Point(0, 0, 1))]
 
-    def __init__(self, initialPt, dir1, dir2, dir3):
+    def __init__(self, InitPoint: Point, dir1: Vector, dir2: Vector, dir3: Vector):
         """
         Init for Vector Space
-        :param initialPt:
-        :param dir1:
-        :param dir2:
-        :param dir3:
+        :param InitPoint: Initial point
+        :param dir1: Vector1
+        :param dir2: Vector2
+        :param dir3: Vector3
+        :return: Nothing. It just changes the existing VectorSpace
         """
-        if initialPt is not None:
-            self.initialPt = initialPt
-        if all([dir1, dir2, dir3]):
-            self.basis
-        self.initialPt = initialPt
-        self.dir1 = dir1
-        self.dir2 = dir2
-        self.dir3 = dir3
+        VectorSpace.initialPt = InitPoint  # Меняет корневые параметры класса
+        VectorSpace.basis = [dir1.normalize(), dir2.normalize(), dir3.normalize()]
+        # Помнится, я как-то по другому реализовывал изменение корневых параметров, но раз уж оно работает...
 
 
 class Camera:
@@ -253,20 +249,30 @@ class Camera:
     Empty
     """
 
-    def __init__(self, position, look_at_dir, fov, draw_distance):
+    def __init__(self, posPoint: Point, look_at_dir: [Point, Vector], fov: [int, float], drawDist: [int, float]):
         """
         Init for Camera
-        :param position: Point
+        :param posPoint: Point
         :param fov: Горизонтальный "радиус" просмотра
         :param vfov: Вертикальный "радиус" просмотра
         :param look_at_dir: Направление взгляда. Задаётся либо с помощью точки, либо с помощью вектора
         :param draw_distance: Дистанция рисовки
-        :return:
+        :return: Camera
         """
+        self.posPoint = posPoint
+        self.drawDist = drawDist
+        if isinstance(look_at_dir, Point):
+            pass
+        elif isinstance(look_at_dir, Vector):
+            pass
+        else:
+            TypeError("Wrong Type!")
+
         config = configparser.ConfigParser()
         config.read("config.cfg")
         height = int(config['SCREEN_PARAM']['height'])
         width = int(config['SCREEN_PARAM']['width'])
+
         self.vfov = fov * (height / width)
 
     def sent_rays(self, count):
@@ -285,6 +291,7 @@ class Object:
     def __init__(self, pos, rotation):
         """
         object.contains (other) - bool
-        :param pos: position of the camera
+        :param pos: position of the object (Point)
         :param rotation:
         """
+        pass

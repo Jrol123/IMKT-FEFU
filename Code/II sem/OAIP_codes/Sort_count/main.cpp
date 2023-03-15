@@ -12,7 +12,7 @@ void sort_count (int mass[], int len)
         maxNum = max(mass[i], maxNum);
     }
 
-    int subLen = maxNum - minNum;
+    int subLen = maxNum - minNum + 1;
     int subMass [subLen];
     fill(subMass, subMass + subLen, 0);
 
@@ -35,7 +35,7 @@ void sort_count (int mass[], int len)
 
 int main()
 {
-    int mass [] {3, 2, 5, 11, 3};
-    sort_count(mass, 5);
-    cout << mass[1] << " " << mass[2];
+    int mass [] {5,2,3,1};
+    sort_count(mass, 4);
+    cout << mass[0] << " " << mass[1] << " " << mass[2];
 }
