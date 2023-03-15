@@ -16,5 +16,5 @@ if __name__ == "__main__":
     print(vc3, vc3.length())
     print()
 
-    a = Camera(1, 1, 1, 4)
-    print(a.vfov)
+    b = VectorSpace(Point(1, 2, 3), vc1, vc2, vc3)
+    a = Vector(0, 10, 23).normalize()
