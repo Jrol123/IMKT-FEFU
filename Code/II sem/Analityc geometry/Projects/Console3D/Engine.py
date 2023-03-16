@@ -8,29 +8,32 @@ import configparser
 
 class Coordinates:
     """
-    Coordinates for different entities
+    Координаты для разных объектов, оперируемых x, y и z координатами.
+    Не работает для VectorSpace.
     """
 
     def __init__(self, x, y, z):
         """
-        initialization of coordinates
-        :param x: coords 0
-        :param y: coords 1
-        :param z: coords 2
+        Инициализация координат.
+        :param x: Координаты по x
+        :param y: Координаты по y
+        :param z: Координаты по z
         """
         self.coords = [0, 0, 0]
-        self.coords[0] = float(x)
-        self.coords[1] = float(y)
-        self.coords[2] = float(z)
+        self.coords = [float(x), float(y), float(z)]
+        # self.coords[0] = float(x)
+        # self.coords[1] = float(y)
+        # self.coords[2] = float(z)
 
     def __getitem__(self, item: int):
         return self.coords[item]
         # Было бы круто, если бы можно было возвращать через [0], а не через массив
 
     def __add__(self, other):
-        return Coordinates(self[0] + other[0],
-                           self[1] + other[1],
-                           self[2] + other[2])
+        # return Coordinates(self[0] + other[0],
+        #                    self[1] + other[1],
+        #                    self[2] + other[2])
+        return Coordinates(*[self[i] + other[i] for i in range(3)])
 
     def __mul__(self, other: (int, float)):
         # , Coordinates
@@ -50,10 +53,10 @@ class Point:
     """
     Point class
     """
-
     def __init__(self, *obj):
         if isinstance(obj[0], Coordinates):
             self.coordinates = obj[0]
+        # elif isinstance(obj, (List[int], List[float])):
         elif isinstance(obj[0], (int, float)) and isinstance(obj[1], (int, float)) and isinstance(obj[2], (int, float)):
             self.coordinates = Coordinates(obj[0], obj[1], obj[2])
 
@@ -122,7 +125,7 @@ class Vector:
     Vector class
     """
 
-    def __init__(self, *obj: [Coordinates, Point, list]):
+    def __init__(self, *obj: [Coordinates, Point, *int, *float]):
         """
         Initialization of vector
         :param obj: Either a Coordinates, Point or a list of float
@@ -178,6 +181,7 @@ class Vector:
         return sum([self[i] * vc[i] for i in range(0, 2 + 1)])
 
     def vectorMul(self, vc):
+        # Перегрузить через степень
         """
 
         :param vc:
@@ -230,37 +234,39 @@ class VectorSpace:
     initialPt = Point(0, 0, 0)
     basis = [Vector(Point(1, 0, 0)), Vector(Point(0, 1, 0)), Vector(Point(0, 0, 1))]
 
-    def __init__(self, InitPoint: Point, dir1: Vector, dir2: Vector, dir3: Vector):
+    def __init__(self, initial_point: Point, dir1: Vector, dir2: Vector, dir3: Vector):
         """
         Init for Vector Space
-        :param InitPoint: Initial point
-        :param dir1: Vector1
-        :param dir2: Vector2
-        :param dir3: Vector3
-        :return: Nothing. It just changes the existing VectorSpace
+        :param initial_point: Точка отсчёта системы координат.
+        :param dir1: Вектор 1.
+        :param dir2: Вектор 2.
+        :param dir3: Вектор 3.
+        :return: Ничего. Эта функция просто меняет параметры VectorSpace
         """
-        VectorSpace.initialPt = InitPoint  # Меняет корневые параметры класса
+        VectorSpace.initial_point = initial_point  # Меняет корневые параметры класса
         VectorSpace.basis = [dir1.normalize(), dir2.normalize(), dir3.normalize()]
         # Помнится, я как-то по другому реализовывал изменение корневых параметров, но раз уж оно работает...
 
 
 class Camera:
     """
-    Empty
+    Камера.
+    Способна просматривать объекты с помощью "sent_rays" функции.
     """
 
-    def __init__(self, posPoint: Point, look_at_dir: [Point, Vector], fov: [int, float], drawDist: [int, float]):
+    def __init__(self, position_point: Point, look_at_dir: [Point, Vector], fov: [int, float],
+                 draw_distance: [int, float]):
         """
         Init for Camera
-        :param posPoint: Point
+        :param position_point: Point
         :param fov: Горизонтальный "радиус" просмотра
         :param vfov: Вертикальный "радиус" просмотра
         :param look_at_dir: Направление взгляда. Задаётся либо с помощью точки, либо с помощью вектора
         :param draw_distance: Дистанция рисовки
         :return: Camera
         """
-        self.posPoint = posPoint
-        self.drawDist = drawDist
+        self.position_point = position_point
+        self.draw_distance = draw_distance
         if isinstance(look_at_dir, Point):
             pass
         elif isinstance(look_at_dir, Vector):
@@ -277,10 +283,35 @@ class Camera:
 
     def sent_rays(self, count):
         """
-        ray-cast
-        :param count:
+        Метод пускания лучей для просмотра объектов.
+        Будет связан с камерой.
+        :param count: Количество испускаемых лучей (всего или по-линейно?)
+        """
+        # Как у нас будут пускаться лучи? "По-линейно" (вычисление кол-ва линий по vfow и для каждой линии будут
+        # пускаться count лучей, расположенных по fov)?
+        pass
+
+
+class Parameters:
+    """
+    Empty
+    """
+
+    def __init__(self):
+        """
+        :param coefficients:
         """
         pass
+
+    def __contains__(self, item) -> Point:
+        pass
+
+
+class ParametersPlane(Parameters):
+    """
+    Empty
+    """
+    pass
 
 
 class Object:
@@ -288,10 +319,54 @@ class Object:
     Any object
     """
 
-    def __init__(self, pos, rotation):
+    def __init__(self, pos_point: Point, rotation, parameters: Parameters):
         """
-        object.contains (other) - bool
-        :param pos: position of the object (Point)
+        object.contains (other) - bool (???)
+        :param pos_point: Позиция центра объекта. Задаётся с помощью Point
         :param rotation:
+        :param parameters:
+        """
+        self.parameters = parameters
+        self.pos = pos_point
+
+
+class Sphere(Object):
+    """
+    Empty
+    """
+
+    def __init__(self, pos_point: Point, rotation, parameters, radius, get_equation):
+        super().__init__(pos_point, rotation, parameters)
+        self.radius = radius
+        self.parameters = parameters(get_equation)
+
+    def __contains__(self, point):
+        """
+
+        :param point:
+        :return:
         """
         pass
+
+
+class Cube(Object):
+    """
+    Empty
+    """
+
+    def __init__(self, pos_point: Point, rotation, parameters):
+        """
+        Empty
+        """
+        super().__init__(pos_point, rotation, parameters)
+
+class Plane(object):
+    """
+    Empty
+    """
+
+    def __init__(self):
+        """
+        Empty
+        """
+        super().__init__()
