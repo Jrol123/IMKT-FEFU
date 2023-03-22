@@ -1,15 +1,15 @@
 """
-The main body of Engine
+Низкоуровневые объекты
+Coordinates, Point, Vector, Vector space
 """
 
 import math
-import configparser
 
 
 class Coordinates:
     """
     Координаты для разных объектов, оперируемых x, y и z координатами.
-    Не работает для VectorSpace.
+    Не используется для VectorSpace.
     """
 
     def __init__(self, x, y, z):
@@ -19,40 +19,47 @@ class Coordinates:
         :param y: Координаты по y
         :param z: Координаты по z
         """
-        self.coords = [0, 0, 0]
         self.coords = [float(x), float(y), float(z)]
-        # self.coords[0] = float(x)
-        # self.coords[1] = float(y)
-        # self.coords[2] = float(z)
+
+    def x(self):
+        return self.coords[0]
+
+    def y(self):
+        return self.coords[1]
+
+    def z(self):
+        return self.coords[2]
+
+    # Это, скорее, шуточные команды, относящиеся к нижнему комментарию
+    # issue 16
 
     def __getitem__(self, item: int):
         return self.coords[item]
         # Было бы круто, если бы можно было возвращать через [0], а не через массив
 
     def __add__(self, other):
-        # return Coordinates(self[0] + other[0],
-        #                    self[1] + other[1],
-        #                    self[2] + other[2])
         return Coordinates(*[self[i] + other[i] for i in range(3)])
 
+    def __sub__(self, other):
+        return self + (-1 * other)
+
     def __mul__(self, other: (int, float)):
-        # , Coordinates
         if isinstance(other, (int, float)):
-            return Coordinates(self[0] * other,
-                               self[1] * other,
-                               self[2] * other)
+            return Coordinates(*[self[i] * other for i in range(3)])
         elif isinstance(other, Coordinates):
-            return Coordinates(self[0] * other[0],
-                               self[1] * other[1],
-                               self[2] * other[2])
+            return Coordinates(*[self[i] * other[i] for i in range(3)])
         else:
             TypeError("Wrong Type!")
+
+    def __rmul__(self, other):
+        return self * other
 
 
 class Point:
     """
     Point class
     """
+
     def __init__(self, *obj):
         if isinstance(obj[0], Coordinates):
             self.coordinates = obj[0]
@@ -76,20 +83,22 @@ class Point:
 
     def __add__(self, other):
         """
-        sum of two points
-        :param other: some point
+        Сумма двух точек.
+        Суммируется по координатам.
+        :param other: Другая точка.
+        :return: Точка с координатами, равными сумме двух предыдущих координат.
         """
         return Point(self.coordinates + other.coordinates)
 
     # Преобразовать через map
 
-    def __sub__(self, pt):
+    def __sub__(self, other):
         """
         subtraction of two points
-        :parameter pt:
+        :parameter other:
         :return:
         """
-        return self + pt * (-1)
+        return Point(self.coordinates - other.coordinates)
 
     def __mul__(self, num):
         """
@@ -125,7 +134,9 @@ class Vector:
     Vector class
     """
 
-    def __init__(self, *obj: [Coordinates, Point, *int, *float]):
+    def __init__(self, *obj):
+        # : [Coordinates, Point, *int, *float] TypeError: Value after * must be an iterable, not type
+        # issue №22
         """
         Initialization of vector
         :param obj: Either a Coordinates, Point or a list of float
@@ -156,43 +167,26 @@ class Vector:
         """
         return Vector(self.coordinates + other.coordinates)
 
-    def __mul__(self, other):
+    def __mul__(self, vc):
         """
-        multiplication of 2 vector
-        :param other:
-        :return: Vector, if num is present. Otherwise, — scalar
-        """
-        if isinstance(other, Vector):
-            return self.vectorMul  # По умолчанию возвращает векторное произведение
-        elif isinstance(other, (int, float)):
-            return Vector(self.coordinates * other)
-        else:
-            raise TypeError("Wrong type!")
-
-    def __rmul__(self, other):
-        return self * other
-
-    def scalarMul(self, vc):
-        """
-        duplicate of __mul__
+        Скалярное произведение
         :param vc:
         :return: Float
         """
         return sum([self[i] * vc[i] for i in range(0, 2 + 1)])
 
-    def vectorMul(self, vc):
-        # Перегрузить через степень
+    def __pow__(self, vc):
         """
-
+        Векторное произведение
         :param vc:
         :return: Returns vector, as the result of vector multiplying
         """
         return Vector(self[1] * vc[2] - self[2] * vc[1], -(self[0] * vc[2] - self[2] * vc[0]),
-                      self[0] * vc[1] - self[1] - vc[0])
+                      self[0] * vc[1] - self[1] - vc[0])  # Не сократить из-за особой формулы
 
     def __sub__(self, other):
         """
-
+        Разница векторов
         :param other:
         :return: Vector
         """
@@ -200,7 +194,7 @@ class Vector:
 
     def __truediv__(self, other):
         """
-
+        Деление векторов
         :param other:
         :return: Vector
         """
@@ -246,127 +240,3 @@ class VectorSpace:
         VectorSpace.initial_point = initial_point  # Меняет корневые параметры класса
         VectorSpace.basis = [dir1.normalize(), dir2.normalize(), dir3.normalize()]
         # Помнится, я как-то по другому реализовывал изменение корневых параметров, но раз уж оно работает...
-
-
-class Camera:
-    """
-    Камера.
-    Способна просматривать объекты с помощью "sent_rays" функции.
-    """
-
-    def __init__(self, position_point: Point, look_at_dir: [Point, Vector], fov: [int, float],
-                 draw_distance: [int, float]):
-        """
-        Init for Camera
-        :param position_point: Point
-        :param fov: Горизонтальный "радиус" просмотра
-        :param vfov: Вертикальный "радиус" просмотра
-        :param look_at_dir: Направление взгляда. Задаётся либо с помощью точки, либо с помощью вектора
-        :param draw_distance: Дистанция рисовки
-        :return: Camera
-        """
-        self.position_point = position_point
-        self.draw_distance = draw_distance
-        if isinstance(look_at_dir, Point):
-            pass
-        elif isinstance(look_at_dir, Vector):
-            pass
-        else:
-            TypeError("Wrong Type!")
-
-        config = configparser.ConfigParser()
-        config.read("config.cfg")
-        height = int(config['SCREEN_PARAM']['height'])
-        width = int(config['SCREEN_PARAM']['width'])
-
-        self.vfov = fov * (height / width)
-
-    def sent_rays(self, count):
-        """
-        Метод пускания лучей для просмотра объектов.
-        Будет связан с камерой.
-        :param count: Количество испускаемых лучей (всего или по-линейно?)
-        """
-        # Как у нас будут пускаться лучи? "По-линейно" (вычисление кол-ва линий по vfow и для каждой линии будут
-        # пускаться count лучей, расположенных по fov)?
-        pass
-
-
-class Parameters:
-    """
-    Empty
-    """
-
-    def __init__(self):
-        """
-        :param coefficients:
-        """
-        pass
-
-    def __contains__(self, item) -> Point:
-        pass
-
-
-class ParametersPlane(Parameters):
-    """
-    Empty
-    """
-    pass
-
-
-class Object:
-    """
-    Any object
-    """
-
-    def __init__(self, pos_point: Point, rotation, parameters: Parameters):
-        """
-        object.contains (other) - bool (???)
-        :param pos_point: Позиция центра объекта. Задаётся с помощью Point
-        :param rotation:
-        :param parameters:
-        """
-        self.parameters = parameters
-        self.pos = pos_point
-
-
-class Sphere(Object):
-    """
-    Empty
-    """
-
-    def __init__(self, pos_point: Point, rotation, parameters, radius, get_equation):
-        super().__init__(pos_point, rotation, parameters)
-        self.radius = radius
-        self.parameters = parameters(get_equation)
-
-    def __contains__(self, point):
-        """
-
-        :param point:
-        :return:
-        """
-        pass
-
-
-class Cube(Object):
-    """
-    Empty
-    """
-
-    def __init__(self, pos_point: Point, rotation, parameters):
-        """
-        Empty
-        """
-        super().__init__(pos_point, rotation, parameters)
-
-class Plane(object):
-    """
-    Empty
-    """
-
-    def __init__(self):
-        """
-        Empty
-        """
-        super().__init__()
