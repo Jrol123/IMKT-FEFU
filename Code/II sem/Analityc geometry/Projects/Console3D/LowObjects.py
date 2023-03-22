@@ -38,7 +38,7 @@ class Coordinates:
         # Было бы круто, если бы можно было возвращать через [0], а не через массив
 
     def __add__(self, other):
-        return Coordinates(*[self[i] + other[i] for i in range(3)])
+        return subclass(Coordinates(*[self[i] + other[i] for i in range(3)]))
 
     def __sub__(self, other):
         return self + (-1 * other)
@@ -55,17 +55,17 @@ class Coordinates:
         return self * other
 
 
-class Point:
+class Point(Coordinates):
     """
     Point class
     """
 
     def __init__(self, *obj):
         if isinstance(obj[0], Coordinates):
-            self.coordinates = obj[0]
+            super().coords = obj[0]
         # elif isinstance(obj, (List[int], List[float])):
         elif isinstance(obj[0], (int, float)) and isinstance(obj[1], (int, float)) and isinstance(obj[2], (int, float)):
-            self.coordinates = Coordinates(obj[0], obj[1], obj[2])
+            super().__init__(obj[0], obj[1], obj[2])
 
     def distance(self, other):
         """
@@ -74,48 +74,48 @@ class Point:
         :return: distance between points
         """
         if isinstance(other, Point):
-            return math.sqrt(sum([(self.coordinates[i] - other.coordinates[i]) ** 2 for i in range(0, 2 + 1)]))
+            return math.sqrt(sum([(self.coords[i] - other.coords[i]) ** 2 for i in range(0, 2 + 1)]))
         elif isinstance(other, Coordinates):
-            return math.sqrt(sum([(self.coordinates[i] - other[i]) ** 2 for i in range(0, 2 + 1)]))
+            return math.sqrt(sum([(self.coords[i] - other[i]) ** 2 for i in range(0, 2 + 1)]))
 
-    def __getitem__(self, item):
-        return self.coordinates[item]
+    # def __getitem__(self, item):
+    #     return self.coords[item]
 
-    def __add__(self, other):
-        """
-        Сумма двух точек.
-        Суммируется по координатам.
-        :param other: Другая точка.
-        :return: Точка с координатами, равными сумме двух предыдущих координат.
-        """
-        return Point(self.coordinates + other.coordinates)
+    # def __add__(self, other):
+    #     """
+    #     Сумма двух точек.
+    #     Суммируется по координатам.
+    #     :param other: Другая точка.
+    #     :return: Точка с координатами, равными сумме двух предыдущих координат.
+    #     """
+    #     return Point(self.coords + other.coords)
 
     # Преобразовать через map
 
-    def __sub__(self, other):
-        """
-        subtraction of two points
-        :parameter other:
-        :return:
-        """
-        return Point(self.coordinates - other.coordinates)
-
-    def __mul__(self, num):
-        """
-        multiplication point by num
-        :param num:
-        :return:
-        """
-        return Point(self.coordinates * num)
-
-    def __rmul__(self, num):
-        """
-
-        :param num:
-        :return:
-        """
-        return Point(self.coordinates * num)
-
+    # def __sub__(self, other):
+    #     """
+    #     subtraction of two points
+    #     :parameter other:
+    #     :return:
+    #     """
+    #     return Point(self.coords - other.coords)
+    #
+    # def __mul__(self, num):
+    #     """
+    #     multiplication point by num
+    #     :param num:
+    #     :return:
+    #     """
+    #     return Point(self.coords * num)
+    #
+    # def __rmul__(self, num):
+    #     """
+    #
+    #     :param num:
+    #     :return:
+    #     """
+    #     return Point(self.coords * num)
+    #
     def __truediv__(self, obj):
         """
         div point by num
@@ -165,7 +165,7 @@ class Vector:
         Sum of the self-vector and other vector
         :param other: second vector
         """
-        return Vector(self.coordinates + other.coordinates)
+        return Vector(self.coordinates + other.coords)
 
     def __mul__(self, vc):
         """
@@ -190,7 +190,7 @@ class Vector:
         :param other:
         :return: Vector
         """
-        return Vector(self.coordinates + (other.coordinates * -1))
+        return Vector(self.coordinates + (other.coords * -1))
 
     def __truediv__(self, other):
         """
