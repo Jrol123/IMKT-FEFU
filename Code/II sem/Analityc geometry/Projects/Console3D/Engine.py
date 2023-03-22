@@ -156,39 +156,22 @@ class Vector:
         """
         return Vector(self.coordinates + other.coordinates)
 
-    def __mul__(self, other):
+    def __mul__(self, vc):
         """
-        multiplication of 2 vector
-        :param other:
-        :return: Vector, if num is present. Otherwise, — scalar
-        """
-        if isinstance(other, Vector):
-            return self.vectorMul  # По умолчанию возвращает векторное произведение
-        elif isinstance(other, (int, float)):
-            return Vector(self.coordinates * other)
-        else:
-            raise TypeError("Wrong type!")
-
-    def __rmul__(self, other):
-        return self * other
-
-    def scalarMul(self, vc):
-        """
-        duplicate of __mul__
+        Скалярное произведение
         :param vc:
         :return: Float
         """
         return sum([self[i] * vc[i] for i in range(0, 2 + 1)])
 
-    def vectorMul(self, vc):
-        # Перегрузить через степень
+    def __pow__(self, vc):
         """
-
+        Векторное произведение
         :param vc:
         :return: Returns vector, as the result of vector multiplying
         """
         return Vector(self[1] * vc[2] - self[2] * vc[1], -(self[0] * vc[2] - self[2] * vc[0]),
-                      self[0] * vc[1] - self[1] - vc[0])
+                      self[0] * vc[1] - self[1] - vc[0])  # Не сократить из-за особой формулы
 
     def __sub__(self, other):
         """
