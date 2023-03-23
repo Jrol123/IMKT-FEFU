@@ -37,17 +37,26 @@ class Coordinates:
         return self.coords[item]
         # Было бы круто, если бы можно было возвращать через [0], а не через массив
 
+    def __truediv__(self, other):
+        """
+        Деление векторов
+        :param other:
+        :return: Vector
+        """
+        assert other != 0
+        return self * (1 / other)
+
     def __add__(self, other):
-        return subclass(Coordinates(*[self[i] + other[i] for i in range(3)]))
+        return self.__class__(*[self[i] + other[i] for i in range(3)])
 
     def __sub__(self, other):
         return self + (-1 * other)
 
     def __mul__(self, other: (int, float)):
         if isinstance(other, (int, float)):
-            return Coordinates(*[self[i] * other for i in range(3)])
+            return self.__class__(*[self[i] * other for i in range(3)])
         elif isinstance(other, Coordinates):
-            return Coordinates(*[self[i] * other[i] for i in range(3)])
+            return self.__class__(*[self[i] * other[i] for i in range(3)])
         else:
             TypeError("Wrong Type!")
 
@@ -62,7 +71,7 @@ class Point(Coordinates):
 
     def __init__(self, *obj):
         if isinstance(obj[0], Coordinates):
-            super().coords = obj[0]
+            super().__init__(*obj[0])
         # elif isinstance(obj, (List[int], List[float])):
         elif isinstance(obj[0], (int, float)) and isinstance(obj[1], (int, float)) and isinstance(obj[2], (int, float)):
             super().__init__(obj[0], obj[1], obj[2])
@@ -78,9 +87,6 @@ class Point(Coordinates):
         elif isinstance(other, Coordinates):
             return math.sqrt(sum([(self.coords[i] - other[i]) ** 2 for i in range(0, 2 + 1)]))
 
-    # def __getitem__(self, item):
-    #     return self.coords[item]
-
     # def __add__(self, other):
     #     """
     #     Сумма двух точек.
@@ -88,17 +94,15 @@ class Point(Coordinates):
     #     :param other: Другая точка.
     #     :return: Точка с координатами, равными сумме двух предыдущих координат.
     #     """
-    #     return Point(self.coords + other.coords)
-
-    # Преобразовать через map
-
+    #     return Point(super().__add__(other))
+    #
     # def __sub__(self, other):
     #     """
     #     subtraction of two points
     #     :parameter other:
     #     :return:
     #     """
-    #     return Point(self.coords - other.coords)
+    #     return Point(super().__sub__(other.coords))
     #
     # def __mul__(self, num):
     #     """
@@ -106,30 +110,22 @@ class Point(Coordinates):
     #     :param num:
     #     :return:
     #     """
-    #     return Point(self.coords * num)
+    #     return Point(super().__mul__(self.coords * num))
     #
-    # def __rmul__(self, num):
+    # def __truediv__(self, obj):
     #     """
-    #
+    #     div point by num
     #     :param num:
     #     :return:
     #     """
-    #     return Point(self.coords * num)
-    #
-    def __truediv__(self, obj):
-        """
-        div point by num
-        :param num:
-        :return:
-        """
-        assert obj != 0
-        return self * (1 / obj)
+    #     assert obj != 0
+    #     return self * (1 / obj)
 
     def __str__(self):
         return f"Point({self[0]}, {self[1]}, {self[2]})"
 
 
-class Vector:
+class Vector(Coordinates):
     """
     Vector class
     """
@@ -143,29 +139,26 @@ class Vector:
         """
         if len(obj) == 1:
             if isinstance(obj[0], Point):
-                self.coordinates = Coordinates(obj[0][0], obj[0][1], obj[0][2])
+                super().__init__(obj[0][0], obj[0][1], obj[0][2])
             elif isinstance(obj[0], Coordinates):
-                self.coordinates = obj[0]
+                super().__init__(*obj[0])
             else:
                 raise TypeError("Wrong type")
         elif len(obj) == 3:
             if isinstance(obj[0], (int, float)) and isinstance(obj[1], (int, float)) and isinstance(obj[2],
                                                                                                     (int, float)):
-                self.coordinates = Coordinates(obj[0], obj[1], obj[2])
+                super().__init__(obj[0], obj[1], obj[2])
             else:
                 raise TypeError("Wrong type !")
         else:
             raise TypeError("Wrong type !")
 
-    def __getitem__(self, item: [int]):
-        return self.coordinates[item]
-
-    def __add__(self, other):
-        """
-        Sum of the self-vector and other vector
-        :param other: second vector
-        """
-        return Vector(self.coordinates + other.coords)
+    # def __add__(self, other):
+    #     """
+    #     Sum of the self-vector and other vector
+    #     :param other: second vector
+    #     """
+    #     return Vector(super().__add__(other.coords))
 
     def __mul__(self, vc):
         """
@@ -181,25 +174,25 @@ class Vector:
         :param vc:
         :return: Returns vector, as the result of vector multiplying
         """
-        return Vector(self[1] * vc[2] - self[2] * vc[1], -(self[0] * vc[2] - self[2] * vc[0]),
+        return Vector(self[1] * vc[2] - self[2] * vc[1], - (self[0] * vc[2] - self[2] * vc[0]),
                       self[0] * vc[1] - self[1] - vc[0])  # Не сократить из-за особой формулы
 
-    def __sub__(self, other):
-        """
-        Разница векторов
-        :param other:
-        :return: Vector
-        """
-        return Vector(self.coordinates + (other.coords * -1))
+    # def __sub__(self, other):
+    #     """
+    #     Разница векторов
+    #     :param other:
+    #     :return: Vector
+    #     """
+    #     return Vector(super().__add__(other.coords * -1))
 
-    def __truediv__(self, other):
-        """
-        Деление векторов
-        :param other:
-        :return: Vector
-        """
-        assert other != 0
-        return self * (1 / other)
+    # def __truediv__(self, other):
+    #     """
+    #     Деление векторов
+    #     :param other:
+    #     :return: Vector
+    #     """
+    #     assert other != 0
+    #     return self * (1 / other)
 
     def normalize(self):
         """
@@ -213,7 +206,7 @@ class Vector:
         length of the vector
         :return: length of the vector
         """
-        return VectorSpace.initialPt.distance(self.coordinates)
+        return VectorSpace.initialPt.distance(self.coords)
 
     def __str__(self):
         return f"Vector({self[0]}, {self[1]}, {self[2]})"
@@ -222,7 +215,6 @@ class Vector:
 class VectorSpace:
     """
     Main space
-
     """
     # issue 13
     initialPt = Point(0, 0, 0)

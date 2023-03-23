@@ -60,13 +60,46 @@ class Parameters:
         """
         :param coefficients:
         """
+        self.coefficients = 1
         pass
 
     def __contains__(self, item) -> LowObjects.Point:
+        """
+
+        :param item:
+        :return:
+        """
         pass
+
+    def intersect(self):
+        """
+
+        :return:
+        """
 
 
 class ParametersPlane(Parameters):
+    """
+    Empty
+    """
+    pass
+
+
+class ParametersCube(Parameters):
+    """
+    Empty
+    """
+    pass
+
+
+class ParametersBoundedPlane(Parameters):
+    """
+    Empty
+    """
+    pass
+
+
+class ParametersSphere(Parameters):
     """
     Empty
     """
@@ -87,9 +120,29 @@ class Object:
         """
         self.parameters = parameters
         self.pos = pos_point
+        self.rotation = rotation
+
+    def __contains__(self, point: LowObjects.Point):
+        """
+        Empty
+        :param point:
+        :return:
+        """
+        # По-умолчанию должен выдавать False
+        if self.__class__.function(self, point) == 0:
+            return True
+        return False
+
+    def intersect(self):
+        """
+        Empty
+        """
+        # По-умолчанию должен выдавать точку в конце Draw Distance
+        # В противном случае выдаёт точку объекта
+        pass
 
 
-class Sphere(Object):
+class Sphere(Object, ParametersSphere):
     """
     Empty
     """
@@ -97,18 +150,10 @@ class Sphere(Object):
     def __init__(self, pos_point: LowObjects.Point, rotation, parameters, radius, get_equation):
         super().__init__(pos_point, rotation, parameters)
         self.radius = radius
-        self.parameters = parameters(get_equation)
-
-    def __contains__(self, point):
-        """
-
-        :param point:
-        :return:
-        """
-        pass
+        # self.parameters = parameters(get_equation)
 
 
-class Cube(Object):
+class Cube(Object, ParametersCube):
     """
     Empty
     """
@@ -120,13 +165,28 @@ class Cube(Object):
         super().__init__(pos_point, rotation, parameters)
 
 
-class Plane(object):
+class Plane(Object):
     """
     Empty
     """
 
-    def __init__(self):
+    def __init__(self, pos_point: LowObjects.Point, vector_normal: LowObjects.Vector):
         """
         Empty
+        :param pos_point:
+        :param vector_normal:
         """
-        super().__init__()
+        self.pos_point = pos_point
+        self.vector_normal = vector_normal
+
+    def function(self, point: LowObjects.Point):
+        return sum(self.vector_normal[i] * point[i] for i in range(3)) - (self.vector_normal + self.pos_point) # НЕ РАБОТАЕТ!
+
+
+class BoundedPlane(Plane, ParametersBoundedPlane):
+    """
+    Empty
+    """
+
+    def __init__(self, pos_point):
+        pass
