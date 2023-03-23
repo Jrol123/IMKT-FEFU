@@ -180,7 +180,15 @@ class Plane(Object):
         self.vector_normal = vector_normal
 
     def function(self, point: LowObjects.Point):
-        return sum(self.vector_normal[i] * point[i] for i in range(3)) - (self.vector_normal + self.pos_point) # НЕ РАБОТАЕТ!
+        """
+        Функция Plane
+        :param point:
+        :return:
+        """
+        # t1 = sum(self.vector_normal[i] * point[i] for i in range(3))
+        # t2 = (sum(self.vector_normal[i] + self.pos_point[i] for i in range(3)))
+        # return t1 - t2  # НЕ РАБОТАЕТ!
+        return sum(self.vector_normal[i] * (self.pos_point[i] - point[i]) for i in range(3))
 
 
 class BoundedPlane(Plane, ParametersBoundedPlane):
@@ -190,3 +198,11 @@ class BoundedPlane(Plane, ParametersBoundedPlane):
 
     def __init__(self, pos_point):
         pass
+
+    def function(self, point: LowObjects.Point) -> float:
+        """
+        Функция Bounded Plane
+        :param point:
+        :return:
+        """
+        return sum(self.vector_normal[i] * (self.pos_point[i] - point[i]) for i in range(3))
