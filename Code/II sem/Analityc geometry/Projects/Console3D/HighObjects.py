@@ -96,7 +96,20 @@ class ParametersBoundedPlane(Parameters):
     """
     Empty
     """
-    pass
+    def __init__(self, pos_point: LowObjects.Point, vector_norm: LowObjects.Vector, width: float, length: float):
+        """
+
+        :param pos_point:
+        :param vector_norm:
+        :param width:
+        :param length:
+        """
+        self.pos_point = pos_point
+        self.vector_norm = vector_norm
+        self.width = width
+        self.length = length
+
+    def function:
 
 
 class ParametersSphere(Parameters):
@@ -122,7 +135,7 @@ class Object:
         self.pos = pos_point
         self.rotation = rotation
 
-    def __contains__(self, point: LowObjects.Point):
+    def __contains__(self, point: LowObjects.Point) -> bool:
         """
         Empty
         :param point:
@@ -179,15 +192,12 @@ class Plane(Object):
         self.pos_point = pos_point
         self.vector_normal = vector_normal
 
-    def function(self, point: LowObjects.Point):
+    def function(self, point: LowObjects.Point) -> float:
         """
         Функция Plane
         :param point:
         :return:
         """
-        # t1 = sum(self.vector_normal[i] * point[i] for i in range(3))
-        # t2 = (sum(self.vector_normal[i] + self.pos_point[i] for i in range(3)))
-        # return t1 - t2  # НЕ РАБОТАЕТ!
         return sum(self.vector_normal[i] * (self.pos_point[i] - point[i]) for i in range(3))
 
 
