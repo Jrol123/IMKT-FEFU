@@ -12,7 +12,6 @@ typedef struct soldier
 void merge(soldiers_t arr[], int start, int end, int mid, int length, int& countMoves)
 {
     soldiers_t mergedArr[length];
-//    int mergedIndexes[length];
     int leftIndex, rightIndex, counter;
     leftIndex = start;
     counter = start;
@@ -24,7 +23,6 @@ void merge(soldiers_t arr[], int start, int end, int mid, int length, int& count
     {
         if (arr[leftIndex].height >= arr[rightIndex].height)
         {
-            // cout << arr[leftIndex] << " " << arr[rightIndex] << endl;
             mergedArr[counter] = arr[leftIndex];
             counter++;
             leftIndex++;
@@ -32,7 +30,6 @@ void merge(soldiers_t arr[], int start, int end, int mid, int length, int& count
         } // Если перескока не происходит
         else
         {
-            // cout << arr[leftIndex] << " | " << arr[rightIndex] << endl;
             mergedArr[counter] = arr[rightIndex];
 
             counter++;
@@ -59,7 +56,6 @@ void merge(soldiers_t arr[], int start, int end, int mid, int length, int& count
     for (leftIndex = start; leftIndex < counter; leftIndex++)
     {
         arr[leftIndex] = mergedArr[leftIndex];
-//        indexes[leftIndex] = mergedIndexes[leftIndex];
     } // Перевод в нормальный массив
 }
 
@@ -74,8 +70,6 @@ void mergeSort(soldiers_t arr[], int start, int end, int length, int& countMoves
     }
 }
 
-// index-needIndex это кол-во операций, необходимое для перемещения элемента
-// с index до needIndex
 int main()
 {
     ifstream inf("input.txt");
