@@ -1,16 +1,16 @@
-#include <iostream>
+//#include <iostream>
 #include <fstream>
 using namespace std;
 
-typedef struct soldier
-{
-    float height;
-    string name;
-} soldiers_t;
+//typedef struct soldier
+//{
+//    float height;
+//    string name;
+//} soldiers_t;
 
-void merge(soldiers_t arr[], int start, int end, int mid, int length, int& countMoves)
+void merge(float mass[], int start, int end, int mid, int length, int& countMoves)
 {
-    soldiers_t mergedArr[length];
+    float mergedArr[length];
     int leftIndex, rightIndex, counter;
     leftIndex = start;
     counter = start;
@@ -20,16 +20,16 @@ void merge(soldiers_t arr[], int start, int end, int mid, int length, int& count
 
     while (leftIndex <= mid && rightIndex <= end)
     {
-        if (arr[leftIndex].height >= arr[rightIndex].height)
+        if (mass[leftIndex] >= mass[rightIndex])
         {
-            mergedArr[counter] = arr[leftIndex];
+            mergedArr[counter] = mass[leftIndex];
             counter++;
             leftIndex++;
             countMoves += countThrowers;
         } // Если перескока не происходит
         else
         {
-            mergedArr[counter] = arr[rightIndex];
+            mergedArr[counter] = mass[rightIndex];
 
             counter++;
             rightIndex++;
@@ -39,7 +39,7 @@ void merge(soldiers_t arr[], int start, int end, int mid, int length, int& count
 
     while (leftIndex <= mid)
     {
-        mergedArr[counter] = arr[leftIndex];
+        mergedArr[counter] = mass[leftIndex];
         counter++;
         leftIndex++;
         countMoves += countThrowers;
@@ -47,25 +47,25 @@ void merge(soldiers_t arr[], int start, int end, int mid, int length, int& count
 
     while (rightIndex <= end)
     {
-        mergedArr[counter] = arr[rightIndex];
+        mergedArr[counter] = mass[rightIndex];
         counter++;
         rightIndex++;
     } // Слив правой части. Происходит "безболезненно"
 
     for (leftIndex = start; leftIndex < counter; leftIndex++)
     {
-        arr[leftIndex] = mergedArr[leftIndex];
+        mass[leftIndex] = mergedArr[leftIndex];
     } // Перевод в нормальный массив
 }
 
-void mergeSort(soldiers_t arr[], int start, int end, int length, int& countMoves)
+void mergeSort(float mass[], int start, int end, int length, int& countMoves)
 {
     if (start < end)
     {
         int mid = (start + end) / 2;
-        mergeSort(arr, start, mid, length, countMoves);
-        mergeSort(arr, mid + 1, end, length, countMoves);
-        merge(arr, start, end, mid, length, countMoves);
+        mergeSort(mass, start, mid, length, countMoves);
+        mergeSort(mass, mid + 1, end, length, countMoves);
+        merge(mass, start, end, mid, length, countMoves);
     }
 }
 
@@ -75,12 +75,13 @@ int main()
 
     int countOfSoldiers;
     inf >> countOfSoldiers;
-    soldiers_t massSoldiers [countOfSoldiers];
+    float massSoldiers [countOfSoldiers];
 //    soldiers_t finalSoldiers [countOfSoldiers];
     for(int i = 0; i < countOfSoldiers; i++)
     {
-        inf >> massSoldiers[i].height;
-        inf >> massSoldiers[i].name;
+        inf >> massSoldiers[i];
+        string name;
+        inf >> name;
     }
     inf.close();
 

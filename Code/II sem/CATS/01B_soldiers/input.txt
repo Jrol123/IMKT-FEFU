@@ -1,8 +1,3 @@
-7
+2
 1 name1
--2 name2
-3 name3
-6 name4
-4 name5
--5 name6
-7 name7
+1 name2
