@@ -1,4 +1,3 @@
-#include <cmath>
 #include <iostream>
 #include <fstream>
 using namespace std;
