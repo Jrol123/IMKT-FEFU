@@ -1,4 +1,4 @@
-# Install script for directory: D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/E2_final_soldiers
+# Install script for directory: D:/GitHub/IMKT-FEFU/Code/I sem (CL)/CATS/E2_final_soldiers
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/E2_final_soldiers/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/GitHub/IMKT-FEFU/Code/I sem (CL)/CATS/E2_final_soldiers/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
