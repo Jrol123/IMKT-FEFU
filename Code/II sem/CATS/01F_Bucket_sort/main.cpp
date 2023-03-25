@@ -1,26 +1,21 @@
 #include <iostream>
 #include <cmath>
+#include <fstream>
 using namespace std;
+const int countRazr = 26;
 
-const int countRazr = 10;
+const char firstLetter = 65;
 
-int razr(int num, int indexRazr)
-{
-    int step = pow(10, indexRazr);
-    return num % (step * 10) / step;
-}
-
-void radixSort(int mass[], int len, int bordRazr = 5)
+void radixSort(string mass[], int len, int bordRazr = 3)
 {
 
     for(int i = 0; i < bordRazr; i++)
     {
-        int razrMass [countRazr] {0}; //0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+        int razrMass [countRazr] {0};
         for(int j = 0; j < len; j++)
         {
-            int razrNum = razr(mass[j], i);
+            int razrNum = mass[j][3 - i - 1] - firstLetter;
             razrMass[razrNum] ++;
-//            cout << razrNum << endl;
         } // Считывание i-го разряда у чисел
         // Сортировка подсчётом
 
@@ -32,10 +27,10 @@ void radixSort(int mass[], int len, int bordRazr = 5)
             count += tmp;
         } // Определение первой позиции для числа
 
-        int subMass [len];
+        string subMass [len];
         for (int j = 0; j < len; ++j)
         {
-            int razrNum = razr(mass[j], i);
+            int razrNum = mass[j][3 - i - 1] - firstLetter;
             subMass[razrMass[razrNum]] = mass[j];
             razrMass[razrNum] ++; // Следующая позиция для разряда
         }
@@ -43,19 +38,30 @@ void radixSort(int mass[], int len, int bordRazr = 5)
         for(int j = 0; j < len; j++)
         {
             mass[j] = subMass[j];
-        } // Перевод в основной масссив
+        } // Перевод в основной массив
 
     } // Проход по всем разрядам
     // Счёт разрядов начинается с 0
-
-    // Для сортировки в обратную сторону потребуется поменять порядок
 }
-
 int main()
 {
-    int mass []{35, 64, 128, 11, 2, 34, 33, 999};
+    ifstream inf ("input.txt");
+    int countFields;
+    inf >> countFields;
 
-    radixSort(mass, 8, 3);
+    string mass [countFields];
+    for (int i = 0; i < countFields; ++i)
+    {
+        inf >> mass[i];
+    }
+    inf.close();
 
-    cout << mass[2] << " " << mass[3] << " " << mass[4]; //33 34 35
+    radixSort(mass, countFields);
+
+    ofstream outf ("output.txt");
+
+    for (int i = 0; i < countFields; ++i)
+    {
+        outf << mass[i] << endl;
+    }
 }
