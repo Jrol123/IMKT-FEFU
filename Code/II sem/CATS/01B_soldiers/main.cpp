@@ -1,14 +1,7 @@
-//#include <iostream>
 #include <fstream>
 using namespace std;
 
-//typedef struct soldier
-//{
-//    float height;
-//    string name;
-//} soldiers_t;
-
-void merge(float mass[], int start, int end, int mid, int length, int& countMoves)
+void merge(float mass[], int start, int end, int mid, int length, long long& countMoves)
 {
     float mergedArr[length];
     int leftIndex, rightIndex, counter;
@@ -58,7 +51,7 @@ void merge(float mass[], int start, int end, int mid, int length, int& countMove
     } // Перевод в нормальный массив
 }
 
-void mergeSort(float mass[], int start, int end, int length, int& countMoves)
+void mergeSort(float mass[], int start, int end, int length, long long& countMoves)
 {
     if (start < end)
     {
@@ -75,18 +68,18 @@ int main()
 
     int countOfSoldiers;
     inf >> countOfSoldiers;
-    float massSoldiers [countOfSoldiers];
-//    soldiers_t finalSoldiers [countOfSoldiers];
+    float heightsSoldiers [countOfSoldiers];
+    
     for(int i = 0; i < countOfSoldiers; i++)
     {
-        inf >> massSoldiers[i];
+        inf >> heightsSoldiers[i];
         string name;
         inf >> name;
     }
     inf.close();
 
-    int count = 0;
-    mergeSort(massSoldiers, 0, countOfSoldiers - 1, countOfSoldiers, count);
+    long long count = 0;
+    mergeSort(heightsSoldiers, 0, countOfSoldiers - 1, countOfSoldiers, count);
 
     ofstream outf("output.txt");
     outf << count;
