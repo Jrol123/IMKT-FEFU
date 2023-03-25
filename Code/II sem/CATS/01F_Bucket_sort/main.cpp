@@ -1,20 +1,28 @@
 #include <iostream>
-#include <cmath>
 #include <fstream>
 using namespace std;
-const int countRazr = 26;
+const int countRazr = 26 * 2;
 
-const char firstLetter = 65;
+const char firstLetterBig = 'A';
+const char firstLetterSmall = 'a';
 
 void radixSort(string mass[], int len, int bordRazr = 3)
 {
-
     for(int i = 0; i < bordRazr; i++)
     {
         int razrMass [countRazr] {0};
         for(int j = 0; j < len; j++)
         {
-            int razrNum = mass[j][3 - i - 1] - firstLetter;
+            char letter = mass[j][3 - i - 1];
+            int razrNum;
+            if (letter < firstLetterSmall)
+            {
+                razrNum = letter - firstLetterBig;
+            }
+            else
+            {
+                razrNum = letter - firstLetterSmall + countRazr / 2; // Попытка учесть малые буквы
+            }
             razrMass[razrNum] ++;
         } // Считывание i-го разряда у чисел
         // Сортировка подсчётом
@@ -30,7 +38,16 @@ void radixSort(string mass[], int len, int bordRazr = 3)
         string subMass [len];
         for (int j = 0; j < len; ++j)
         {
-            int razrNum = mass[j][3 - i - 1] - firstLetter;
+            char letter = mass[j][3 - i - 1];
+            int razrNum;
+            if (letter < firstLetterSmall)
+            {
+                razrNum = letter - firstLetterBig;
+            }
+            else
+            {
+                razrNum = letter - firstLetterSmall + countRazr / 2; // Попытка учесть малые буквы
+            }
             subMass[razrMass[razrNum]] = mass[j];
             razrMass[razrNum] ++; // Следующая позиция для разряда
         }
