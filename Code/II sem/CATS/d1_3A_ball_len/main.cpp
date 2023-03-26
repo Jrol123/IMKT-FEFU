@@ -18,7 +18,8 @@ int main()
 
     while(x <= diapE)
     {
-        len += sqrt((f(x + discrStep) - f(x)) * (f(x + discrStep) - f(x)) + (discrStep * discrStep));
+        float diff = f(x + discrStep) - f(x);
+        len += sqrt(diff * diff + discrStep * discrStep); // Метод Пифагора
         x += discrStep;
     }
 
