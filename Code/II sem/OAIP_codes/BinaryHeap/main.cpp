@@ -1,6 +1,24 @@
 #include <iostream>
 using namespace std;
 
+void siftUpMin(int mass [], int index, int countEl)
+{
+    while(mass[index] < mass[(index - 1) / 2])
+    {
+        swap(mass[index], mass[(index - 1) / 2]);
+        index = (index - 1) / 2;
+    }
+}
+
+void siftUpMax(int mass [], int index, int countEl)
+{
+    while(mass[index] > mass[(index - 1) / 2])
+    {
+        swap(mass[index], mass[(index - 1) / 2]);
+        index = (index - 1) / 2;
+    }
+}
+
 void siftDownMin(int mass [], int index, int countEl)
 {
     while (2 * index + 1 < countEl)
@@ -65,5 +83,12 @@ int main()
     int mass2[] {1, 2, 5, 70, 66, 30, 4};
     buildHeapMin(mass1, 7);
     buildHeapMax(mass2, 7);
+
+    mass1[6] = 0;
+    mass2[6] = 100;
+
+    siftUpMin(mass1, 6, 7);
+    siftUpMax(mass2, 6, 7);
+
     cout << mass1[0] << endl << mass2[0];
 }
