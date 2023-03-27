@@ -109,7 +109,8 @@ class ParametersBoundedPlane(Parameters):
         self.width = width
         self.length = length
 
-    def function:
+    def function(self):
+        pass
 
 
 class ParametersSphere(Parameters):
