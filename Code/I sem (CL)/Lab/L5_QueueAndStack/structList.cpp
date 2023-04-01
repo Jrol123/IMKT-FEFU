@@ -123,7 +123,7 @@ bool isEmpty(Stack<type> *root)
         return true;
     }
     return false;
-    // Even if root is null, returns false
+    // Even if root->lastElement is null, returns false
 }
 
 // Дальше идёт Queue

@@ -3,17 +3,18 @@
 //#include <cmath>
 using namespace std;
 
-void siftUpMax(int mass [], int massIndexes[], int index, int countEl)
+void siftUpMax(int mass [], int massIndexes[], int massOrigin[], int index, int countEl)
 {
     while(mass[index] > mass[(index - 1) / 2])
     {
         swap(mass[index], mass[(index - 1) / 2]);
-        swap(massIndexes[massIndexes[index]],massIndexes[massIndexes[(index - 1) / 2]]);
+        swap(massIndexes[massIndexes[index]],massIndexes[(index - 1) / 2]);
+        swap(massOrigin[massIndexes[index]], massOrigin[massIndexes[(index - 1) / 2]]);
         index = (index - 1) / 2;
     }
 }
 
-void siftDownMax(int mass [], int massIndexes[], int index, int countEl)
+void siftDownMax(int mass [], int massIndexes[],int massOrigin[], int index, int countEl)
 {
     while (2 * index + 1 < countEl)
     {
@@ -30,16 +31,17 @@ void siftDownMax(int mass [], int massIndexes[], int index, int countEl)
             break;
         } // Если всё в порядке
         swap(mass[index], mass[subIndex]);
-        swap(massIndexes[massIndexes[index]],massIndexes[massIndexes[subIndex]]);
+        swap(massIndexes[index],massIndexes[subIndex]);
+        swap(massOrigin[massIndexes[index]], massOrigin[massIndexes[subIndex]]);
         index = subIndex; // Индекс меняемого элемента
     }
 }
 
-void buildHeapMax(int mass [], int massIndexes [], int countEl)
+void buildHeapMax(int mass [], int massIndexes [], int massOrigin[], int countEl)
 {
     for(int i = countEl / 2; i >= 0; --i)
     {
-        siftDownMax(mass, massIndexes, i, countEl);
+        siftDownMax(mass, massIndexes, massOrigin, i, countEl);
     }
 }
 
@@ -50,14 +52,16 @@ int main()
     inf >> countWorkers >> countDiff;
     int massWorkers [countWorkers];
 
-    int massIndexes [countWorkers][1];
+    int massIndexes [countWorkers];
+    int massOrigin [countWorkers];
 
     for(int i = 0; i < countWorkers; i++)
     {
         inf >> massWorkers[i];
-        massIndexes[i][0] = i;
+        massIndexes[i] = i;
+        massOrigin[i] = i;
     }
-    buildHeapMax(massWorkers, * massIndexes, countWorkers);
+    buildHeapMax(massWorkers, massIndexes, massOrigin, countWorkers);
 
     ofstream outf("output.txt");
 
@@ -65,16 +69,16 @@ int main()
     {
         int index, diff;
         inf >> index >> diff;
-        index = massIndexes[index - 1][0]; // Проверить на 0 0 0 -10 -20 -30. Неправильно свапает индексы
+        index = massIndexes[index - 1]; // Проверить на 0 0 0 -10 -20 -30. Неправильно свапает индексы
 
         massWorkers[index] += diff;
         if (diff > 0)
         {
-            siftUpMax(massWorkers, *massIndexes, index, countWorkers);
+            siftUpMax(massWorkers, massIndexes, massOrigin, index, countWorkers);
         }
         else
         {
-            siftDownMax(massWorkers, *massIndexes, index, countWorkers);
+            siftDownMax(massWorkers, massIndexes, massOrigin, index, countWorkers);
         }
         outf << massWorkers[0] << endl;
     }
