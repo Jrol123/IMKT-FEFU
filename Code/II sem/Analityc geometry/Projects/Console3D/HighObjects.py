@@ -63,19 +63,22 @@ class Parameters:
         self.coefficients = 1
         pass
 
-    def __contains__(self, item) -> LowObjects.Point:
+    def contains(self, item):
         """
-
+        public method
+        Используется для перегрузки
         :param item:
-        :return:
         """
         pass
 
-    def intersect(self):
+    def __contains__(self, item) -> LowObjects.Point:
         """
-
+        private method
+        используется только для себя
+        :param item:
         :return:
         """
+        return self.contains(item)
 
 
 class ParametersPlane(Parameters):
@@ -96,7 +99,8 @@ class ParametersBoundedPlane(Parameters):
     """
     Empty
     """
-    def __init__(self, pos_point: LowObjects.Point, vector_norm: LowObjects.Vector, width: float, length: float):
+    def __init__(self, pos_point: LowObjects.Point, vector_norm: LowObjects.Vector,
+                 alpha_1: float, alpha_2: float, width: float, length: float):
         """
 
         :param pos_point:
@@ -108,9 +112,6 @@ class ParametersBoundedPlane(Parameters):
         self.vector_norm = vector_norm
         self.width = width
         self.length = length
-
-    def function(self):
-        pass
 
 
 class ParametersSphere(Parameters):
@@ -125,16 +126,16 @@ class Object:
     Any object
     """
 
-    def __init__(self, pos_point: LowObjects.Point, rotation, parameters: Parameters):
+    def __init__(self, pos_point: LowObjects.Point, vector_normal: LowObjects.Vector, parameters: Parameters):
         """
         object.contains (other) - bool (???)
         :param pos_point: Позиция центра объекта. Задаётся с помощью Point
-        :param rotation:
+        :param vector_normal:
         :param parameters:
         """
         self.parameters = parameters
         self.pos = pos_point
-        self.rotation = rotation
+        self.vector_normal = vector_normal
 
     def __contains__(self, point: LowObjects.Point) -> bool:
         """
@@ -142,7 +143,6 @@ class Object:
         :param point:
         :return:
         """
-        # По-умолчанию должен выдавать False
         if self.__class__.function(self, point) == 0:
             return True
         return False
@@ -156,7 +156,7 @@ class Object:
         pass
 
 
-class Sphere(Object, ParametersSphere):
+class Sphere(Object):
     """
     Empty
     """
@@ -167,16 +167,16 @@ class Sphere(Object, ParametersSphere):
         # self.parameters = parameters(get_equation)
 
 
-class Cube(Object, ParametersCube):
+class Cube(Object):
     """
     Empty
     """
 
-    def __init__(self, pos_point: LowObjects.Point, rotation, parameters):
+    def __init__(self, pos_point: LowObjects.Point, vector_normal, parameters):
         """
         Empty
         """
-        super().__init__(pos_point, rotation, parameters)
+        super().__init__(pos_point, vector_normal, parameters)
 
 
 class Plane(Object):
@@ -202,13 +202,49 @@ class Plane(Object):
         return sum(self.vector_normal[i] * (self.pos_point[i] - point[i]) for i in range(3))
 
 
-class BoundedPlane(Plane, ParametersBoundedPlane):
+class BoundedPlane(Plane):
     """
     Empty
     """
 
-    def __init__(self, pos_point):
-        pass
+    def __init__(self, pos_point: LowObjects.Point, vector_normal: LowObjects.Vector,
+                 alpha_1: float, alpha_2: float, width: float, height: float):
+        """
+        1) определить наименьший угол между OX / OY / OZ и нормалью
+        2) повернуть "vs" так, чтобы OX / OY / OZ совпадали с нормалью
+        3) повернуть оставшиеся 2 координаты по 2-м углам.
+        4) домножить 2 координаты на width и height
+
+        ИЛИ
+
+        1) сопоставить всю систему "vs" с нормалью, где OZ = vector_normal
+        2) Прокрутить OX на alpha_1, OY на alpha_2
+        3) Умножить OX на width, OY на height
+
+        ИЛИ
+
+        1) На вход получается точка, нормаль, направляющий вектор и угол
+            1.1) Направляющий вектор должен быть нормализован и лежать на плоскости
+        2) Строим правую тройку векторов. Можно сразу же умножать вектора на длину и ширину
+        3) Поворачиваем побочный вектор на alpha
+        Стоп, а это не просто улучшенная версия моего способа??
+
+        Список проблем:
+            1) Если работать с "наименьшим углом", то как определить, какую штуку на что прокручивать + умножение?
+            2) Если работать с OZ = vector_normal, то нужно понять, в какую сторону поворачивать
+        Доп:
+            1) учесть, что угол между "побочными" векторами может быть не прямым (ромбы) =>
+            2) поворот идёт сразу по всем осям (и относительно осей) => разбить поворот на 3 части (OX, OY, OZ).
+               Можно поворачивать по-очереди.
+
+        :param pos_point:
+        :param vector_normal:
+        :param alpha_1:
+        :param alpha_2:
+        :param width:
+        :param height:
+        """
+        super().__init__(pos_point, vector_normal)
 
     def function(self, point: LowObjects.Point) -> float:
         """
@@ -216,4 +252,4 @@ class BoundedPlane(Plane, ParametersBoundedPlane):
         :param point:
         :return:
         """
-        return sum(self.vector_normal[i] * (self.pos_point[i] - point[i]) for i in range(3))
+        pass
