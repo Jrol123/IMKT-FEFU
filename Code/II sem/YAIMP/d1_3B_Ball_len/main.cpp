@@ -3,7 +3,7 @@
 
 using namespace std;
 
-const float S = 10, H = 2, g = 10;
+const float S = 10, H = 2, g = 10, dstep = 0.1;
 float a = 0;
 
 float f(float x)
@@ -15,9 +15,7 @@ float f(float x)
 void sol(float alf)
 {
     a = M_PI * alf / 180; // Перевод в радианы
-
-    float dstep = 0.1,
-            len = 0, x = 0;
+    float len = 0, x = 0;
 
     while (x <= S)
     {
