@@ -8,7 +8,7 @@ void siftUpMax(int mass [], int massIndexes[], int massOrigin[], int index, int 
     while(mass[index] > mass[(index - 1) / 2])
     {
         swap(mass[index], mass[(index - 1) / 2]);
-        swap(massIndexes[massIndexes[index]],massIndexes[(index - 1) / 2]);
+        swap(massIndexes[index],massIndexes[(index - 1) / 2]);
         swap(massOrigin[massIndexes[index]], massOrigin[massIndexes[(index - 1) / 2]]);
         index = (index - 1) / 2;
     }
@@ -45,6 +45,8 @@ void buildHeapMax(int mass [], int massIndexes [], int massOrigin[], int countEl
     }
 }
 
+// Все элементы сортируются правильно
+
 int main()
 {
     ifstream inf("input.txt");
@@ -69,7 +71,7 @@ int main()
     {
         int index, diff;
         inf >> index >> diff;
-        index = massIndexes[index - 1]; // Проверить на 0 0 0 -10 -20 -30. Неправильно свапает индексы
+        index = massOrigin[index - 1]; // Работает даже с числами < 0
 
         massWorkers[index] += diff;
         if (diff > 0)
