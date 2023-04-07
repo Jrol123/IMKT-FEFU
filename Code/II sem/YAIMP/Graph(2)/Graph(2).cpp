@@ -106,7 +106,8 @@ void intersection_points(vector<float> (&inters_pts), float f1(float), float f2(
         }
         */
     }
-}
+} //Находит одну правильную точку (1.7) и одну неправильную (4.9)
+// Основная точка находится слева, на отрицательной полуоси
 
 float f1(float x)
 {
