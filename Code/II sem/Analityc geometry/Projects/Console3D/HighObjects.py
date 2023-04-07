@@ -63,6 +63,8 @@ class Parameters:
         self.coefficients = 1
         pass
 
+    # issue №29
+
     def contains(self, item):
         """
         public method
@@ -99,6 +101,7 @@ class ParametersBoundedPlane(Parameters):
     """
     Empty
     """
+
     def __init__(self, pos_point: LowObjects.Point, vector_norm: LowObjects.Vector,
                  alpha_1: float, alpha_2: float, width: float, length: float):
         """
@@ -207,6 +210,7 @@ class BoundedPlane(Plane):
     Empty
     """
 
+    # issue №30
     def __init__(self, pos_point: LowObjects.Point, vector_normal: LowObjects.Vector,
                  alpha_1: float, alpha_2: float, width: float, height: float):
         """
