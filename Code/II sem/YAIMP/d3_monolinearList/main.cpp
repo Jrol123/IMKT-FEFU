@@ -41,6 +41,7 @@ struct List
             if (prevNode->next->val > val)
             {
                 prevNode->next = new Node(val, prevNode->next);
+                return;
             }
             prevNode = prevNode-> next;
         }
@@ -59,10 +60,9 @@ int main()
     for(int i = 1; i < countElements; i++)
     {
         cin >> element;
-        cout << element;
         testList.push(element);
     }
-    cout << 1;
+    cout << endl;
 
 //    List testList(Data(1));
 //    testList.push(0);
