@@ -2,6 +2,7 @@
 Высокоуровневые объекты
 Camera, Parameters, Object
 """
+import math
 
 import LowObjects
 import configparser
@@ -51,16 +52,39 @@ class Camera:
         pass
 
 
+class Canvas:
+    """
+    Полотно отрисовки.
+    :param map: карта
+    :param camera:
+    """
+
+    def draw(self) -> None:
+        """
+        Отрисовка (символьная, поблочная)
+        :return: матрица элементов
+        """
+
+    def update(self):
+        """
+        Возвращает матрицу расстояний из Camera.send_rays
+        """
+        pass
+
+
 class Parameters:
     """
     Empty
     """
 
-    def __init__(self):
+    def __init__(self, pos_point: LowObjects.Point, vector_norm: LowObjects.Vector):
         """
-        :param coefficients:
+
+        :param pos_point:
+        :param vector_norm:
         """
-        self.coefficients = 1
+        self.pos_point = pos_point
+        self.vector_norm = vector_norm
         pass
 
     # issue №29
@@ -111,6 +135,7 @@ class ParametersBoundedPlane(Parameters):
         :param width:
         :param length:
         """
+        super().__init__(pos_point, vector_norm)
         self.pos_point = pos_point
         self.vector_norm = vector_norm
         self.width = width
@@ -152,11 +177,45 @@ class Object:
 
     def intersect(self):
         """
-        Empty
+        Длина между
         """
         # По-умолчанию должен выдавать точку в конце Draw Distance
         # В противном случае выдаёт точку объекта
         pass
+
+
+class Map:
+    """
+    Список объектов
+    """
+    objects_list: list[Object] = []
+
+    def push(self, obj: Object):
+        """
+        Метод создания объектов.
+
+        Объекты будут сразу же создаваться тут и добавляться в список.
+        :return:
+        """
+        self.objects_list.extend(obj)
+
+
+class Ray:
+    """
+
+    """
+
+    def __init__(self, initPoint: LowObjects.Point, dir_vector: LowObjects.Vector):
+        pass
+
+    def intersect(self, mapping: Map) -> float:
+        """
+        Метод определения пересечения с объектами.
+
+        Вызывает intersect
+        :param mapping:
+        :return:
+        """
 
 
 class Sphere(Object):
@@ -249,6 +308,11 @@ class BoundedPlane(Plane):
         :param height:
         """
         super().__init__(pos_point, vector_normal)
+        scalVec = vector_normal * LowObjects.VectorSpace[2]
+        fAngle = vector_normal.angle_vector(LowObjects.VectorSpace[2])
+        for i in range (0, 2):
+            LowObjects.VectorSpace[i].rotation_eiler(*(math.acos(LowObjects.VectorSpace[i][j]) for j in range(2)))
+
 
     def function(self, point: LowObjects.Point) -> float:
         """

@@ -17,4 +17,4 @@ if __name__ == "__main__":
 
     pl = HighObjects.Plane(LowObjects.Point(0, 0, 0), LowObjects.Vector(1, 0, 0))
     print(LowObjects.Point(0, 0, 0) in pl)
-    bPl = HighObjects.BoundedPlane(LowObjects.Point(0, 0, 0), LowObjects.Vector(1, 0, 0), alpha)
+    bp = HighObjects.BoundedPlane(LowObjects.Point(0, 0, 0), LowObjects.Vector(1, 2, 3).normalize(), 0, 0, 1, 1)

@@ -1,5 +1,6 @@
 """
 Низкоуровневые объекты
+
 Coordinates, Point, Vector, Vector space
 """
 
@@ -84,7 +85,7 @@ class Point(Coordinates):
         """
         if isinstance(other, Point):
             return math.sqrt(sum([(self.coords[i] - other.coords[i]) ** 2 for i in range(0, 2 + 1)]))
-        elif isinstance(other, Coordinates):
+        elif isinstance(other, Coordinates) or isinstance(other, list):
             return math.sqrt(sum([(self.coords[i] - other[i]) ** 2 for i in range(0, 2 + 1)]))
 
     # def __add__(self, other):
@@ -153,20 +154,31 @@ class Vector(Coordinates):
         else:
             raise TypeError("Wrong type !")
 
-    # def __add__(self, other):
-    #     """
-    #     Sum of the self-vector and other vector
-    #     :param other: second vector
-    #     """
-    #     return Vector(super().__add__(other.coords))
+    def rotation_eiler(self, alpha: float, beta: float, gamma: float):
+        """
 
-    def __mul__(self, vc):
+        :param alpha:
+        :param beta:
+        :param gamma:
+        :return:
+        """
+
+    def angle_vector(self, other) -> float:
+        """
+        Вычисление абсолютного угла между векторами.
+        :param other:
+        :return:
+        """
+        return math.acos(self * other)
+
+    # Реализовать
+    def __mul__(self, other):
         """
         Скалярное произведение
-        :param vc:
+        :param other:
         :return: Float
         """
-        return sum([self[i] * vc[i] for i in range(0, 2 + 1)])
+        return sum([self[i] * other[i] for i in range(0, 2 + 1)])
 
     def __pow__(self, vc):
         """
@@ -199,6 +211,7 @@ class Vector(Coordinates):
         Normalization of the vector
         :return: Normalized vector
         """
+        # Проблемы с нормализацией
         return self / self.length()
 
     def length(self):
@@ -217,6 +230,7 @@ class VectorSpace:
     Main space
     """
     # issue 13
+    # issue 31
     initialPt = Point(0, 0, 0)
     basis = [Vector(Point(1, 0, 0)), Vector(Point(0, 1, 0)), Vector(Point(0, 0, 1))]
 
@@ -232,3 +246,12 @@ class VectorSpace:
         VectorSpace.initial_point = initial_point  # Меняет корневые параметры класса
         VectorSpace.basis = [dir1.normalize(), dir2.normalize(), dir3.normalize()]
         # Помнится, я как-то по другому реализовывал изменение корневых параметров, но раз уж оно работает...
+
+    def __getitem__(self, item: int):
+        match item:
+            case 0:
+                return self.basis[0]
+            case 1:
+                return self.basis[1]
+            case 2:
+                return self.basis[2]
