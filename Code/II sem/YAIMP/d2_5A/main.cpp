@@ -37,8 +37,6 @@ float goldPropMethod(bool state, float a = leftB, float b = rightB)
     return goldPropMethod(state, a, b);
 }
 
-// Границы интервала задаются ВРУЧНУЮ
-
 int main()
 {
     for(int i = 0; i <= 1; i ++)
