@@ -273,10 +273,10 @@ class BoundedPlane(Plane):
     def __init__(self, pos_point: LowObjects.Point, vector_normal: LowObjects.Vector,
                  alpha_1: float, alpha_2: float, width: float, height: float):
         """
-        1) определить наименьший угол между OX / OY / OZ и нормалью
-        2) повернуть "vs" так, чтобы OX / OY / OZ совпадали с нормалью
-        3) повернуть оставшиеся 2 координаты по 2-м углам.
-        4) домножить 2 координаты на width и height
+        1) Находим первый побочный вектор (поворачиваем нормаль на 90 градусов по OY)
+        2) Поворачиваем первый побочный вектор на alpha_1
+        3) Находим второй побочный вектор с помощью векторного произведения нормали и первого побочного вектора
+        4) Поворачиваем второй побочный вектор на alpha_2
 
         ИЛИ
 
@@ -290,6 +290,7 @@ class BoundedPlane(Plane):
             1.1) Направляющий вектор должен быть нормализован и лежать на плоскости
         2) Строим правую тройку векторов. Можно сразу же умножать вектора на длину и ширину
         3) Поворачиваем побочный вектор на alpha
+
         Стоп, а это не просто улучшенная версия моего способа??
 
         Список проблем:
@@ -302,17 +303,56 @@ class BoundedPlane(Plane):
 
         :param pos_point:
         :param vector_normal:
-        :param alpha_1:
-        :param alpha_2:
+        :param alpha_1: Поворот OX
+        :param alpha_2: Поворот OY
         :param width:
         :param height:
         """
         super().__init__(pos_point, vector_normal)
-        scalVec = vector_normal * LowObjects.VectorSpace[2]
-        fAngle = vector_normal.angle_vector(LowObjects.VectorSpace[2])
-        for i in range (0, 2):
-            LowObjects.VectorSpace[i].rotation_eiler(*(math.acos(LowObjects.VectorSpace[i][j]) for j in range(2)))
 
+        # базовая реализация
+
+        status = True
+        self.sub_vector_1: LowObjects.Vector
+        if vector_normal.coords != LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, 1).coords:
+            self.sub_vector_1 = vector_normal.rotation_eiler(0, 90, 0)
+            # Если не совпадает с OY — поворот по OY
+        else:
+            status = False
+            self.sub_vector_1 = vector_normal.rotation_eiler(90, 0, 0)
+            # Поворот по OX
+        self.sub_vector_2 = (vector_normal ** self.sub_vector_1)
+
+        # issue
+
+        # реализация с поворотом
+
+        # massAngle = [LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, 2).
+        #              angle_vector(LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, 0)),
+        #              LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, 2).
+        #              angle_vector(LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, 1)),
+        #              LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, 2).
+        #              angle_vector(LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, 2))]
+        # # Массив углов поворота. OX, OY, OZ
+        # for i in range(0, 2 + 1):
+        #     angle = vector_normal.angle_vector(LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, i))
+        #     # if angle > 0:
+        #     #     massAngle[i] = (massAngle[i] - angle)
+        #     # else:
+        #     #     massAngle[i] = (massAngle[i] + angle)
+        #     massAngle[i] = (massAngle[i] - angle)
+        # # scalLen = vector_normal * \
+        # #           LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, 2)  # Скаляр между OZ и vector_normal
+        # # fAngle = vector_normal.angle_vector \
+        # #     (LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, 2))  # Угол между OZ и vector_normal
+        # massVec = []  # массив повёрнутых векторов
+        # for i in range(2 + 1):
+        #     massVec.append(LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, i).rotation_eiler(*massAngle))
+        #     # Вектор OZ должен совпадать.
+        #     # Выдаёт бешеные векторы
+        # massVec[0].rotation_eiler(*(vector_normal.angle_vector
+        #                             (LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, i))
+        #                             for i in range(0, 2 + 1)))
 
     def function(self, point: LowObjects.Point) -> float:
         """

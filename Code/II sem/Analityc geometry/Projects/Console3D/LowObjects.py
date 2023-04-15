@@ -88,40 +88,6 @@ class Point(Coordinates):
         elif isinstance(other, Coordinates) or isinstance(other, list):
             return math.sqrt(sum([(self.coords[i] - other[i]) ** 2 for i in range(0, 2 + 1)]))
 
-    # def __add__(self, other):
-    #     """
-    #     Сумма двух точек.
-    #     Суммируется по координатам.
-    #     :param other: Другая точка.
-    #     :return: Точка с координатами, равными сумме двух предыдущих координат.
-    #     """
-    #     return Point(super().__add__(other))
-    #
-    # def __sub__(self, other):
-    #     """
-    #     subtraction of two points
-    #     :parameter other:
-    #     :return:
-    #     """
-    #     return Point(super().__sub__(other.coords))
-    #
-    # def __mul__(self, num):
-    #     """
-    #     multiplication point by num
-    #     :param num:
-    #     :return:
-    #     """
-    #     return Point(super().__mul__(self.coords * num))
-    #
-    # def __truediv__(self, obj):
-    #     """
-    #     div point by num
-    #     :param num:
-    #     :return:
-    #     """
-    #     assert obj != 0
-    #     return self * (1 / obj)
-
     def __str__(self):
         return f"Point({self[0]}, {self[1]}, {self[2]})"
 
@@ -148,7 +114,7 @@ class Vector(Coordinates):
         elif len(obj) == 3:
             if isinstance(obj[0], (int, float)) and isinstance(obj[1], (int, float)) and isinstance(obj[2],
                                                                                                     (int, float)):
-                super().__init__(obj[0], obj[1], obj[2])
+                super().__init__(round(obj[0], 5), round(obj[1], 5), round(obj[2], 5))
             else:
                 raise TypeError("Wrong type !")
         else:
@@ -157,11 +123,26 @@ class Vector(Coordinates):
     def rotation_eiler(self, alpha: float, beta: float, gamma: float):
         """
 
-        :param alpha:
-        :param beta:
-        :param gamma:
-        :return:
+        :param alpha: поворот по OX
+        :param beta: поворот по OY
+        :param gamma: поворот по OZ
+        :return: Вектор, получаемый в результате поворота
         """
+        x = self[0]
+        y = self[1]
+        z = self[2]
+        alpha = math.radians(alpha)
+        beta = math.radians(beta)
+        gamma = math.radians(gamma)
+        a = math.cos(alpha)
+        b = math.sin(alpha)
+        c = math.cos(beta)
+        d = math.sin(beta)
+        e = math.cos(gamma)
+        f = math.sin(gamma)
+        return Vector(e * c * x + e * b * d * y + e * a * d * z - a * f * y + b * f * z,
+                      c * f * x + b * d * f * y + a * d * f * z + e * a * y - e * b * z,
+                      -d * x + b * c * y + a * c * z)
 
     def angle_vector(self, other) -> float:
         """
@@ -169,16 +150,21 @@ class Vector(Coordinates):
         :param other:
         :return:
         """
+        print(self * other)
+        print(math.acos(0))  # 1.5
         return math.acos(self * other)
 
     # Реализовать
-    def __mul__(self, other):
+    def __mul__(self, other) -> float:
         """
         Скалярное произведение
         :param other:
         :return: Float
         """
-        return sum([self[i] * other[i] for i in range(0, 2 + 1)])
+        if isinstance(other, Vector):
+            return sum([self[i] * other[i] for i in range(0, 2 + 1)])
+        elif isinstance(other, float):
+            return sum([self[i] * other for i in range(0, 2 + 1)])
 
     def __pow__(self, vc):
         """
@@ -187,7 +173,7 @@ class Vector(Coordinates):
         :return: Returns vector, as the result of vector multiplying
         """
         return Vector(self[1] * vc[2] - self[2] * vc[1], - (self[0] * vc[2] - self[2] * vc[0]),
-                      self[0] * vc[1] - self[1] - vc[0])  # Не сократить из-за особой формулы
+                      self[0] * vc[1] - self[1] * vc[0])  # Не сократить из-за особой формулы
 
     # def __sub__(self, other):
     #     """
@@ -208,20 +194,19 @@ class Vector(Coordinates):
 
     def normalize(self):
         """
-        Normalization of the vector
-        :return: Normalized vector
+        Нормализация вектора
+        :return: Нормализованный вектор
         """
-        # Проблемы с нормализацией
-        return self / self.length()
+        return Vector(*(self[i] / self.length() for i in range(0, 2 + 1)))
 
-    def length(self):
+    def length(self) -> float:
         """
         length of the vector
         :return: length of the vector
         """
         return VectorSpace.initialPt.distance(self.coords)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Vector({self[0]}, {self[1]}, {self[2]})"
 
 
@@ -232,7 +217,7 @@ class VectorSpace:
     # issue 13
     # issue 31
     initialPt = Point(0, 0, 0)
-    basis = [Vector(Point(1, 0, 0)), Vector(Point(0, 1, 0)), Vector(Point(0, 0, 1))]
+    basis: list[Vector] = [Vector(Point(1, 0, 0)), Vector(Point(0, 1, 0)), Vector(Point(0, 0, 1))]
 
     def __init__(self, initial_point: Point, dir1: Vector, dir2: Vector, dir3: Vector):
         """
@@ -247,11 +232,12 @@ class VectorSpace:
         VectorSpace.basis = [dir1.normalize(), dir2.normalize(), dir3.normalize()]
         # Помнится, я как-то по другому реализовывал изменение корневых параметров, но раз уж оно работает...
 
-    def __getitem__(self, item: int):
-        match item:
-            case 0:
-                return self.basis[0]
-            case 1:
-                return self.basis[1]
-            case 2:
-                return self.basis[2]
+    # TypeError: 'type' object is not subscriptable
+    # Class 'type' does not define '__getitem__', so the '[]' operator cannot be used on its instances
+    def __getitem__(self, item: int) -> Vector:
+        """
+        Получение векторов из базиса
+        :param item:
+        :return: Вектор
+        """
+        return self.basis[item]
