@@ -109,7 +109,9 @@ void mergeTeams(Team arr[], int start, int end, int mid, int L)
     while (leftIndex <= mid && rightIndex <= end)
     {
         if ((arr[leftIndex].total_solved > arr[rightIndex].total_solved) or
-        (arr[leftIndex].total_solved == arr[rightIndex].total_solved and arr[leftIndex].total_time <= arr[rightIndex].total_time))
+        (arr[leftIndex].total_solved == arr[rightIndex].total_solved and arr[leftIndex].total_time <= arr[rightIndex].total_time) or
+        (arr[leftIndex].total_solved == arr[rightIndex].total_solved and arr[leftIndex].total_time == arr[rightIndex].total_time
+        and arr[leftIndex].teamNumber > arr[rightIndex].teamNumber))
         {
             // cout << arr[leftIndex] << " " << arr[rightIndex] << endl;
             mergedArr[counter] = arr[leftIndex];
@@ -223,6 +225,14 @@ int main()
                     massTeams[indexTeam].total_time += time +
                             massTime[indexProblem][indexTry + beginIndex].time;
                     break;
+//                    if (!stateOfSolved)
+//                    {
+//                        massTeams[indexTeam].total_solved += 1;
+//                        stateOfSolved = true;
+//                    }
+//                    massTeams[indexTeam].total_time += time +
+//                                                       massTime[indexProblem][indexTry + beginIndex].time - prevBestTime;
+//                    prevBestTime = massTime[indexProblem][indexTry + beginIndex].time;
                 }
             }
 
