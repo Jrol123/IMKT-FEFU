@@ -7,6 +7,7 @@ using namespace std;
 struct Team
 {
     int massCountTries [maxCountProblems] {0};
+    int teamNumber;
     int total_solved = 0;
     int total_time = 0;
 };
@@ -15,6 +16,17 @@ struct Try
 {
     int teamNumber,problemNumber, time;
     bool state;
+    Try()
+    {
+
+    }
+    Try(int teamNumber, int problemNumber, int time, bool state)
+    {
+        this->teamNumber = teamNumber;
+        this->problemNumber = problemNumber;
+        this -> time = time;
+        this-> state = state;
+    }
 };
 
 void merge(Try arr[], int start, int end, int mid, int L, bool state)
@@ -96,7 +108,8 @@ void mergeTeams(Team arr[], int start, int end, int mid, int L)
 
     while (leftIndex <= mid && rightIndex <= end)
     {
-        if (arr[leftIndex].total_solved >= arr[rightIndex].total_solved)
+        if ((arr[leftIndex].total_solved > arr[rightIndex].total_solved) or
+        (arr[leftIndex].total_solved == arr[rightIndex].total_solved and arr[leftIndex].total_time <= arr[rightIndex].total_time))
         {
             // cout << arr[leftIndex] << " " << arr[rightIndex] << endl;
             mergedArr[counter] = arr[leftIndex];
@@ -151,6 +164,10 @@ int main()
     inf >> countTeams >> countTries;
     Try massTime[maxCountProblems][countTries]; // 20 * 1000 * 4 = 80 000 / 1024 = 79 kb
     Team massTeams[countTeams];
+    for (int teamNumber = 0; teamNumber < countTeams; teamNumber++)
+    {
+        massTeams[teamNumber].teamNumber = teamNumber + 1;
+    } // Проименовывание команд
     int nowIndex[maxCountProblems] {0};
 
     // На вход подаются: C, N, c_i, p_i, t_i, status
@@ -198,7 +215,7 @@ int main()
             {
                 if (!massTime[indexProblem][indexTry + beginIndex].state)
                 {
-                    time += massTime[indexProblem][indexTry + beginIndex].time + 20 * 60;
+                    time += 20 * 60;
                 }
                 else
                 {
@@ -213,9 +230,17 @@ int main()
         } // Сортировка по времени
     }
 
-    mergeSortTeams(massTeams, 0, lastProblemNumber, lastProblemNumber + 1);
-    for (int index = 0; index < countTeams; ++index)
+    mergeSortTeams(massTeams, 0, countTeams - 1, countTeams);
+    ofstream outf ("output.txt");
+    outf << massTeams[0].teamNumber;
+//    cout << massTeams[0].teamNumber;
+    for (int index = 1; index < countTeams; ++index)
     {
-        cout << index + 1 << " " << massTeams[index].total_solved << " " << massTeams[index].total_time << endl;
+//        cout << massTeams[index].teamNumber << " " << massTeams[index].total_solved << " " << massTeams[index].total_time << endl;
+        outf << " ";
+        outf << massTeams[index].teamNumber;
+//        cout << " ";
+//        cout << massTeams[index].teamNumber;
     }
+    outf.close();
 }
