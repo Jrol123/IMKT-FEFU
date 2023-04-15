@@ -77,11 +77,11 @@ class Point(Coordinates):
         elif isinstance(obj[0], (int, float)) and isinstance(obj[1], (int, float)) and isinstance(obj[2], (int, float)):
             super().__init__(obj[0], obj[1], obj[2])
 
-    def distance(self, other):
+    def distance(self, other) -> float:
         """
-        Distance between the self, and the other
-        :param other: some other point
-        :return: distance between points
+        Расстояние между self и other
+        :param other: Точка или координаты
+        :return: Расстояние между точками
         """
         if isinstance(other, Point):
             return math.sqrt(sum([(self.coords[i] - other.coords[i]) ** 2 for i in range(0, 2 + 1)]))
@@ -101,8 +101,8 @@ class Vector(Coordinates):
         # : [Coordinates, Point, *int, *float] TypeError: Value after * must be an iterable, not type
         # issue №22
         """
-        Initialization of vector
-        :param obj: Either a Coordinates, Point or a list of float
+        Инициализация вектора
+        :param obj: Координаты, точка или список float-оф
         """
         if len(obj) == 1:
             if isinstance(obj[0], Point):
@@ -231,7 +231,8 @@ class VectorSpace:
         VectorSpace.initial_point = initial_point  # Меняет корневые параметры класса
         VectorSpace.basis = [dir1.normalize(), dir2.normalize(), dir3.normalize()]
         # Помнится, я как-то по другому реализовывал изменение корневых параметров, но раз уж оно работает...
-
+        
+    # issue 33
     # TypeError: 'type' object is not subscriptable
     # Class 'type' does not define '__getitem__', so the '[]' operator cannot be used on its instances
     def __getitem__(self, item: int) -> Vector:
