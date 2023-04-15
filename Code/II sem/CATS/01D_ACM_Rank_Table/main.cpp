@@ -108,8 +108,9 @@ void mergeTeams(Team arr[], int start, int end, int mid, int L)
 
     while (leftIndex <= mid && rightIndex <= end)
     {
+        // Сделал неравенство строгим (2-е сравнение) arr[leftIndex].total_time < arr[rightIndex].total_time
         if ((arr[leftIndex].total_solved > arr[rightIndex].total_solved) or
-        (arr[leftIndex].total_solved == arr[rightIndex].total_solved and arr[leftIndex].total_time <= arr[rightIndex].total_time) or
+        (arr[leftIndex].total_solved == arr[rightIndex].total_solved and arr[leftIndex].total_time < arr[rightIndex].total_time) or
         (arr[leftIndex].total_solved == arr[rightIndex].total_solved and arr[leftIndex].total_time == arr[rightIndex].total_time
         and arr[leftIndex].teamNumber > arr[rightIndex].teamNumber))
         {
