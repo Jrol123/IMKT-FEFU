@@ -1,8 +1,9 @@
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 
-static const int maxCountProblems = 20;
 using namespace std;
+static const int maxCountProblems = 20;
 
 struct Team
 {
@@ -29,9 +30,29 @@ struct Try
     }
 };
 
-void merge(Try arr[], int start, int end, int mid, int L, bool state)
+bool compTeams(const Team& left, const Team& right)
 {
-    Try mergedArr[L];
+    return ((left.total_solved > right.total_solved) or
+        (left.total_solved == right.total_solved and left.total_time < right.total_time) or
+        (left.total_solved == right.total_solved and left.total_time == right.total_time and left.teamNumber < right.teamNumber));
+    // Проблема до этого компаратора (?)
+}
+
+bool compTryTeam(const Try& left, const Try& right)
+{
+    return left.teamNumber < right.teamNumber;
+}
+
+bool compTryTime(const Try& left, const Try& right)
+{
+
+    return left.time <= right.time;
+}
+
+template <typename T>
+void merge(T arr[], int start, int end, int mid, int L, bool (* comparator)(const T&, const T&))
+{
+    T mergedArr[L];
     int leftIndex, rightIndex, counter;
     leftIndex = start;
     counter = start;
@@ -39,18 +60,7 @@ void merge(Try arr[], int start, int end, int mid, int L, bool state)
 
     while (leftIndex <= mid && rightIndex <= end)
     {
-        int lA, bA;
-        if (state)
-        {
-            lA = arr[leftIndex].teamNumber;
-            bA = arr[rightIndex].teamNumber;
-        }
-        else
-        {
-            lA = arr[leftIndex].time;
-            bA = arr[rightIndex].time;
-        }
-        if (lA <= bA)
+        if (comparator(arr[leftIndex], arr[rightIndex]))
         {
             // cout << arr[leftIndex] << " " << arr[rightIndex] << endl;
             mergedArr[counter] = arr[leftIndex];
@@ -86,77 +96,16 @@ void merge(Try arr[], int start, int end, int mid, int L, bool state)
     }
 }
 
-void mergeSort(Try arr[], int start, int end, int L, bool state)
+template <typename T>
+void mergeSort(T arr[], int start, int end, int L, bool (* comparator)(const T&, const T&))
 {
     int mid;
     if (start < end)
     {
         mid = (start + end) / 2;
-        mergeSort(arr, start, mid, L, state);
-        mergeSort(arr, mid + 1, end, L, state);
-        merge(arr, start, end, mid, L, state);
-    }
-}
-
-void mergeTeams(Team arr[], int start, int end, int mid, int L)
-{
-    Team mergedArr[L];
-    int leftIndex, rightIndex, counter;
-    leftIndex = start;
-    counter = start;
-    rightIndex = mid + 1;
-
-    while (leftIndex <= mid && rightIndex <= end)
-    {
-        // Сделал неравенство строгим (2-е сравнение) arr[leftIndex].total_time < arr[rightIndex].total_time
-        if ((arr[leftIndex].total_solved > arr[rightIndex].total_solved) or
-        (arr[leftIndex].total_solved == arr[rightIndex].total_solved and arr[leftIndex].total_time < arr[rightIndex].total_time) or
-        (arr[leftIndex].total_solved == arr[rightIndex].total_solved and arr[leftIndex].total_time == arr[rightIndex].total_time
-        and arr[leftIndex].teamNumber > arr[rightIndex].teamNumber))
-        {
-            // cout << arr[leftIndex] << " " << arr[rightIndex] << endl;
-            mergedArr[counter] = arr[leftIndex];
-            counter++;
-            leftIndex++;
-        } // Если берём из левой части
-        else
-        {
-            mergedArr[counter] = arr[rightIndex];
-
-            counter++;
-            rightIndex++;
-        } // Если берём из правой части
-    }
-
-    while (leftIndex <= mid)
-    {
-        mergedArr[counter] = arr[leftIndex];
-        counter++;
-        leftIndex++;
-    }
-
-    while (rightIndex <= end)
-    {
-        mergedArr[counter] = arr[rightIndex];
-        counter++;
-        rightIndex++;
-    }
-
-    for (leftIndex = start; leftIndex < counter; leftIndex++)
-    {
-        arr[leftIndex] = mergedArr[leftIndex];
-    }
-} // Сортировка по командам
-
-void mergeSortTeams(Team arr[], int start, int end, int L)
-{
-    int mid;
-    if (start < end)
-    {
-        mid = (start + end) / 2;
-        mergeSortTeams(arr, start, mid, L);
-        mergeSortTeams(arr, mid + 1, end, L);
-        mergeTeams(arr, start, end, mid, L);
+        mergeSort(arr, start, mid, L, comparator);
+        mergeSort(arr, mid + 1, end, L, comparator);
+        merge(arr, start, end, mid, L, comparator);
     }
 }
 
@@ -171,7 +120,8 @@ int main()
     {
         massTeams[teamNumber].teamNumber = teamNumber + 1;
     } // Проименовывание команд
-    int nowIndex[maxCountProblems] {0};
+    int nowIndex[maxCountProblems] {0}; // Массив количества субмитов
+    // ЛУчше было бы использовать вектор для повышения читаемости.
 
     // На вход подаются: C, N, c_i, p_i, t_i, status
     // C - количество команд. <= 1000
@@ -183,13 +133,14 @@ int main()
     // Если было много неудачных попыток, но не было удачных, то неудачные не засчитываются
     // Количество проблем нам не известно
 
-    int lastProblemNumber = 0;
+    int lastProblemNumber = 0; // Оптимизация
     for(int i = 0; i < countTries; i++)
     {
         int teamNumber, problemNumber, time; bool state;
         inf >> teamNumber >> problemNumber >> time >> state;
         problemNumber -= 1;
         teamNumber -= 1;
+
         massTime[problemNumber][nowIndex[problemNumber]] = Try(teamNumber, problemNumber, time, state);
         massTeams[teamNumber].massCountTries[problemNumber] ++;
         nowIndex[problemNumber] ++;
@@ -199,24 +150,24 @@ int main()
 
     for(int indexProblem = 0; indexProblem <= lastProblemNumber; indexProblem++)
     {
-        mergeSort(massTime[indexProblem],
+        mergeSort<Try>(massTime[indexProblem],
                   0,
                   nowIndex[indexProblem] - 1,
                   nowIndex[indexProblem],
-                  true); // Сортировка по командам
+                  compTryTeam); // Сортировка по командам
         int beginIndex = 0;
         for(int indexTeam = 0; indexTeam < countTeams; indexTeam++)
         {
-            mergeSort(massTime[indexProblem],
+            mergeSort<Try>(massTime[indexProblem],
                       beginIndex,
                       beginIndex + massTeams[indexTeam].massCountTries[indexProblem] - 1,
                       massTeams[indexTeam].massCountTries[indexProblem],
-                      false); // Сортировка по времени внутри номера -> команды
+                      compTryTime); // Сортировка по времени внутри номера для команды
 
             int time = 0;
             for(int indexTry = 0; indexTry < massTeams[indexTeam].massCountTries[indexProblem]; indexTry++)
             {
-                if (!massTime[indexProblem][indexTry + beginIndex].state)
+                if (!massTime[indexProblem][beginIndex + indexTry].state)
                 {
                     time += 20 * 60;
                 }
@@ -224,16 +175,8 @@ int main()
                 {
                     massTeams[indexTeam].total_solved += 1;
                     massTeams[indexTeam].total_time += time +
-                            massTime[indexProblem][indexTry + beginIndex].time;
+                                                       massTime[indexProblem][beginIndex + indexTry].time;
                     break;
-//                    if (!stateOfSolved)
-//                    {
-//                        massTeams[indexTeam].total_solved += 1;
-//                        stateOfSolved = true;
-//                    }
-//                    massTeams[indexTeam].total_time += time +
-//                                                       massTime[indexProblem][indexTry + beginIndex].time - prevBestTime;
-//                    prevBestTime = massTime[indexProblem][indexTry + beginIndex].time;
                 }
             }
 
@@ -241,17 +184,14 @@ int main()
         } // Сортировка по времени
     }
 
-    mergeSortTeams(massTeams, 0, countTeams - 1, countTeams);
+    mergeSort<Team>(massTeams, 0, countTeams - 1, countTeams, compTeams);
     ofstream outf ("output.txt");
-    outf << massTeams[0].teamNumber;
 //    cout << massTeams[0].teamNumber;
-    for (int index = 1; index < countTeams; ++index)
+    for (int index = 0; index < countTeams; ++index)
     {
 //        cout << massTeams[index].teamNumber << " " << massTeams[index].total_solved << " " << massTeams[index].total_time << endl;
-        outf << " ";
         outf << massTeams[index].teamNumber;
-//        cout << " ";
-//        cout << massTeams[index].teamNumber;
+        outf << " ";
     }
     outf.close();
 }
