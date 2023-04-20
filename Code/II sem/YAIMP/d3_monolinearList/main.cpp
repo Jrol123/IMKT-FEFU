@@ -32,7 +32,7 @@ struct List
         Node * tempFirstNode = first;
         this-> first = new Node (val);
         this->first-> next = tempFirstNode;
-   }
+   } // Недоделано
 
     void push (int val)
     {
