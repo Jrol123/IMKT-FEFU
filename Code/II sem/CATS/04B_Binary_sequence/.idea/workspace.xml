@@ -3,9 +3,9 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
-  <component name="CMakePresetLoader"><![CDATA[{
-  "useNewFormat": true
-}]]></component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
   <component name="CMakeReloadState">
     <option name="reloaded" value="true" />
   </component>
@@ -21,26 +21,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85088792-1376-4474-95b4-d4f8a3464fad" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/.vs/B0 - Двоичные последовательности/FileContentIndex/3a2f6b43-24d4-4251-83da-f133c97a8f8e.vsidx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/.vs/B0 - Двоичные последовательности/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/.vs/B0 - Двоичные последовательности/v17/.suo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/.vs/B0 - Двоичные последовательности/v17/Browse.VC.db" beforeDir="false" afterPath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/.vs/B0 - Двоичные последовательности/v17/Browse.VC.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Дво.50c170ae.tlog/B0 - Двоичные последовательности.lastbuildstate" beforeDir="false" afterPath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Дво.50c170ae.tlog/B0 - Двоичные последовательности.lastbuildstate" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Дво.50c170ae.tlog/CL.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Дво.50c170ae.tlog/CL.command.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Дво.50c170ae.tlog/CL.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Дво.50c170ae.tlog/CL.read.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Дво.50c170ae.tlog/CL.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Дво.50c170ae.tlog/CL.write.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Дво.50c170ae.tlog/link.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Дво.50c170ae.tlog/link.command.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Дво.50c170ae.tlog/link.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Дво.50c170ae.tlog/link.read.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Дво.50c170ae.tlog/link.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Дво.50c170ae.tlog/link.write.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Двоичные последовательности.exe.recipe" beforeDir="false" afterPath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Двоичные последовательности.exe.recipe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Двоичные последовательности.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Двоичные последовательности.ilk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Двоичные последовательности.log" beforeDir="false" afterPath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Двоичные последовательности.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Двоичные последовательности.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/B0 - Двоичные последовательности.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/vc143.idb" beforeDir="false" afterPath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/vc143.idb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/vc143.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/B0 - Двоичные последовательности/x64/Debug/vc143.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/x64/Debug/B0 - Двоичные последовательности.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/x64/Debug/B0 - Двоичные последовательности.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/x64/Debug/B0 - Двоичные последовательности.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../../../I семестр (VS)/B0 - Двоичные последовательности/x64/Debug/B0 - Двоичные последовательности.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../02A_Golden_middle/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../02A_Golden_middle/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../02A_Golden_middle/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../02A_Golden_middle/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,25 +44,25 @@
     <option name="minorVersion" value="1.1" />
   </component>
   <component name="ProjectId" id="2OjSUzMz1wzBIEFVXTdOruPoNCH" />
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="04B_Binary_sequence" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="04B_Binary_sequence" TARGET_NAME="04B_Binary_sequence" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="04B_Binary_sequence" RUN_TARGET_NAME="04B_Binary_sequence">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="04B_Binary_sequence" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="04B_Binary_sequence" TARGET_NAME="04B_Binary_sequence" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="04B_Binary_sequence" RUN_TARGET_NAME="04B_Binary_sequence">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -96,6 +77,7 @@
       <option name="presentableId" value="Default" />
       <updated>1682072517955</updated>
       <workItem from="1682072519150" duration="113000" />
+      <workItem from="1682117772685" duration="208000" />
     </task>
     <servers />
   </component>
