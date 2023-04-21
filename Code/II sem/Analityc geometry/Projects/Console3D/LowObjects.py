@@ -97,13 +97,14 @@ class Vector(Coordinates):
     Vector class
     """
 
-    def __init__(self, *obj):
+    def __init__(self, pos_point: Point, *obj):
         # : [Coordinates, Point, *int, *float] TypeError: Value after * must be an iterable, not type
         # issue №22
         """
         Инициализация вектора
         :param obj: Координаты, точка или список float-оф
         """
+        self.pos_point = pos_point
         if len(obj) == 1:
             if isinstance(obj[0], Point):
                 super().__init__(obj[0][0], obj[0][1], obj[0][2])
@@ -140,7 +141,7 @@ class Vector(Coordinates):
         d = math.sin(beta)
         e = math.cos(gamma)
         f = math.sin(gamma)
-        return Vector(e * c * x + e * b * d * y + e * a * d * z - a * f * y + b * f * z,
+        return Vector(self.pos_point, e * c * x + e * b * d * y + e * a * d * z - a * f * y + b * f * z,
                       c * f * x + b * d * f * y + a * d * f * z + e * a * y - e * b * z,
                       -d * x + b * c * y + a * c * z)
 
@@ -231,7 +232,7 @@ class VectorSpace:
         VectorSpace.initial_point = initial_point  # Меняет корневые параметры класса
         VectorSpace.basis = [dir1.normalize(), dir2.normalize(), dir3.normalize()]
         # Помнится, я как-то по другому реализовывал изменение корневых параметров, но раз уж оно работает...
-        
+
     # issue 33
     # TypeError: 'type' object is not subscriptable
     # Class 'type' does not define '__getitem__', so the '[]' operator cannot be used on its instances
