@@ -1,3 +1,0 @@
-C:/Users/artem/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/112415_Calculator_fileIn/cmake-build-debug/CMakeFiles/112415_Calculator_fileIn.dir
-C:/Users/artem/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/112415_Calculator_fileIn/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/artem/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/112415_Calculator_fileIn/cmake-build-debug/CMakeFiles/rebuild_cache.dir

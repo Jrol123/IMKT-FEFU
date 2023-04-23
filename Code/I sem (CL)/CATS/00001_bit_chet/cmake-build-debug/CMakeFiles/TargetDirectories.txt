@@ -1,3 +1,0 @@
-D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/00001_bit_chet/cmake-build-debug/CMakeFiles/00001_bit_chet.dir
-D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/00001_bit_chet/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/00001_bit_chet/cmake-build-debug/CMakeFiles/rebuild_cache.dir
