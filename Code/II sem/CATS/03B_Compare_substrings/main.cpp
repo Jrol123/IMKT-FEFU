@@ -2,11 +2,10 @@
 #include <cmath>
 using namespace std;
 
-const unsigned short multipl = 1;
-
-int calcCost(long long massCosts[], int beginIndex, int endIndex)
+const unsigned short multipl = 127;
+int calcCost(long long massHash[], long long massMul[], int beginIndex, int endIndex, int beginSecondStr)
 {
-    return (massCosts[endIndex] - massCosts[beginIndex - 1]) / pow(multipl, beginIndex);
+    return (massHash[endIndex] - massHash[beginIndex - 1]) * massMul[beginSecondStr];
 }
 
 int main()
@@ -14,11 +13,13 @@ int main()
     string line;
     int countRequests;
     cin >> line >> countRequests;
-    long long massCosts [line.length()]; massCosts[0] = int(line[0]);
+    long long massHash [line.length()]; massHash[0] = int(line[0]);
 
+    long long massMul[line.length()]; massMul[0] = 1;
     for (int index = 1; index < line.length(); ++index)
     {
-        massCosts[index] = massCosts[index - 1] + int(line[index]) * pow(multipl, index);
+        massMul[index] = massMul[index - 1] * multipl;
+        massHash[index] = massHash[index - 1] + int(line[index]) * massMul[index];
     }
     for (int index = 0; index < countRequests; ++index)
     {
@@ -32,7 +33,7 @@ int main()
         }
         else if(end1 - begin1 == end2 - begin2)
         {
-            bool status = calcCost(massCosts, begin1, end1) == calcCost(massCosts, begin2, end2);
+            bool status = calcCost(massHash, massMul, begin1, end1, begin2) == calcCost(massHash, massMul, begin2, end2, begin1);
             switch (status)
             {
                 case true:
@@ -50,11 +51,3 @@ int main()
         }
     }
 }
-/*
-trololo
-3
-1 7 1 7
-3 5 5 7
-1 1 1 5
-
- */
