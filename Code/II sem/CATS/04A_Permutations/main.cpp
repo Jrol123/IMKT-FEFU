@@ -31,6 +31,9 @@ void permutations(string& line, unsigned short indexLastChar, unsigned short ind
                 j --;
             } // Прокручивание всех цифр для лексикографического порядка
             permutations(line, indexLastChar, indexFirstChar + 1);
+            /*
+             * Для большей оптимизации можно крутить всё с конца
+             */
             j = indexFirstChar;
             for(int i = indexFirstChar + 1; i<= index; i++)
             {
@@ -40,7 +43,8 @@ void permutations(string& line, unsigned short indexLastChar, unsigned short ind
         }
         /*Циклы нужны для следующих ситуаций:
             Необходимо поменять местами 1 и 3 в 123. Но если сделать простой `swap`, то будет не лексикографический порядок.
-            Поэтому нам нужно 123 превратить в 312. А потом обратно в 123.*/
+            Поэтому нам нужно 123 превратить в 312. А потом обратно в 123.
+        */
     }
 }
 
