@@ -3,8 +3,64 @@
 Camera, Parameters, Object
 """
 import math
+import LowObjects as LO
+import numpy as np
 
-import LowObjects
+
+class Map:
+    """
+    Список объектов
+    """
+    objects_list: list = []
+
+    def push(self, obj):
+        """
+        Метод создания объектов.
+
+        Объекты будут сразу же создаваться тут и добавляться в список.
+
+        Или можно сразу же их здесь и создавать, кстати.
+        :param obj:
+        """
+        self.objects_list.extend(obj)
+
+    def __getitem__(self, item: int):
+        return self.objects_list[item]
+
+    def get(self, index: int):
+        """
+        Явное задавание __getitem__
+        :param index: номер элемента
+        """
+        self.__getitem__(index)
+
+    def __iter__(self):
+        return iter(self.objects_list)
+
+
+class Ray:
+    """
+    Empty
+    """
+
+    def __init__(self, init_point: LO.Point, dir_vector: LO.Vector):
+        """
+        Инициализация луча
+        :param init_point:
+        :param dir_vector:
+        """
+        self.init_point = init_point
+        self.dir_vector = dir_vector
+
+    def intersect(self, mapping: Map) -> list[float]:
+        """
+        Метод определения пересечения с объектами.
+        :param mapping: "Пространство", внутри которого мы будем искать пересечения.
+        :return: Расстояния между начальной точкой и объектами, через которые пройдёт луч.
+        """
+        return [iter_object.intersect(self) for iter_object in mapping]
+
+
 import configparser
 
 
@@ -14,7 +70,7 @@ class Camera:
     Способна просматривать объекты с помощью "sent_rays" функции.
     """
 
-    def __init__(self, position_point: LowObjects.Point, look_at_dir: [LowObjects.Point, LowObjects.Vector],
+    def __init__(self, position_point: LO.Point, look_at_dir: [LO.Point, LO.Vector],
                  fov: [int, float], draw_distance: [int, float]):
         """
         Init for Camera
@@ -25,11 +81,12 @@ class Camera:
         :param draw_distance: Дистанция рисовки
         :return: Camera
         """
+        self.look_at_dir = None  # Вектор / Точка
         self.position_point = position_point
         self.draw_distance = draw_distance
-        if isinstance(look_at_dir, LowObjects.Point):
+        if isinstance(look_at_dir, LO.Point):
             pass
-        elif isinstance(look_at_dir, LowObjects.Vector):
+        elif isinstance(look_at_dir, LO.Vector):
             pass
         else:
             TypeError("Wrong Type!")
@@ -41,15 +98,28 @@ class Camera:
 
         self.vfov = fov * (height / width)
 
-    def sent_rays(self, count) -> list[LowObjects.Vector]:
+        self.screen = BoundedPlane(self.position_point + self.look_at_dir.point, self.look_at_dir, 0, 0, width, height)
+
+    def sent_rays(self) -> list[list[Ray]]:
         """
         Метод пускания лучей для просмотра объектов.
-        Будет связан с камерой.
-        :param count: Количество испускаемых лучей (всего или по-линейно?)
+
+        Луч пускается на каждый пиксель экрана
         """
-        # Как у нас будут пускаться лучи? "По-линейно" (вычисление кол-ва линий по vfow и для каждой линии будут
-        # пускаться count лучей, расположенных по fov)?
-        pass
+        rays = []
+        for index, x in enumerate(np.linspace(-self.screen.width, self.screen.width, int(self.screen.width))):
+            rays.append([])  # Создание лучей на каждый пиксель
+            for y in np.linspace(-self.screen.height, self.screen.height, int(self.screen.height)):
+                """
+                :param x: координата экрана по X
+                :param y: координата экрана по y
+                """
+                direction = LO.Vector(self.screen.pos_point) + \
+                            self.screen.sub_vector_2 * y + \
+                            self.screen.sub_vector_1 * x
+                rays[index].append((Ray(direction.point - self.look_at_dir.point, self.look_at_dir)))
+
+        return rays
 
 
 class Canvas:
@@ -59,17 +129,25 @@ class Canvas:
     :param camera:
     """
 
-    def draw(self) -> None:
-        """
-        Отрисовка (символьная, поблочная)
-        :return: матрица элементов
-        """
+    def __init__(self, map: Map, camera: Camera):
+        self.map = map
+        self.camera = camera
 
     def update(self):
         """
         Возвращает матрицу расстояний из Camera.send_rays
         """
-        pass
+        rays = self.camera.sent_rays()
+        distances_matrix = []
+        for i in range(int(self.camera.screen.width)):
+            distances_matrix.append([])
+            for j in range(int(self.camera.screen.height)):
+                distances = rays[i][j].intersect(self.map)
+                if all(distance is None or distance > self.camera.draw_distance for distance in distances):
+                    distances_matrix[i].append(None)
+                else:
+                    distances_matrix[i].append(min(filter(lambda x: x is not None, distances))) # фильтр None-ов
+
 
 class Console(Canvas):
     """
@@ -78,19 +156,20 @@ class Console(Canvas):
     Конвертация матрицы расстояний в символы
     """
 
+
 class Parameters:
     """
     Empty
     """
 
-    def __init__(self, pos_point: LowObjects.Point, vector_norm: LowObjects.Vector):
+    def __init__(self, pos_point: LO.Point, vector_normal: LO.Vector):
         """
 
         :param pos_point:
-        :param vector_norm:
+        :param vector_normal:
         """
         self.pos_point = pos_point
-        self.vector_norm = vector_norm
+        self.vector_norm = vector_normal
 
     # issue №29
 
@@ -112,7 +191,7 @@ class Parameters:
         """
         self.vector_norm = self.vector_norm.rotation_eiler(x_angle, y_angle, z_angle)
 
-    def contains(self, item) -> LowObjects.Point:
+    def contains(self, item) -> LO.Point:
         """
         public method
         Используется для перегрузки
@@ -120,7 +199,7 @@ class Parameters:
         """
         pass
 
-    def __contains__(self, item) -> LowObjects.Point:
+    def __contains__(self, item) -> LO.Point:
         """
         private method
         используется только для себя
@@ -135,24 +214,24 @@ class ParametersBoundedPlane(Parameters):
     Empty
     """
 
-    def __init__(self, pos_point: LowObjects.Point, vector_normal: LowObjects.Vector,
-                 alpha_1: float, alpha_2: float, width: float, length: float):
+    def __init__(self, pos_point: LO.Point, vector_normal: LO.Vector,
+                 alpha_1: float, alpha_2: float, width: float, height: float):
         """
 
         :param pos_point:
         :param vector_normal:
         :param width:
-        :param length:
+        :param height:
         """
         super().__init__(pos_point, vector_normal)
         self.vector_normal = vector_normal
         self.corner_1 = alpha_1
         self.corner_2 = alpha_2
         self.width = width
-        self.length = length
+        self.height = height
 
-        self.sub_vector_1: LowObjects.Vector
-        if self.vector_normal.coords != LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, 1).coords:
+        self.sub_vector_1: LO.Vector
+        if self.vector_normal.coords != LO.VectorSpace.__getitem__(LO.VectorSpace, 1).coords:
             self.sub_vector_1 = self.vector_normal.rotation_eiler(0, 90, 0)
             # Если не совпадает с OY — поворот по OY
         else:
@@ -162,7 +241,7 @@ class ParametersBoundedPlane(Parameters):
 
     def scaling(self, value: float):
         self.width *= value
-        self.length *= value
+        self.height *= value
 
     def rotate(self, x_angle, y_angle, z_angle):
         self.vector_normal.rotation_eiler(x_angle, y_angle, z_angle)
@@ -175,38 +254,38 @@ class ParametersCube(Parameters):
     Empty
     """
 
-    def __init__(self, pos_point: LowObjects.Point, vector_normal: LowObjects.Vector, alpha_1: float, alpha_2: float, width: float):
+    def __init__(self, pos_point: LO.Point, vector_normal: LO.Vector, alpha_1: float, alpha_2: float,
+                 width: float):
         super().__init__(pos_point, vector_normal)
         self.width = width
         self.mass_edges: list[BoundedPlane][3]
         # Реализовать инициализация массива граней через точку, смещённую по OX, Oy, OZ (выбрать)
         pass
 
-    def move(self, move_point: LowObjects.Point):
-        self.pos_point += move_point
-
-        for edge in self.mass_edges:
-        {
-            edge.pos_point += move_point
-        }
+    def move(self, move_point: LO.Point):
         pass
+        # self.pos_point += move_point
+        #
+        # for edge in self.mass_edges:
+        # {
+        #     edge.pos_point += move_point
+        # }
 
     def scaling(self, value):
-        self.width *= value
-        for edge in self.mass_edges:
-        {
-            edge.scaling(value)
-        }
         pass
+        # self.width *= value
+        # for edge in self.mass_edges:
+        # {
+        #     edge.scaling(value)
+        # }
 
     def rotate(self, x_angle, y_angle, z_angle):
-        self.vector_norm.rotation_eiler(x_angle, y_angle, z_angle)
-        for edge in self.mass_edges:
-        {
-            edge.rotation_eiler(x_angle, y_angle, z_angle)
-        }
         pass
-
+        # self.vector_norm.rotation_eiler(x_angle, y_angle, z_angle)
+        # for edge in self.mass_edges:
+        # {
+        #     edge.rotation_eiler(x_angle, y_angle, z_angle)
+        # }
 
 
 class ParametersSphere(Parameters):
@@ -214,7 +293,7 @@ class ParametersSphere(Parameters):
     Empty
     """
 
-    def __init__(self, pos_point: LowObjects.Point, vector_normal: LowObjects.Vector, radius):
+    def __init__(self, pos_point: LO.Point, vector_normal: LO.Vector, radius):
         super().__init__(pos_point, vector_normal)
         self.radius = radius
 
@@ -227,64 +306,12 @@ class ParametersSphere(Parameters):
         self.radius *= value
 
 
-class Map:
-    """
-    Список объектов
-    """
-    objects_list: list = []
-
-    def push(self, obj):
-        """
-        Метод создания объектов.
-
-        Объекты будут сразу же создаваться тут и добавляться в список.
-        :param obj:
-        """
-        self.objects_list.extend(obj)
-
-    def __getitem__(self, item: int) -> Object:
-        return self.objects_list[item]
-
-    def get(self, index: int):
-        """
-        Явное задавание __getitem__
-        :param index: номер элемента
-        """
-        self.__getitem__(index)
-
-    def __iter__(self):
-        return iter(self.objects_list)
-
-
-class Ray:
-    """
-
-    """
-
-    def __init__(self, init_point: LowObjects.Point, dir_vector: LowObjects.Vector):
-        """
-        Инициализация луча
-        :param init_point:
-        :param dir_vector:
-        """
-        self.init_point = init_point
-        self.dir_vector = dir_vector
-
-    def intersect(self, mapping: Map) -> float:
-        """
-        Метод определения пересечения с объектами.
-        :param mapping:
-        :return: Расстояние между начальной точкой и объектом.
-        """
-        return [iter_object.intersect(self) for iter_object in mapping]
-
-
 class Object:
     """
     Any object
     """
 
-    def __init__(self, pos_point: LowObjects.Point, vector_normal: LowObjects.Vector, parameters: Parameters):
+    def __init__(self, pos_point: LO.Point, vector_normal: LO.Vector, parameters: Parameters):
         """
         object.contains (other) - bool (???)
         :param pos_point: Позиция центра объекта. Задаётся с помощью Point
@@ -295,7 +322,7 @@ class Object:
         self.pos_point = pos_point
         self.vector_normal = vector_normal
 
-    def __contains__(self, point: LowObjects.Point) -> bool:
+    def __contains__(self, point: LO.Point) -> bool:
         """
         Empty
         :param point:
@@ -305,7 +332,7 @@ class Object:
             return True
         return False
 
-    def contains(self, point: LowObjects.Point) -> bool:
+    def contains(self, point: LO.Point) -> bool:
         """
         __contains__
         :param point:
@@ -327,7 +354,7 @@ class Plane(Object):
     Empty
     """
 
-    def __init__(self, pos_point: LowObjects.Point, vector_normal: LowObjects.Vector, parameters: Parameters):
+    def __init__(self, pos_point: LO.Point, vector_normal: LO.Vector, parameters: Parameters):
         """
         Empty
         :param pos_point:
@@ -346,7 +373,7 @@ class Plane(Object):
     def __str__(self):
         return f'Plane({self.pos_point}, {str(self.vector_normal)})'
 
-    def function(self, point: LowObjects.Point) -> float:
+    def function(self, point: LO.Point) -> float:
         """
         Функция Plane
         :param point:
@@ -363,9 +390,9 @@ class Plane(Object):
         """
         if self.vector_normal * ray.dir_vector != 0 \
                 and not (self.contains(ray.init_point)
-                                            and self.contains(ray.dir_vector.pos_point)):
-            t0 = (self.vector_normal * LowObjects.Vector(self.pos_point) -
-                  self.vector_normal * LowObjects.Vector(ray.init_point)) / (self.vector_normal * ray.dir_vector)
+                         and self.contains(ray.dir_vector.pos_point)):
+            t0 = (self.vector_normal * LO.Vector(self.pos_point) -
+                  self.vector_normal * LO.Vector(ray.init_point)) / (self.vector_normal * ray.dir_vector)
             if t0 >= 0:
                 return t0 * ray.dir_vector.length()
 
@@ -373,12 +400,13 @@ class Plane(Object):
             # ???
             return 0
 
-    def nearest_point(self) -> LowObjects.Point:
+    def nearest_point(self) -> LO.Point:
         """
         Возвращает ближайшую к центру точку
         :return: ближайшая к центру точка
         """
         pass
+
 
 class BoundedPlane(ParametersBoundedPlane):
     """
@@ -386,7 +414,7 @@ class BoundedPlane(ParametersBoundedPlane):
     """
 
     # issue №30
-    def __init__(self, pos_point: LowObjects.Point, vector_normal: LowObjects.Vector,
+    def __init__(self, pos_point: LO.Point, vector_normal: LO.Vector,
                  alpha_1: float, alpha_2: float, width: float, height: float):
         """
         1) Находим первый побочный вектор (поворачиваем нормаль на 90 градусов по OY)
@@ -428,34 +456,34 @@ class BoundedPlane(ParametersBoundedPlane):
 
         # реализация с поворотом
 
-        # massAngle = [LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, 2).
-        #              angle_vector(LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, 0)),
-        #              LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, 2).
-        #              angle_vector(LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, 1)),
-        #              LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, 2).
-        #              angle_vector(LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, 2))]
+        # massAngle = [LO.VectorSpace.__getitem__(LO.VectorSpace, 2).
+        #              angle_vector(LO.VectorSpace.__getitem__(LO.VectorSpace, 0)),
+        #              LO.VectorSpace.__getitem__(LO.VectorSpace, 2).
+        #              angle_vector(LO.VectorSpace.__getitem__(LO.VectorSpace, 1)),
+        #              LO.VectorSpace.__getitem__(LO.VectorSpace, 2).
+        #              angle_vector(LO.VectorSpace.__getitem__(LO.VectorSpace, 2))]
         # # Массив углов поворота. OX, OY, OZ
         # for i in range(0, 2 + 1):
-        #     angle = vector_normal.angle_vector(LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, i))
+        #     angle = vector_normal.angle_vector(LO.VectorSpace.__getitem__(LO.VectorSpace, i))
         #     # if angle > 0:
         #     #     massAngle[i] = (massAngle[i] - angle)
         #     # else:
         #     #     massAngle[i] = (massAngle[i] + angle)
         #     massAngle[i] = (massAngle[i] - angle)
         # # scalLen = vector_normal * \
-        # #           LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, 2)  # Скаляр между OZ и vector_normal
+        # #           LO.VectorSpace.__getitem__(LO.VectorSpace, 2)  # Скаляр между OZ и vector_normal
         # # fAngle = vector_normal.angle_vector \
-        # #     (LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, 2))  # Угол между OZ и vector_normal
+        # #     (LO.VectorSpace.__getitem__(LO.VectorSpace, 2))  # Угол между OZ и vector_normal
         # massVec = []  # массив повёрнутых векторов
         # for i in range(2 + 1):
-        #     massVec.append(LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, i).rotation_eiler(*massAngle))
+        #     massVec.append(LO.VectorSpace.__getitem__(LO.VectorSpace, i).rotation_eiler(*massAngle))
         #     # Вектор OZ должен совпадать.
         #     # Выдаёт бешеные векторы
         # massVec[0].rotation_eiler(*(vector_normal.angle_vector
-        #                             (LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, i))
+        #                             (LO.VectorSpace.__getitem__(LO.VectorSpace, i))
         #                             for i in range(0, 2 + 1)))
 
-    def function(self, point: LowObjects.Point) -> float:
+    def function(self, point: LO.Point) -> float:
         """
         Функция Bounded Plane
         :param point:
@@ -469,7 +497,7 @@ class Sphere(Object):
     Empty
     """
 
-    def __init__(self, pos_point: LowObjects.Point, rotation, parameters, radius, get_equation):
+    def __init__(self, pos_point: LO.Point, rotation, parameters, radius, get_equation):
         super().__init__(pos_point, rotation, parameters)
         self.radius = radius
         # self.parameters = parameters(get_equation)
@@ -480,7 +508,7 @@ class Cube(Object):
     Empty
     """
 
-    def __init__(self, pos_point: LowObjects.Point, vector_normal, parameters):
+    def __init__(self, pos_point: LO.Point, vector_normal, parameters):
         """
         Empty
         """
