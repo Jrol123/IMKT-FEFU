@@ -198,12 +198,15 @@ class Vector(Coordinates):
         Нормализация вектора
         :return: Нормализованный вектор
         """
-        return Vector(*(self[i] / self.length() for i in range(0, 2 + 1)))
+        lenVC = self.length()
+        if lenVC == 1:
+            return self
+        return Vector(*(self[i] / lenVC for i in range(0, 2 + 1)))
 
     def length(self) -> float:
         """
-        length of the vector
-        :return: length of the vector
+        height of the vector
+        :return: height of the vector
         """
         return VectorSpace.initialPt.distance(self.coords)
 
