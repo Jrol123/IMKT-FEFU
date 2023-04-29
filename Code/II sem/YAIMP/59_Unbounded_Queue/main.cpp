@@ -7,7 +7,7 @@ struct Node
 };
 
 struct Queue
-        {
+{
     int size = 0;
     Node *top = nullptr;
 
@@ -46,6 +46,7 @@ struct Queue
         }
         free(cur);
         size = 0;
+        top = nullptr;
     }
 };
 
