@@ -21,6 +21,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0dde6ac0-a6db-4868-8ab7-638872fa1d05" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../Analityc geometry/Projects/Console3D/LowObjects.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../Analityc geometry/Projects/Console3D/LowObjects.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -82,6 +83,7 @@
       <workItem from="1682117988040" duration="919000" />
       <workItem from="1682123442159" duration="67000" />
       <workItem from="1682147977300" duration="14000" />
+      <workItem from="1682584682380" duration="347000" />
     </task>
     <servers />
   </component>

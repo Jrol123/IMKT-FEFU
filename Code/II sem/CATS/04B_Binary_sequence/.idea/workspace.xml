@@ -21,7 +21,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85088792-1376-4474-95b4-d4f8a3464fad" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../Analityc geometry/Projects/Console3D/LowObjects.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../Analityc geometry/Projects/Console3D/LowObjects.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../05A_Pancakes/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../05A_Pancakes/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../YAIMP/d4_bilinear_circle_list/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../YAIMP/d4_bilinear_circle_list/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +47,10 @@
     <option name="minorVersion" value="1.1" />
   </component>
   <component name="ProjectId" id="2OjSUzMz1wzBIEFVXTdOruPoNCH" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -57,12 +64,12 @@
   }
 }</component>
   <component name="RunManager">
-    <configuration name="04B_Binary_sequence" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="04B_Binary_sequence" TARGET_NAME="04B_Binary_sequence" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="04B_Binary_sequence" RUN_TARGET_NAME="04B_Binary_sequence">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="04B_Binary_sequence" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="04B_Binary_sequence" TARGET_NAME="04B_Binary_sequence" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="04B_Binary_sequence" RUN_TARGET_NAME="04B_Binary_sequence">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -78,6 +85,7 @@
       <updated>1682072517955</updated>
       <workItem from="1682072519150" duration="113000" />
       <workItem from="1682117772685" duration="208000" />
+      <workItem from="1682805533909" duration="14000" />
     </task>
     <servers />
   </component>
