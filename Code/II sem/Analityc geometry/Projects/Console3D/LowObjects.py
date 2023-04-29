@@ -205,8 +205,8 @@ class Vector(Coordinates):
 
     def length(self) -> float:
         """
-        height of the vector
-        :return: height of the vector
+        Высчитывает длину вектора
+        :return: длина вектора
         """
         return VectorSpace.initialPt.distance(self.coords)
 
