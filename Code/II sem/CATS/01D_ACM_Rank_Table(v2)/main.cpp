@@ -1,8 +1,7 @@
 #include <iostream>
 #include <fstream>
-#include <algorithm>
+#include <vector>
 
-using namespace std;
 static const int maxCountProblems = 20;
 
 struct Team
@@ -30,98 +29,56 @@ struct Try
     }
 };
 
-bool compTeams(const Team& left, const Team& right)
+int compTeams(const void* a, const void* b)
 {
-    return ((left.total_solved > right.total_solved) or
-        (left.total_solved == right.total_solved and left.total_time < right.total_time) or
-        (left.total_solved == right.total_solved and left.total_time == right.total_time and left.teamNumber < right.teamNumber));
+    const Team* left = static_cast<const Team*>(a);
+    const Team* right = static_cast<const Team*>(b);
+    return ((left->total_solved > right->total_solved) ||
+            (left->total_solved == right->total_solved && left->total_time < right->total_time) ||
+            (left->total_solved == right->total_solved && left->total_time == right->total_time && left->teamNumber < right->teamNumber));
     // Проблема до этого компаратора (?)
 }
 
-bool compTryTeam(const Try& left, const Try& right)
+int compTryTeam(const void* a, const void* b)
 {
-    return left.teamNumber < right.teamNumber;
+    const Team* left = static_cast<const Team*>(a);
+    const Team* right = static_cast<const Team*>(b);
+    int diff = left->teamNumber - right->teamNumber;
+    if(diff < 0)
+        return 1;
+    if(diff > 0)
+        return -1;
+    return 0;
+//    return left->teamNumber < right->teamNumber;
 }
 
-bool compTryTime(const Try& left, const Try& right)
+int compTryTime(const void* a, const void* b)
 {
-
-    return left.time <= right.time;
-}
-
-template <typename T>
-void merge(T arr[], int start, int end, int mid, int L, bool (* comparator)(const T&, const T&))
-{
-    T mergedArr[L];
-    int leftIndex, rightIndex, counter;
-    leftIndex = start;
-    counter = start;
-    rightIndex = mid + 1;
-
-    while (leftIndex <= mid && rightIndex <= end)
-    {
-        if (comparator(arr[leftIndex], arr[rightIndex]))
-        {
-            // cout << arr[leftIndex] << " " << arr[rightIndex] << endl;
-            mergedArr[counter] = arr[leftIndex];
-            counter++;
-            leftIndex++;
-        } // Если берём из левой части
-        else
-        {
-            mergedArr[counter] = arr[rightIndex];
-
-            counter++;
-            rightIndex++;
-        } // Если берём из правой части
-    }
-
-    while (leftIndex <= mid)
-    {
-        mergedArr[counter] = arr[leftIndex];
-        counter++;
-        leftIndex++;
-    }
-
-    while (rightIndex <= end)
-    {
-        mergedArr[counter] = arr[rightIndex];
-        counter++;
-        rightIndex++;
-    }
-
-    for (leftIndex = start; leftIndex < counter; leftIndex++)
-    {
-        arr[leftIndex] = mergedArr[leftIndex];
-    }
-}
-
-template <typename T>
-void mergeSort(T arr[], int start, int end, int L, bool (* comparator)(const T&, const T&))
-{
-    int mid;
-    if (start < end)
-    {
-        mid = (start + end) / 2;
-        mergeSort(arr, start, mid, L, comparator);
-        mergeSort(arr, mid + 1, end, L, comparator);
-        merge(arr, start, end, mid, L, comparator);
-    }
+    const Try* left = static_cast<const Try*>(a);
+    const Try* right = static_cast<const Try*>(b);
+    int diff = left->time - right->time;
+    if(diff < 0)
+        return 1;
+    if(diff > 0)
+        return -1;
+    return 0;
+//    return left.time <= right.time;
 }
 
 int main()
 {
-    ifstream inf ("input.txt");
+    std::ifstream inf ("input.txt");
     int countTeams, countTries;
     inf >> countTeams >> countTries;
-    Try massTime[maxCountProblems][countTries]; // 20 * 1000 * 4 = 80 000 / 1024 = 79 kb
+    Try massTime[maxCountProblems][countTries];
+//    std::vector<std::vector<Try>> massTime (maxCountProblems, std::vector<Try>(countTries));
     Team massTeams[countTeams];
+//    std::vector<Team> massTeams(countTeams);
     for (int teamNumber = 0; teamNumber < countTeams; teamNumber++)
     {
         massTeams[teamNumber].teamNumber = teamNumber + 1;
     } // Проименовывание команд
     int nowIndex[maxCountProblems] {0}; // Массив количества субмитов
-    // Лучше было бы использовать вектор для повышения читаемости.
 
     // На вход подаются: C, N, c_i, p_i, t_i, status
     // C - количество команд. <= 1000
@@ -144,25 +101,24 @@ int main()
         massTime[problemNumber][nowIndex[problemNumber]] = Try(teamNumber, problemNumber, time, state);
         massTeams[teamNumber].massCountTries[problemNumber] ++;
         nowIndex[problemNumber] ++;
-        lastProblemNumber = max(lastProblemNumber, problemNumber);
+        lastProblemNumber = std::max(lastProblemNumber, problemNumber);
     }
     inf.close();
 
     for(int indexProblem = 0; indexProblem <= lastProblemNumber; indexProblem++)
     {
-        mergeSort<Try>(massTime[indexProblem],
-                  0,
-                  nowIndex[indexProblem] - 1,
-                  nowIndex[indexProblem],
-                  compTryTeam); // Сортировка по командам
+        std::qsort(massTime[indexProblem],
+                   nowIndex[indexProblem],
+                   sizeof(Try),
+                   compTryTeam); // Сортировка по командам
+                   // Неправильно сортирует
         int beginIndex = 0;
         for(int indexTeam = 0; indexTeam < countTeams; indexTeam++)
         {
-            mergeSort<Try>(massTime[indexProblem],
-                      beginIndex,
-                      beginIndex + massTeams[indexTeam].massCountTries[indexProblem] - 1,
-                      massTeams[indexTeam].massCountTries[indexProblem],
-                      compTryTime); // Сортировка по времени внутри номера для команды
+            std::qsort(&massTime[indexProblem][beginIndex],
+                       massTeams[indexTeam].massCountTries[indexProblem],
+                       sizeof(Try),
+                       compTryTime); // Сортировка по времени внутри номера для команды
 
             int time = 0;
             for(int indexTry = 0; indexTry < massTeams[indexTeam].massCountTries[indexProblem]; indexTry++)
@@ -181,11 +137,15 @@ int main()
             }
 
             beginIndex = massTeams[indexTeam].massCountTries[indexProblem];
-        } // Сортировка по времени
+        }
     }
 
-    mergeSort<Team>(massTeams, 0, countTeams - 1, countTeams, compTeams);
-    ofstream outf ("output.txt");
+    std::qsort(massTeams,
+          countTeams,
+          sizeof(Team),
+          compTeams);
+
+    std::ofstream outf ("output.txt");
 //    cout << massTeams[0].teamNumber;
     for (int index = 0; index < countTeams; ++index)
     {
