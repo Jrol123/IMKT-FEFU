@@ -11,7 +11,7 @@ struct Queue
     int size = 0;
     Node *top = nullptr;
 
-    void push(int val, Node *cur, int index = 0)
+    void push(int val, Node *cur)
     {
         if (cur == nullptr)
         {
@@ -19,7 +19,7 @@ struct Queue
             size ++;
         } else if (cur->next != nullptr)
         {
-            push(val, cur->next, ++index);
+            push(val, cur->next);
         } else
         {
             cur->next = new Node(val);
@@ -34,12 +34,13 @@ struct Queue
         free(cur);
         size --;
     }
-    /*
-     * При очищении top, top не зануляется
-     */
 
     void clear(Node * cur)
     {
+        if(cur == nullptr)
+        {
+            return;
+        }
         if(cur -> next != nullptr)
         {
             clear(cur->next);
