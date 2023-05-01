@@ -4,6 +4,7 @@ struct Node
 {
     int val;
     Node * next = nullptr;
+    explicit Node(int v): val(v){}
 };
 
 struct Queue
@@ -11,17 +12,20 @@ struct Queue
     int size = 0;
     Node *top = nullptr;
 
-    void push(int val, Node *cur)
+    void push(int val)
     {
-        if (cur == nullptr)
+        if (top == nullptr)
         {
             top = new Node(val);
-            size ++;
-        } else if (cur->next != nullptr)
+            size++;
+        }
+        else
         {
-            push(val, cur->next);
-        } else
-        {
+            Node *cur = top;
+            while (cur->next != nullptr)
+            {
+                cur = cur->next;
+            }
             cur->next = new Node(val);
             size++;
         }
@@ -31,29 +35,25 @@ struct Queue
     {
         Node * cur = top;
         top = top->next;
-        free(cur);
+        delete cur;
         size --;
     }
 
-    void clear(Node * cur)
+    void clear()
     {
-        if(cur == nullptr)
+        while (top != nullptr)
         {
-            return;
+            Node *cur = top;
+            top = top->next;
+            delete cur;
         }
-        if(cur -> next != nullptr)
-        {
-            clear(cur->next);
-        }
-        free(cur);
         size = 0;
-        top = nullptr;
     }
 };
 
 int main()
 {
-    Queue * mainQ = new Queue;
+    Queue mainQ;
     std::string input;
     while((std::cin >> input), input != "exit")
     {
@@ -61,14 +61,14 @@ int main()
         {
             case 'u':
                 std::cin >> input;
-                mainQ->push(std::stoi(input), mainQ->top);
+                mainQ.push(std::stoi(input));
                 std::cout << "ok" <<  std::endl;
                 break;
             case 'o':
-                if(mainQ->size > 0)
+                if(mainQ.size > 0)
                 {
-                    std::cout << mainQ->top->val << std::endl;
-                    mainQ->pop();
+                    std::cout << mainQ.top->val << std::endl;
+                    mainQ.pop();
                 }
                 else
                 {
@@ -76,24 +76,24 @@ int main()
                 }
                 break;
             case 'r':
-                if(mainQ->size > 0)
+                if(mainQ.size > 0)
                 {
-                    std::cout << mainQ->top->val << std::endl;;
-                    break;
+                    std::cout << mainQ.top->val << std::endl;
                 }
                 else
                 {
                     std::cout << "error" <<  std::endl;
                 }
+                break;
             case 'i':
-                std::cout << mainQ->size << std::endl;
+                std::cout << mainQ.size << std::endl;
                 break;
             case 'l':
-                mainQ->clear(mainQ->top);
+                mainQ.clear();
                 std::cout << "ok" <<  std::endl;
                 break;
         }
     }
-    std:: cout << "bye";
+    std:: cout << "bye\n";
     return 0;
 }
