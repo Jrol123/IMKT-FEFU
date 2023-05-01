@@ -5,7 +5,7 @@ using namespace std;
 const unsigned short multipl = 127;
 long long calcCost(const long long massHash[], const long long massMul[], int beginIndex, int endIndex, int beginSecondStr)
 {
-    return (massHash[endIndex] - massHash[beginIndex - 1]) * massMul[beginSecondStr];
+    return (massHash[endIndex] - ((beginIndex == 0)? 0 : massHash[beginIndex - 1])) * massMul[beginSecondStr];
 }
 
 int main()
