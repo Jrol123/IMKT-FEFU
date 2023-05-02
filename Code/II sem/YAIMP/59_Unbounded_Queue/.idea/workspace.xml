@@ -20,7 +20,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ebc27eb-3215-4adf-98fb-abedbbf2b2fe" name="Changes" comment="" />
+    <list default="true" id="8ebc27eb-3215-4adf-98fb-abedbbf2b2fe" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Quick CPP test project/Quick_CPP_test_project.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Quick CPP test project/Quick_CPP_test_project.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Quick CPP test project/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Quick CPP test project/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Quick CPP test project/output.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Quick CPP test project/output.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -68,11 +74,6 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -84,6 +85,9 @@
       <updated>1682817544380</updated>
       <workItem from="1682817546012" duration="1660000" />
       <workItem from="1682928904707" duration="1096000" />
+      <workItem from="1683020617754" duration="115000" />
+      <workItem from="1683020742562" duration="22000" />
+      <workItem from="1683021355852" duration="443000" />
     </task>
     <servers />
   </component>

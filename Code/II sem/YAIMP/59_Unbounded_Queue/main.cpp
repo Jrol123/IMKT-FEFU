@@ -1,99 +1,72 @@
 #include <iostream>
+using namespace std;
 
-struct Node
-{
-    int val;
-    Node * next = nullptr;
-    explicit Node(int v): val(v){}
+const int MAX_SIZE = 1000000;
+
+struct Queue {
+  int arr[MAX_SIZE];
+  int front = 0, index = 0;
+
+  void push(int n) {
+    if (index >= MAX_SIZE) {
+      cout << "error\n";
+      return;
+    }
+    arr[index++] = n;
+    cout << "ok\n";
+  }
+
+  void pop() {
+    if (front == index) {
+      cout << "error\n";
+      return;
+    }
+    cout << arr[front++] << "\n";
+  }
+
+  void clear() {
+    front = index = 0;
+    cout << "ok\n";
+  }
+
+  void size() {
+    cout << index - front << "\n";
+  }
+
+  void front_element() {
+    if (front == index) {
+      cout << "error\n";
+      return;
+    }
+    cout << arr[front] << "\n";
+  }
 };
 
-struct Queue
-{
-    int size = 0;
-    Node *top = nullptr;
+int main() {
+  Queue q;
+  string command;
+  int n;
 
-    void push(int val)
-    {
-        if (top == nullptr)
-        {
-            top = new Node(val);
-            size++;
-        }
-        else
-        {
-            Node *cur = top;
-            while (cur->next != nullptr)
-            {
-                cur = cur->next;
-            }
-            cur->next = new Node(val);
-            size++;
-        }
+  while (cin >> command) {
+    if (command == "push") {
+      cin >> n;
+      q.push(n);
     }
-
-    void pop()
-    {
-        Node * cur = top;
-        top = top->next;
-        delete cur;
-        size --;
+    else if (command == "pop") {
+      q.pop();
     }
-
-    void clear()
-    {
-        while (top != nullptr)
-        {
-            Node *cur = top;
-            top = top->next;
-            delete cur;
-        }
-        size = 0;
+    else if (command == "front") {
+      q.front_element();
     }
-};
-
-int main()
-{
-    Queue mainQ;
-    std::string input;
-    while((std::cin >> input), input != "exit")
-    {
-        switch (input[1])
-        {
-            case 'u':
-                std::cin >> input;
-                mainQ.push(std::stoi(input));
-                std::cout << "ok" <<  std::endl;
-                break;
-            case 'o':
-                if(mainQ.size > 0)
-                {
-                    std::cout << mainQ.top->val << std::endl;
-                    mainQ.pop();
-                }
-                else
-                {
-                    std::cout << "error" <<  std::endl;
-                }
-                break;
-            case 'r':
-                if(mainQ.size > 0)
-                {
-                    std::cout << mainQ.top->val << std::endl;
-                }
-                else
-                {
-                    std::cout << "error" <<  std::endl;
-                }
-                break;
-            case 'i':
-                std::cout << mainQ.size << std::endl;
-                break;
-            case 'l':
-                mainQ.clear();
-                std::cout << "ok" <<  std::endl;
-                break;
-        }
+    else if (command == "size") {
+      q.size();
     }
-    std:: cout << "bye\n";
-    return 0;
+    else if (command == "clear") {
+      q.clear();
+    }
+    else if (command == "exit") {
+      cout << "bye\n";
+      break;
+    }
+  }
 }
