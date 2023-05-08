@@ -1,40 +1,90 @@
+#include <ctime>
+#include <iomanip>
 #include <iostream>
-#include <fstream>
-#include <vector>
-#include <queue>
 
 using namespace std;
 
-int f(vector<int>& stones)
-{
-    // Convert stones vector to a max heap
-    priority_queue<int> max_heap(stones.begin(), stones.end());
+const long long COUNT = 100000000;
 
-    // Smash stones until there is only one left
-    while (max_heap.size() > 1)
+void bubbleSort(int mass[], int size)
+{
+    for (int i = 0; i < size - 1; i++)
     {
-        int x = max_heap.top();
-        max_heap.pop();
-        int y = max_heap.top();
-        max_heap.pop();
-        if (x != y)
+        for (int j = 0; j < size - i - 1; j++)
         {
-            max_heap.push(y - x);
+            if (mass[j] > mass[j + 1])
+            {
+                std::swap(mass[j], mass[j + 1]);
+//                int temp = mass[j];
+//                mass[j] = mass[j + 1];
+//                mass[j + 1] = temp;
+            }
         }
     }
-
-    // Return the last stone's weight (if there is one)
-    return max_heap.empty() ? 0 : max_heap.top();
 }
 
-int main()
-{
-    ifstream inf("input.txt");
-    ofstream outf("output.txt");
+void siftDownMax(int mass[], int index, int countEl) {
+    while (2 * index + 1 < countEl) {
+        int leftIndex = 2 * index + 1;
+        int rightIndex = 2 * index + 2;
 
-    vector<int> vector1 {2,7,4,1,8,1};
+        int subIndex = leftIndex;
+        if (rightIndex < countEl and mass[rightIndex] > mass[leftIndex]) {
+            subIndex = rightIndex;
+        } // Выбор наименьшего ребёнка
+        if (mass[index] >= mass[subIndex]) {
+            break;
+        } // Если всё в порядке
+        swap(mass[index], mass[subIndex]);
+        index = subIndex; // Индекс меняемого элемента
+    }
+}
 
-    cout << f(vector1);
+void buildHeapMax(int mass[], int countEl) {
+    for (int i = countEl / 2; i >= 0; --i) {
+        siftDownMax(mass, i, countEl);
+    }
+}
+
+void heap_sort(int mass[], int countEl) {
+    buildHeapMax(mass, countEl);
+
+    for (int i = countEl - 1; i >= 0; i--) {
+        swap(mass[0], mass[i]);
+        siftDownMax(mass, 0, i);
+    }
+}
+
+int main() {
+    int experiments = 10;
+
+    double sumTime = 0;
+
+    for (int i = 0; i < experiments; i++) {
+        int *mass = new int[COUNT];
+        for (int j = 0; j < COUNT; j++) {
+            mass[j] = rand() % 100;
+        }
+
+        clock_t start = clock();
+
+//        heap_sort(mass, COUNT);
+        bubbleSort(mass, COUNT);
+        clock_t end = clock();
+
+        delete[] mass;
+
+        double time = ((double)(end - start)) / CLOCKS_PER_SEC;
+        sumTime += time;
+
+        cout << "Time " << i + 1 << ": " << fixed
+             << setprecision(6) << time << endl;
+    }
+
+    double averageTime = sumTime / experiments;
+
+    cout << "Total time: " << fixed << setprecision(6)
+         << averageTime << endl;
 
     return 0;
 }
