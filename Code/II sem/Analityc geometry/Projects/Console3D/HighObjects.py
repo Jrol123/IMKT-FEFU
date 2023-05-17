@@ -5,6 +5,7 @@ Camera, Parameters, Object
 import math
 import LowObjects as LO
 import numpy as np
+import configparser
 
 
 class Map:
@@ -59,9 +60,6 @@ class Ray:
         :return: Расстояния между начальной точкой и объектами, через которые пройдёт луч.
         """
         return [iter_object.intersect(self) for iter_object in mapping]
-
-
-import configparser
 
 
 class Camera:
@@ -146,7 +144,7 @@ class Canvas:
                 if all(distance is None or distance > self.camera.draw_distance for distance in distances):
                     distances_matrix[i].append(None)
                 else:
-                    distances_matrix[i].append(min(filter(lambda x: x is not None, distances))) # фильтр None-ов
+                    distances_matrix[i].append(min(filter(lambda x: x is not None, distances)))  # фильтр None-ов
 
 
 class Console(Canvas):

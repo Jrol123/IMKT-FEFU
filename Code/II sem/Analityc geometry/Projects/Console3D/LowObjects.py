@@ -121,20 +121,22 @@ class Vector(Coordinates):
         else:
             raise TypeError("Wrong type !")
 
-    def rotation_eiler(self, alpha: float, beta: float, gamma: float):
+    def rotation_eiler(self, alpha: float, beta: float, gamma: float, stat_radians=True):
         """
 
         :param alpha: поворот по OX
         :param beta: поворот по OY
         :param gamma: поворот по OZ
+        :param stat_radians: используются ли радианы
         :return: Вектор, получаемый в результате поворота
         """
         x = self[0]
         y = self[1]
         z = self[2]
-        alpha = math.radians(alpha)
-        beta = math.radians(beta)
-        gamma = math.radians(gamma)
+        if stat_radians:
+            alpha = math.radians(alpha)
+            beta = math.radians(beta)
+            gamma = math.radians(gamma)
         a = math.cos(alpha)
         b = math.sin(alpha)
         c = math.cos(beta)
