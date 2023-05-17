@@ -6,6 +6,7 @@ Coordinates, Point, Vector, Vector space
 
 import math
 
+Round_Num = 5
 
 class Coordinates:
     """
@@ -115,13 +116,13 @@ class Vector(Coordinates):
         elif len(obj) == 3:
             if isinstance(obj[0], (int, float)) and isinstance(obj[1], (int, float)) and isinstance(obj[2],
                                                                                                     (int, float)):
-                super().__init__(round(obj[0], 5), round(obj[1], 5), round(obj[2], 5))
+                super().__init__(round(obj[0], Round_Num), round(obj[1], Round_Num), round(obj[2], Round_Num))
             else:
                 raise TypeError("Wrong type !")
         else:
             raise TypeError("Wrong type !")
 
-    def rotation_eiler(self, alpha: float, beta: float, gamma: float, stat_radians=True):
+    def rotation_eiler(self, alpha: float, beta: float, gamma: float, stat_radians=False):
         """
 
         :param alpha: поворот по OX
@@ -133,7 +134,7 @@ class Vector(Coordinates):
         x = self[0]
         y = self[1]
         z = self[2]
-        if stat_radians:
+        if not stat_radians:
             alpha = math.radians(alpha)
             beta = math.radians(beta)
             gamma = math.radians(gamma)
@@ -200,10 +201,10 @@ class Vector(Coordinates):
         Нормализация вектора
         :return: Нормализованный вектор
         """
-        lenVC = self.length()
-        if lenVC == 1:
+        len_vector = self.length()
+        if len_vector == 1:
             return self
-        return Vector(*(self[i] / lenVC for i in range(0, 2 + 1)))
+        return Vector(*(self[i] / len_vector for i in range(0, 2 + 1)))
 
     def length(self) -> float:
         """
