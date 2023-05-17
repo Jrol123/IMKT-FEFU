@@ -337,9 +337,9 @@ class Object:
         object.contains (other) - bool (???)
         :param pos_point: Позиция центра объекта. Задаётся с помощью Point
         :param vector_normal:
-        :param parameters:
+        # :param parameters:
         """
-        self.parameters = parameters
+        # self.parameters = parameters
         self.pos_point = pos_point
         self.vector_normal = vector_normal
 
