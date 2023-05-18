@@ -5,6 +5,7 @@ Camera, Parameters, Object
 import math
 import LowObjects as LO
 import numpy as np
+import configparser
 
 
 class Map:
@@ -61,9 +62,6 @@ class Ray:
         return [iter_object.intersect(self) for iter_object in mapping]
 
 
-import configparser
-
-
 class Camera:
     """
     Камера.
@@ -71,7 +69,7 @@ class Camera:
     """
 
     def __init__(self, position_point: LO.Point, look_at_dir: [LO.Point, LO.Vector],
-                 fov: [int, float], draw_distance: [int, float]):
+                 fov: [int, float], draw_distance: [int, float], block_size: int):
         """
         Init for Camera
         :param position_point: Point
@@ -79,11 +77,14 @@ class Camera:
         :param vfov: Вертикальный "радиус" просмотра
         :param look_at_dir: Направление взгляда. Задаётся либо с помощью точки, либо с помощью вектора
         :param draw_distance: Дистанция рисовки
+        :param block_size: Размер блоков. Исчисляется в пикселях
         :return: Camera
         """
         self.look_at_dir = None  # Вектор / Точка
         self.position_point = position_point
         self.draw_distance = draw_distance
+        self.block_size = block_size
+
         if isinstance(look_at_dir, LO.Point):
             pass
         elif isinstance(look_at_dir, LO.Vector):
@@ -93,31 +94,51 @@ class Camera:
 
         config = configparser.ConfigParser()
         config.read("config.cfg")
-        height = int(config['SCREEN_PARAM']['height'])
-        width = int(config['SCREEN_PARAM']['width'])
+        self.height = int(config['SCREEN_PARAM']['height'])
+        self.width = int(config['SCREEN_PARAM']['width'])
 
-        self.vfov = fov * (height / width)
+        self.vfov = fov * (self.height / self.width)
 
-        self.screen = BoundedPlane(self.position_point + self.look_at_dir.point, self.look_at_dir, 0, 0, width, height)
+        # self.screen = BoundedPlane(self.position_point + self.look_at_dir.point, self.look_at_dir, 0, 0, width, height)
 
     def sent_rays(self) -> list[list[Ray]]:
         """
-        Метод пускания лучей для просмотра объектов.
+                Метод пускания лучей для просмотра объектов.
 
-        Луч пускается на каждый пиксель экрана
-        """
+                Луч пускается на каждый пиксель экрана
+                """
         rays = []
-        for index, x in enumerate(np.linspace(-self.screen.width, self.screen.width, int(self.screen.width))):
-            rays.append([])  # Создание лучей на каждый пиксель
-            for y in np.linspace(-self.screen.height, self.screen.height, int(self.screen.height)):
-                """
-                :param x: координата экрана по X
-                :param y: координата экрана по y
-                """
-                direction = LO.Vector(self.screen.pos_point) + \
-                            self.screen.sub_vector_2 * y + \
-                            self.screen.sub_vector_1 * x
-                rays[index].append((Ray(direction.point - self.look_at_dir.point, self.look_at_dir)))
+
+        blocks_x = self.width // self.block_size
+        blocks_y = self.height // self.block_size
+
+        # Цикл по блокам
+        for y in range(blocks_y):
+            rays.append([])
+            for x in range(blocks_x):
+                # Координаты левого верхнего угла блока
+                block_left = x * self.block_size
+                block_top = y * self.block_size
+                # Координаты центра блока
+                block_center_x = block_left + self.block_size // 2
+                block_center_y = block_top + self.block_size // 2
+                # Здесь можно запустить луч из центра блока
+                rays[y].append((Ray(self.position_point,
+                                    LO.Vector(self.position_point,
+                                              LO.Point(block_center_x, block_center_y, 0)))))
+                # Проблема с координатами #34
+
+        # for index, x in enumerate(np.linspace(-self.screen.width, self.screen.width, int(self.screen.width))):
+        #     rays.append([])  # Создание лучей на каждый пиксель
+        #     for y in np.linspace(-self.screen.height, self.screen.height, int(self.screen.height)):
+        #         """
+        #         :param x: координата экрана по X
+        #         :param y: координата экрана по y
+        #         """
+        #         direction = LO.Vector(self.screen.pos_point) + \
+        #                     self.screen.sub_vector_2 * y + \
+        #                     self.screen.sub_vector_1 * x
+        #         rays[index].append((Ray(direction.point - self.look_at_dir.point, self.look_at_dir)))
 
         return rays
 
@@ -146,7 +167,7 @@ class Canvas:
                 if all(distance is None or distance > self.camera.draw_distance for distance in distances):
                     distances_matrix[i].append(None)
                 else:
-                    distances_matrix[i].append(min(filter(lambda x: x is not None, distances))) # фильтр None-ов
+                    distances_matrix[i].append(min(filter(lambda x: x is not None, distances)))  # фильтр None-ов
 
 
 class Console(Canvas):
@@ -316,9 +337,9 @@ class Object:
         object.contains (other) - bool (???)
         :param pos_point: Позиция центра объекта. Задаётся с помощью Point
         :param vector_normal:
-        :param parameters:
+        # :param parameters:
         """
-        self.parameters = parameters
+        # self.parameters = parameters
         self.pos_point = pos_point
         self.vector_normal = vector_normal
 
