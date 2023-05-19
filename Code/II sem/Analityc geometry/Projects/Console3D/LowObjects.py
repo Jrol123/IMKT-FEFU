@@ -8,6 +8,7 @@ import math
 
 Round_Num = 5
 
+
 class Coordinates:
     """
     Координаты для разных объектов, оперируемых x, y и z координатами.
@@ -103,7 +104,8 @@ class Vector(Coordinates):
         # issue №22
         """
         Инициализация вектора
-        :param obj: Координаты, точка или список float-оф
+        :param pos_point:
+        :param obj: Координаты, точка или список float
         """
         self.pos_point = pos_point
         if len(obj) == 1:
@@ -112,7 +114,7 @@ class Vector(Coordinates):
             elif isinstance(obj[0], Coordinates):
                 super().__init__(*obj[0])
             else:
-                raise TypeError("Wrong type")
+                raise TypeError("Wrong type !")
         elif len(obj) == 3:
             if isinstance(obj[0], (int, float)) and isinstance(obj[1], (int, float)) and isinstance(obj[2],
                                                                                                     (int, float)):
@@ -120,7 +122,7 @@ class Vector(Coordinates):
             else:
                 raise TypeError("Wrong type !")
         else:
-            raise TypeError("Wrong type !")
+            raise TypeError("Wrong length !")
 
     def rotation_eiler(self, alpha: float, beta: float, gamma: float, stat_radians=False):
         """
@@ -148,6 +150,22 @@ class Vector(Coordinates):
                       c * f * x + b * d * f * y + a * d * f * z + e * a * y - e * b * z,
                       -d * x + b * c * y + a * c * z)
 
+    def rotation_vector(self, alpha: float, other, stat_radians=False):
+        """
+        Поворот относительно другого вектора, лежащего в плоскости, в которой необходимо повернуть вектор.
+        :param alpha:
+        :param other:
+        :param stat_radians:
+        :return:
+        """
+        if not stat_radians:
+            alpha = math.radians(alpha)
+        a = math.cos(alpha)
+        b = math.sin(alpha)
+
+        # v' = cos(alpha) * v + sin(alpha) * w x v + (1 - cos(alpha)) * (w * v) * w
+        return a * self + b * (other ** self) + (1 - a) * (other * self) * other
+
     def angle_vector(self, other) -> float:
         """
         Вычисление абсолютного угла между векторами.
@@ -158,8 +176,7 @@ class Vector(Coordinates):
         print(math.acos(0))  # 1.5
         return math.acos(self * other)
 
-    # Реализовать
-    def __mul__(self, other) -> float:
+    def __mul__(self, other):
         """
         Скалярное произведение
         :param other:
@@ -168,7 +185,7 @@ class Vector(Coordinates):
         if isinstance(other, Vector):
             return sum([self[i] * other[i] for i in range(0, 2 + 1)])
         elif isinstance(other, float):
-            return sum([self[i] * other for i in range(0, 2 + 1)])
+            return Vector(self.pos_point, *(self[i] * other for i in range(0, 2 + 1)))
 
     def __pow__(self, vc):
         """
@@ -176,7 +193,7 @@ class Vector(Coordinates):
         :param vc:
         :return: Returns vector, as the result of vector multiplying
         """
-        return Vector(self[1] * vc[2] - self[2] * vc[1], - (self[0] * vc[2] - self[2] * vc[0]),
+        return Vector(self.pos_point, self[1] * vc[2] - self[2] * vc[1], - (self[0] * vc[2] - self[2] * vc[0]),
                       self[0] * vc[1] - self[1] * vc[0])  # Не сократить из-за особой формулы
 
     # def __sub__(self, other):
@@ -202,9 +219,9 @@ class Vector(Coordinates):
         :return: Нормализованный вектор
         """
         len_vector = self.length()
-        if len_vector == 1:
+        if round(len_vector, Round_Num) == 1:
             return self
-        return Vector(*(self[i] / len_vector for i in range(0, 2 + 1)))
+        return Vector(self.pos_point, *(self[i] / len_vector for i in range(0, 2 + 1)))
 
     def length(self) -> float:
         """
@@ -224,7 +241,7 @@ class VectorSpace:
     # issue 13
     # issue 31
     initialPt = Point(0, 0, 0)
-    basis: list[Vector] = [Vector(Point(1, 0, 0)), Vector(Point(0, 1, 0)), Vector(Point(0, 0, 1))]
+    basis: list[Vector] = [Vector(initialPt, 1, 0, 0), Vector(initialPt, 0, 1, 0), Vector(initialPt, 0, 0, 1)]
 
     def __init__(self, initial_point: Point, dir1: Vector, dir2: Vector, dir3: Vector):
         """
