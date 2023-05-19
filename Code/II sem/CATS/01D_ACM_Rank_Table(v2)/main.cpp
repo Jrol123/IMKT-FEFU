@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <algorithm>
 
 static const int maxCountProblems = 20;
 
@@ -27,42 +28,30 @@ struct Try
         this -> time = time;
         this-> state = state;
     }
+
+    bool operator<(const Try& other) const {
+        return time < other.time;
+    }
 };
 
-int compTeams(const void* a, const void* b)
+bool compTeams(const Team& left, const Team& right)
 {
-    const Team* left = static_cast<const Team*>(a);
-    const Team* right = static_cast<const Team*>(b);
-    return ((left->total_solved > right->total_solved) ||
-            (left->total_solved == right->total_solved && left->total_time < right->total_time) ||
-            (left->total_solved == right->total_solved && left->total_time == right->total_time && left->teamNumber < right->teamNumber));
+    return ((left.total_solved > right.total_solved) or
+            (left.total_solved == right.total_solved and left.total_time < right.total_time) or
+            (left.total_solved == right.total_solved and left.total_time == right.total_time and left.teamNumber < right.teamNumber));
     // Проблема до этого компаратора (?)
 }
 
-int compTryTeam(const void* a, const void* b)
+bool compTryTeam(const Try& left, const Try& right)
 {
-    const Team* left = static_cast<const Team*>(a);
-    const Team* right = static_cast<const Team*>(b);
-    int diff = left->teamNumber - right->teamNumber;
-    if(diff < 0)
-        return 1;
-    if(diff > 0)
-        return -1;
-    return 0;
-//    return left->teamNumber < right->teamNumber;
+    return left.teamNumber < right.teamNumber;
 }
 
-int compTryTime(const void* a, const void* b)
+bool compTryTime(const Try& left, const Try& right)
 {
-    const Try* left = static_cast<const Try*>(a);
-    const Try* right = static_cast<const Try*>(b);
-    int diff = left->time - right->time;
-    if(diff < 0)
-        return 1;
-    if(diff > 0)
-        return -1;
-    return 0;
-//    return left.time <= right.time;
+
+    return left.time <= right.time;
+//    return left.time < right.time;
 }
 
 int main()
@@ -70,10 +59,10 @@ int main()
     std::ifstream inf ("input.txt");
     int countTeams, countTries;
     inf >> countTeams >> countTries;
-    Try massTime[maxCountProblems][countTries];
-//    std::vector<std::vector<Try>> massTime (maxCountProblems, std::vector<Try>(countTries));
-    Team massTeams[countTeams];
-//    std::vector<Team> massTeams(countTeams);
+//    Try massTime[maxCountProblems][countTries];
+    std::vector<std::vector<Try>> massTime (maxCountProblems, std::vector<Try>(countTries));
+//    Team massTeams[countTeams];
+    std::vector<Team> massTeams(countTeams);
     for (int teamNumber = 0; teamNumber < countTeams; teamNumber++)
     {
         massTeams[teamNumber].teamNumber = teamNumber + 1;
@@ -107,18 +96,16 @@ int main()
 
     for(int indexProblem = 0; indexProblem <= lastProblemNumber; indexProblem++)
     {
-        std::qsort(massTime[indexProblem],
-                   nowIndex[indexProblem],
-                   sizeof(Try),
-                   compTryTeam); // Сортировка по командам
-                   // Неправильно сортирует
+        std::sort(massTime[indexProblem].begin(),
+                  massTime[indexProblem].begin() + nowIndex[indexProblem],
+                  compTryTeam);// Сортировка по командам
+
         int beginIndex = 0;
         for(int indexTeam = 0; indexTeam < countTeams; indexTeam++)
         {
-            std::qsort(&massTime[indexProblem][beginIndex],
-                       massTeams[indexTeam].massCountTries[indexProblem],
-                       sizeof(Try),
-                       compTryTime); // Сортировка по времени внутри номера для команды
+            std::sort(&massTime[indexProblem][beginIndex],
+                      &massTime[indexProblem][beginIndex + massTeams[indexTeam].massCountTries[indexProblem]],
+                      compTryTime); // Сортировка по времени внутри номера для команды
 
             int time = 0;
             for(int indexTry = 0; indexTry < massTeams[indexTeam].massCountTries[indexProblem]; indexTry++)
@@ -140,10 +127,7 @@ int main()
         }
     }
 
-    std::qsort(massTeams,
-          countTeams,
-          sizeof(Team),
-          compTeams);
+    std::sort(massTeams.begin(), massTeams.begin() + countTeams, compTeams);
 
     std::ofstream outf ("output.txt");
 //    cout << massTeams[0].teamNumber;
@@ -155,3 +139,5 @@ int main()
     }
     outf.close();
 }
+
+// Проблема в логике вычисления
