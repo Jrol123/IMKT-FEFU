@@ -71,24 +71,22 @@ class Camera:
     def __init__(self, position_point: LO.Point, look_at_dir: [LO.Point, LO.Vector],
                  fov: [int, float], draw_distance: [int, float], block_size: int):
         """
-        Init for Camera
+        Инициализация камеры.
         :param position_point: Point
         :param fov: Горизонтальный "радиус" просмотра
         :param vfov: Вертикальный "радиус" просмотра
-        :param look_at_dir: Направление взгляда. Задаётся либо с помощью точки, либо с помощью вектора
+        :param look_at_dir: Направление взгляда. Задаётся либо с помощью точки, либо с помощью вектора.
+        При точке мы ВСЕГДА смотрим на точку. При векторе мы ВСЕГДА смотрим только в направлении вектора
         :param draw_distance: Дистанция рисовки
         :param block_size: Размер блоков. Исчисляется в пикселях
         :return: Camera
         """
-        self.look_at_dir = None  # Вектор / Точка
         self.position_point = position_point
         self.draw_distance = draw_distance
         self.block_size = block_size
 
-        if isinstance(look_at_dir, LO.Point):
-            pass
-        elif isinstance(look_at_dir, LO.Vector):
-            pass
+        if isinstance(look_at_dir, LO.Point) or isinstance(look_at_dir, LO.Vector):
+            self.look_at_dir = look_at_dir
         else:
             TypeError("Wrong Type!")
 
@@ -100,6 +98,13 @@ class Camera:
         self.vfov = fov * (self.height / self.width)
 
         # self.screen = BoundedPlane(self.position_point + self.look_at_dir.point, self.look_at_dir, 0, 0, width, height)
+
+    def is_static(self):
+        """
+        Проверка, является ли камера "статичной", т. е. смотрит ли камера на фиксированную точку
+        :return:
+        """
+        return isinstance(self.look_at_dir, LO.Point)
 
     def sent_rays(self) -> list[list[Ray]]:
         """

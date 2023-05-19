@@ -43,11 +43,6 @@ bool compTryTeam(const Try& left, const Try& right)
     return left.teamNumber < right.teamNumber;
 }
 
-bool compTryTime(const Try& left, const Try& right)
-{
-
-    return left.time <= right.time;
-}
 
 template <typename T>
 void merge(T arr[], int start, int end, int mid, int L, bool (* comparator)(const T&, const T&))
