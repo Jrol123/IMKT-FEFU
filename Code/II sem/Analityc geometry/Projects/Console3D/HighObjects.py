@@ -256,7 +256,8 @@ class ParametersBoundedPlane(Parameters):
         self.width = width
         self.height = height
 
-        sub_normal = LO.Vector(pos_point, *(vector_normal.coords[i] + delta_coords[i] for i in range(0, 2 + 1))).normalize()
+        sub_normal = LO.Vector(pos_point, *(vector_normal.coords[i] + delta_coords[i] for i in range(0, 2 + 1)))\
+            .normalize()
 
         self.sub_vector_1 = vector_normal ** sub_normal
         self.sub_vector_2 = vector_normal ** self.sub_vector_1
@@ -279,9 +280,9 @@ class ParametersBoundedPlane(Parameters):
         self.height *= value
 
     def rotate(self, x_angle, y_angle, z_angle):
-        self.vector_normal.rotation_eiler(x_angle, y_angle, z_angle)
-        self.sub_vector_1.rotation_eiler(x_angle, y_angle, z_angle)
-        self.sub_vector_2.rotation_eiler(x_angle, y_angle, z_angle)
+        self.vector_normal = self.vector_normal.rotation_eiler(x_angle, y_angle, z_angle)
+        self.sub_vector_1 = self.sub_vector_1.rotation_eiler(x_angle, y_angle, z_angle)
+        self.sub_vector_2 = self.sub_vector_2.rotation_eiler(x_angle, y_angle, z_angle)
 
 
 class ParametersCube(Parameters):
@@ -346,7 +347,7 @@ class Object:
     Any object
     """
 
-    def __init__(self, pos_point: LO.Point, vector_normal: LO.Vector, parameters: Parameters):
+    def __init__(self, pos_point: LO.Point, vector_normal: LO.Vector):
         """
         object.contains (other) - bool (???)
         :param pos_point: Позиция центра объекта. Задаётся с помощью Point
