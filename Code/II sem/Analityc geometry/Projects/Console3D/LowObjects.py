@@ -176,6 +176,20 @@ class Vector(Coordinates):
         print(math.acos(0))  # 1.5
         return math.acos(self * other)
 
+    def __add__(self, other):
+        if isinstance(other, Vector):
+            return Vector(self.pos_point, *(self.coords[i] + other.coords[i] for i in range(0, 2 + 1)))
+        else:
+            TypeError("Wrong type !")
+
+    def sum_vector(self, other):
+        """
+        __add__
+        :param other:
+        :return:
+        """
+        return self.__add__(other)
+
     def __mul__(self, other):
         """
         Скалярное произведение
@@ -191,7 +205,7 @@ class Vector(Coordinates):
         """
         Векторное произведение
         :param vc:
-        :return: Returns vector, as the result of vector multiplying
+        :return: Вектор, являющийся результатом векторного произведения двух векторов
         """
         return Vector(self.pos_point, self[1] * vc[2] - self[2] * vc[1], - (self[0] * vc[2] - self[2] * vc[0]),
                       self[0] * vc[1] - self[1] * vc[0])  # Не сократить из-за особой формулы

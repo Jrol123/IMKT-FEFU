@@ -261,8 +261,9 @@ class ParametersBoundedPlane(Parameters):
         self.sub_vector_1 = vector_normal ** sub_normal
         self.sub_vector_2 = vector_normal ** self.sub_vector_1
 
-        self.sub_vector_1 = self.sub_vector_1.rotation_vector(alpha_1, self.sub_vector_2)
-        self.sub_vector_2 = self.sub_vector_2.rotation_vector(alpha_1 + alpha_2, self.sub_vector_1)
+        self.sub_vector_1 = self.sub_vector_1.rotation_vector(alpha_1, self.vector_normal)
+        # Поворачивает "влево" при alpha > 0 | [0, 1, 0] (alpha = 90) => [-1, 0, 0]
+        self.sub_vector_2 = self.sub_vector_2.rotation_vector(alpha_1 + alpha_2, self.vector_normal)
 
         # self.sub_vector_1: LO.Vector
         # if self.vector_normal.coords != LO.VectorSpace.__getitem__(LO.VectorSpace, 1).coords:
