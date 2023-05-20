@@ -2,12 +2,9 @@
 Зона тестирования
 """
 
-import HighObjects
-import LowObjects
+import HighObjects as HO
+import LowObjects as LO
 
 if __name__ == "__main__":
-    vector1 = LowObjects.VectorSpace.__getitem__(LowObjects.VectorSpace, 0)
-    bp = HighObjects.BoundedPlane(LowObjects.Point(0, 0, 0), LowObjects.Vector(0, 0, 2).normalize(), 0, 0, 1, 1)
-    print(bp.vector_normal.length())
-    print(bp.sub_vector_1.length())
-    print(bp.sub_vector_2.length())
+    BP = HO.BoundedPlane(LO.Point(0, 0, 0), LO.Vector(LO.Point(0, 0, 0), 0, 0, 1), 90, 90, 2, 2, 1, 0, -1)
+    BP.rotate(90, 0, 0)
