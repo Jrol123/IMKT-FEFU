@@ -178,7 +178,9 @@ class Canvas:
 class Console(Canvas):
     """
     Отрисовка символами матрицы
+
     Список символов [#, @, &, ?, j, i, ,, .]
+
     Конвертация матрицы расстояний в символы
     """
 
@@ -241,29 +243,36 @@ class ParametersBoundedPlane(Parameters):
     """
 
     def __init__(self, pos_point: LO.Point, vector_normal: LO.Vector,
-                 alpha_1: float, alpha_2: float, width: float, height: float):
+                 alpha_1: float, alpha_2: float, width: float, height: float, *delta_coords):
         """
 
-        :param pos_point:
-        :param vector_normal:
-        :param width:
-        :param height:
+        :param pos_point: Центр BP
+        :param vector_normal: нормаль BP
+        :param width: ширина BP
+        :param height: высота BP
         """
         super().__init__(pos_point, vector_normal)
         self.vector_normal = vector_normal
-        self.corner_1 = alpha_1
-        self.corner_2 = alpha_2
         self.width = width
         self.height = height
 
-        self.sub_vector_1: LO.Vector
-        if self.vector_normal.coords != LO.VectorSpace.__getitem__(LO.VectorSpace, 1).coords:
-            self.sub_vector_1 = self.vector_normal.rotation_eiler(0, 90, 0)
-            # Если не совпадает с OY — поворот по OY
-        else:
-            self.sub_vector_1 = vector_normal.rotation_eiler(90, 0, 0)
-            # Поворот по OX
-        self.sub_vector_2 = (vector_normal ** self.sub_vector_1)
+        sub_normal = LO.Vector(pos_point, *(vector_normal.coords[i] + delta_coords[i] for i in range(0, 2 + 1))).normalize()
+
+        self.sub_vector_1 = vector_normal ** sub_normal
+        self.sub_vector_2 = vector_normal ** self.sub_vector_1
+
+        self.sub_vector_1 = self.sub_vector_1.rotation_vector(alpha_1, self.vector_normal)
+        # Поворачивает "влево" при alpha > 0 | [0, 1, 0] (alpha = 90) => [-1, 0, 0]
+        self.sub_vector_2 = self.sub_vector_2.rotation_vector(alpha_1 + alpha_2, self.vector_normal)
+
+        # self.sub_vector_1: LO.Vector
+        # if self.vector_normal.coords != LO.VectorSpace.__getitem__(LO.VectorSpace, 1).coords:
+        #     self.sub_vector_1 = self.vector_normal.rotation_eiler(0, 90, 0)
+        #     # Если не совпадает с OY — поворот по OY
+        # else:
+        #     self.sub_vector_1 = vector_normal.rotation_eiler(90, 0, 0)
+        #     # Поворот по OX
+        # self.sub_vector_2 = (vector_normal ** self.sub_vector_1)
 
     def scaling(self, value: float):
         self.width *= value
@@ -441,7 +450,7 @@ class BoundedPlane(ParametersBoundedPlane):
 
     # issue №30
     def __init__(self, pos_point: LO.Point, vector_normal: LO.Vector,
-                 alpha_1: float, alpha_2: float, width: float, height: float):
+                 alpha_1: float, alpha_2: float, width: float, height: float, *delta_coords):
         """
         1) Находим первый побочный вектор (поворачиваем нормаль на 90 градусов по OY)
         2) Поворачиваем первый побочный вектор на alpha_1
@@ -478,7 +487,7 @@ class BoundedPlane(ParametersBoundedPlane):
         :param width:
         :param height:
         """
-        super().__init__(pos_point, vector_normal, alpha_1, alpha_2, width, height)
+        super().__init__(pos_point, vector_normal, alpha_1, alpha_2, width, height, *delta_coords)
 
         # реализация с поворотом
 
