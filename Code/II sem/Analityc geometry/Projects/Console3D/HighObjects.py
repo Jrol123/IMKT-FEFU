@@ -108,10 +108,21 @@ class Camera:
 
     def sent_rays(self) -> list[list[Ray]]:
         """
-                Метод пускания лучей для просмотра объектов.
+        Лучи пускаются на экран.
 
-                Луч пускается на каждый пиксель экрана
-                """
+
+        Для избавления от эффекта рыбьего глаза необходимо проецировать лучи на касательную к сфере.
+
+        vk' = vk / cos(gamma) # нормализованный относительно v1 вектор
+
+        cos(gamma) = cos(v1.angle.vector(vk))
+
+        cos(gamma) = (v1 * vk) / (v1.len() * vk.len())
+
+        vk' = (vk * v1.len() * vk.len()) / (v1 * vk)
+
+        dk' = dk / vk' # дистанция в матрице расстояний
+        """
         rays = []
 
         blocks_x = self.width // self.block_size
@@ -256,7 +267,7 @@ class ParametersBoundedPlane(Parameters):
         self.width = width
         self.height = height
 
-        sub_normal = LO.Vector(pos_point, *(vector_normal.coords[i] + delta_coords[i] for i in range(0, 2 + 1)))\
+        sub_normal = LO.Vector(pos_point, *(vector_normal.coords[i] + delta_coords[i] for i in range(0, 2 + 1))) \
             .normalize()
 
         self.sub_vector_1 = vector_normal ** sub_normal
@@ -332,6 +343,16 @@ class ParametersSphere(Parameters):
     def __init__(self, pos_point: LO.Point, vector_normal: LO.Vector, radius):
         super().__init__(pos_point, vector_normal)
         self.radius = radius
+
+    def function(self, point: LO.Point):
+        """
+        Функция сферы
+        :param point:
+        :return:
+        """
+        return (point.x() - self.pos_point.x()) ** 2 + (point.y() - self.pos_point.y()) ** 2 + (
+                    point.z() - self.pos_point.z()) ** 2 \
+            == self.radius ** 2
 
     def scaling(self, value: float):
         """
@@ -490,35 +511,6 @@ class BoundedPlane(ParametersBoundedPlane):
         """
         super().__init__(pos_point, vector_normal, alpha_1, alpha_2, width, height, *delta_coords)
 
-        # реализация с поворотом
-
-        # massAngle = [LO.VectorSpace.__getitem__(LO.VectorSpace, 2).
-        #              angle_vector(LO.VectorSpace.__getitem__(LO.VectorSpace, 0)),
-        #              LO.VectorSpace.__getitem__(LO.VectorSpace, 2).
-        #              angle_vector(LO.VectorSpace.__getitem__(LO.VectorSpace, 1)),
-        #              LO.VectorSpace.__getitem__(LO.VectorSpace, 2).
-        #              angle_vector(LO.VectorSpace.__getitem__(LO.VectorSpace, 2))]
-        # # Массив углов поворота. OX, OY, OZ
-        # for i in range(0, 2 + 1):
-        #     angle = vector_normal.angle_vector(LO.VectorSpace.__getitem__(LO.VectorSpace, i))
-        #     # if angle > 0:
-        #     #     massAngle[i] = (massAngle[i] - angle)
-        #     # else:
-        #     #     massAngle[i] = (massAngle[i] + angle)
-        #     massAngle[i] = (massAngle[i] - angle)
-        # # scalLen = vector_normal * \
-        # #           LO.VectorSpace.__getitem__(LO.VectorSpace, 2)  # Скаляр между OZ и vector_normal
-        # # fAngle = vector_normal.angle_vector \
-        # #     (LO.VectorSpace.__getitem__(LO.VectorSpace, 2))  # Угол между OZ и vector_normal
-        # massVec = []  # массив повёрнутых векторов
-        # for i in range(2 + 1):
-        #     massVec.append(LO.VectorSpace.__getitem__(LO.VectorSpace, i).rotation_eiler(*massAngle))
-        #     # Вектор OZ должен совпадать.
-        #     # Выдаёт бешеные векторы
-        # massVec[0].rotation_eiler(*(vector_normal.angle_vector
-        #                             (LO.VectorSpace.__getitem__(LO.VectorSpace, i))
-        #                             for i in range(0, 2 + 1)))
-
     def function(self, point: LO.Point) -> float:
         """
         Функция Bounded Plane
@@ -538,14 +530,67 @@ class Sphere(Object):
         self.radius = radius
         # self.parameters = parameters(get_equation)
 
-
-class Cube(Object):
-    """
-    Empty
-    """
-
-    def __init__(self, pos_point: LO.Point, vector_normal, parameters):
+    def intersect(self, ray: Ray):
         """
-        Empty
+        Метод нахождения точки пересечения с лучем
+
+        По-умолчанию должен выдавать точку в конце Draw Distance
+
+        В противном случае выдаёт точку объекта
+
+
+        x = x0 + t*vx
+
+        y = y0 + t*vy
+
+        z = z0 + t*zy
+
+
+        (x-xs)**2 + (y-ys)**2 + (z-zs)**2 = R**2
+
+        После поставления получится квадратное уравнение, с коэф-ами a, b и c.
+
+
+        В блоке if-elif происходит проверка, какая из двух точек пересечения ближе к начальной точке луча.
+        Если t1 ближе, чем t2, то возвращается расстояние до t1, иначе возвращается расстояние до t2.
+
+        :param ray:
+        :return:
         """
-        super().__init__(pos_point, vector_normal, parameters)
+        a = ray.dir_vector * ray.dir_vector
+
+        b = 2 * (ray.dir_vector * LO.Vector(ray.init_point - self.pos_point))
+
+        c = (ray.init_point.x() - self.pos_point.x()) ** 2 + \
+            (ray.init_point.y() - self.pos_point.y()) ** 2 + \
+            (ray.init_point.z() - self.pos_point.z()) ** 2 - \
+            self.radius ** 2
+
+        discriminant = b ** 2 - 4 * a * c
+
+        if discriminant > 0:  # Пересечение в двух местах
+            t1 = (-b + math.sqrt(discriminant)) / (2 * a)
+            t2 = (-b + math.sqrt(discriminant)) / (2 * a)
+            # Смотрим пересечение с поверхностью
+            # Выбираем минимальный положительный
+            if t2 < 0 <= t1 or 0 < t1 <= t2:
+                return t1 * ray.dir_vector.length()
+            elif t1 < 0 <= t2 or 0 < t2 <= t1:
+                return t2 * ray.dir_vector.length()
+
+        elif discriminant == 0:
+            t0 = -b / (2 * a)
+            if t0 >= 0:
+                return t0 * ray.dir_vector.length()
+
+
+# class Cube(Object):
+#     """
+#     Empty
+#     """
+#
+#     def __init__(self, pos_point: LO.Point, vector_normal, parameters):
+#         """
+#         Empty
+#         """
+#         super().__init__(pos_point, vector_normal, parameters)
