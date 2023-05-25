@@ -14,7 +14,7 @@ class Map:
     """
     objects_list: list = []
 
-    def push(self, obj):
+    def append(self, obj):
         """
         Метод создания объектов.
 
@@ -69,7 +69,7 @@ class Camera:
     """
 
     def __init__(self, position_point: LO.Point, look_at_dir: [LO.Point, LO.Vector],
-                 fov: [int, float], draw_distance: [int, float], block_size: int):
+                 fov: float, draw_distance: float, block_size: int):
         """
         Инициализация камеры.
         :param position_point: Point
@@ -190,7 +190,7 @@ class Console(Canvas):
     """
     Отрисовка символами матрицы
 
-    Список символов [#, @, &, ?, j, i, ,, .]
+    Список символов "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'. "
 
     Конвертация матрицы расстояний в символы
     """
@@ -351,7 +351,7 @@ class ParametersSphere(Parameters):
         :return:
         """
         return (point.x() - self.pos_point.x()) ** 2 + (point.y() - self.pos_point.y()) ** 2 + (
-                    point.z() - self.pos_point.z()) ** 2 \
+                point.z() - self.pos_point.z()) ** 2 \
             == self.radius ** 2
 
     def scaling(self, value: float):
@@ -411,21 +411,13 @@ class Plane(Object):
     Empty
     """
 
-    def __init__(self, pos_point: LO.Point, vector_normal: LO.Vector, parameters: Parameters):
+    def __init__(self, pos_point: LO.Point, vector_normal: LO.Vector):
         """
         Empty
         :param pos_point:
         :param vector_normal:
         """
-        super().__init__(pos_point, vector_normal, parameters)
-
-    # def update(self):
-    #     """
-    #     ????????
-    #     :return:
-    #     """
-    #     self.pos_point = self.parameters.pos_point
-    #     self.vector_normal = self.parameters.vector_norm
+        super().__init__(pos_point, vector_normal)
 
     def __str__(self):
         return f'Plane({self.pos_point}, {str(self.vector_normal)})'
@@ -440,22 +432,16 @@ class Plane(Object):
 
     def intersect(self, ray: Ray) -> None or float:
         """
-        СМ github
-        Запихнуть всё, что ниже, в функцию
+        ю
         :param ray:
-        :return: Точка пересечения / Точка, ближайшая к центру плоскости (зачем?)
+        :return: Расстояние от начала камеры до точки пересечения
         """
-        if self.vector_normal * ray.dir_vector != 0 \
-                and not (self.contains(ray.init_point)
-                         and self.contains(ray.dir_vector.pos_point)):
-            t0 = (self.vector_normal * LO.Vector(self.pos_point) -
-                  self.vector_normal * LO.Vector(ray.init_point)) / (self.vector_normal * ray.dir_vector)
-            if t0 >= 0:
-                return t0 * ray.dir_vector.length()
 
-        elif self.contains(ray.init_point):
-            # ???
-            return 0
+        t0 = (self.vector_normal * LO.Vector(self.pos_point) -
+              self.vector_normal * LO.Vector(ray.init_point)) / (self.vector_normal * ray.dir_vector)
+        if t0 < 0:
+            return None
+        return t0 * ray.dir_vector.length()
 
     def nearest_point(self) -> LO.Point:
         """
@@ -474,33 +460,6 @@ class BoundedPlane(ParametersBoundedPlane):
     def __init__(self, pos_point: LO.Point, vector_normal: LO.Vector,
                  alpha_1: float, alpha_2: float, width: float, height: float, *delta_coords):
         """
-        1) Находим первый побочный вектор (поворачиваем нормаль на 90 градусов по OY)
-        2) Поворачиваем первый побочный вектор на alpha_1
-        3) Находим второй побочный вектор с помощью векторного произведения нормали и первого побочного вектора
-        4) Поворачиваем второй побочный вектор на alpha_2
-
-        ИЛИ
-
-        1) сопоставить всю систему "vs" с нормалью, где OZ = vector_normal
-        2) Прокрутить OX на alpha_1, OY на alpha_2
-        3) Умножить OX на width, OY на height
-
-        ИЛИ
-
-        1) На вход получается точка, нормаль, направляющий вектор и угол
-            1.1) Направляющий вектор должен быть нормализован и лежать на плоскости
-        2) Строим правую тройку векторов. Можно сразу же умножать вектора на длину и ширину
-        3) Поворачиваем побочный вектор на alpha
-
-        Стоп, а это не просто улучшенная версия моего способа??
-
-        Список проблем:
-            1) Если работать с "наименьшим углом", то как определить, какую штуку на что прокручивать + умножение?
-            2) Если работать с OZ = vector_normal, то нужно понять, в какую сторону поворачивать
-        Доп:
-            1) учесть, что угол между "побочными" векторами может быть не прямым (ромбы) =>
-            2) поворот идёт сразу по всем осям (и относительно осей) => разбить поворот на 3 части (OX, OY, OZ).
-               Можно поворачивать по-очереди.
 
         :param pos_point:
         :param vector_normal:
@@ -582,7 +541,6 @@ class Sphere(Object):
             t0 = -b / (2 * a)
             if t0 >= 0:
                 return t0 * ray.dir_vector.length()
-
 
 # class Cube(Object):
 #     """
