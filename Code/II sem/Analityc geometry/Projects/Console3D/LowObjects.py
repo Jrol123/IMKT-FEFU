@@ -121,6 +121,9 @@ class Vector(Coordinates):
                 super().__init__(round(obj[0], Round_Num), round(obj[1], Round_Num), round(obj[2], Round_Num))
             else:
                 raise TypeError("Wrong type !")
+        elif len(obj) == 0:
+            self.pos_point = Point(0, 0, 0)
+            super().__init__(pos_point[0], pos_point[1], pos_point[2])
         else:
             raise TypeError("Wrong length !")
 
