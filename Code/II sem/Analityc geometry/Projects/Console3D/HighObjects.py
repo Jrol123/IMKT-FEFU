@@ -1,199 +1,11 @@
 """
 Высокоуровневые объекты
-Camera, Parameters, Object
+Plane, Sphere
 """
 import math
-import LowObjects as LO
 import numpy as np
-import configparser
-
-
-class Map:
-    """
-    Список объектов
-    """
-    objects_list: list = []
-
-    def append(self, obj):
-        """
-        Метод создания объектов.
-
-        Объекты будут сразу же создаваться тут и добавляться в список.
-
-        Или можно сразу же их здесь и создавать, кстати.
-        :param obj:
-        """
-        self.objects_list.extend(obj)
-
-    def __getitem__(self, item: int):
-        return self.objects_list[item]
-
-    def get(self, index: int):
-        """
-        Явное задавание __getitem__
-        :param index: номер элемента
-        """
-        self.__getitem__(index)
-
-    def __iter__(self):
-        return iter(self.objects_list)
-
-
-class Ray:
-    """
-    Empty
-    """
-
-    def __init__(self, init_point: LO.Point, dir_vector: LO.Vector):
-        """
-        Инициализация луча
-        :param init_point:
-        :param dir_vector:
-        """
-        self.init_point = init_point
-        self.dir_vector = dir_vector
-
-    def intersect(self, mapping: Map) -> list[float]:
-        """
-        Метод определения пересечения с объектами.
-        :param mapping: "Пространство", внутри которого мы будем искать пересечения.
-        :return: Расстояния между начальной точкой и объектами, через которые пройдёт луч.
-        """
-        return [iter_object.intersect(self) for iter_object in mapping]
-
-
-class Camera:
-    """
-    Камера.
-    Способна просматривать объекты с помощью "sent_rays" функции.
-    """
-
-    def __init__(self, position_point: LO.Point, look_at_dir: [LO.Point, LO.Vector],
-                 fov: float, draw_distance: float, block_size: int):
-        """
-        Инициализация камеры.
-        :param position_point: Point
-        :param fov: Горизонтальный "радиус" просмотра
-        :param vfov: Вертикальный "радиус" просмотра
-        :param look_at_dir: Направление взгляда. Задаётся либо с помощью точки, либо с помощью вектора.
-        При точке мы ВСЕГДА смотрим на точку. При векторе мы ВСЕГДА смотрим только в направлении вектора
-        :param draw_distance: Дистанция рисовки
-        :param block_size: Размер блоков. Исчисляется в пикселях
-        :return: Camera
-        """
-        self.position_point = position_point
-        self.draw_distance = draw_distance
-        self.block_size = block_size
-
-        if isinstance(look_at_dir, LO.Point) or isinstance(look_at_dir, LO.Vector):
-            self.look_at_dir = look_at_dir
-        else:
-            TypeError("Wrong Type!")
-
-        config = configparser.ConfigParser()
-        config.read("config.cfg")
-        self.height = int(config['SCREEN_PARAM']['height'])
-        self.width = int(config['SCREEN_PARAM']['width'])
-
-        self.vfov = fov * (self.height / self.width)
-
-        # self.screen = BoundedPlane(self.position_point + self.look_at_dir.point, self.look_at_dir, 0, 0, width, height)
-
-    def is_static(self):
-        """
-        Проверка, является ли камера "статичной", т. е. смотрит ли камера на фиксированную точку
-        :return:
-        """
-        return isinstance(self.look_at_dir, LO.Point)
-
-    def sent_rays(self) -> list[list[Ray]]:
-        """
-        Лучи пускаются на экран.
-
-
-        Для избавления от эффекта рыбьего глаза необходимо проецировать лучи на касательную к сфере.
-
-        vk' = vk / cos(gamma) # нормализованный относительно v1 вектор
-
-        cos(gamma) = cos(v1.angle.vector(vk))
-
-        cos(gamma) = (v1 * vk) / (v1.len() * vk.len())
-
-        vk' = (vk * v1.len() * vk.len()) / (v1 * vk)
-
-        dk' = dk / vk' # дистанция в матрице расстояний
-        """
-        rays = []
-
-        blocks_x = self.width // self.block_size
-        blocks_y = self.height // self.block_size
-
-        # Цикл по блокам
-        for y in range(blocks_y):
-            rays.append([])
-            for x in range(blocks_x):
-                # Координаты левого верхнего угла блока
-                block_left = x * self.block_size
-                block_top = y * self.block_size
-                # Координаты центра блока
-                block_center_x = block_left + self.block_size // 2
-                block_center_y = block_top + self.block_size // 2
-                # Здесь можно запустить луч из центра блока
-                rays[y].append((Ray(self.position_point,
-                                    LO.Vector(self.position_point,
-                                              LO.Point(block_center_x, block_center_y, 0)))))
-                # Проблема с координатами #34
-
-        # for index, x in enumerate(np.linspace(-self.screen.width, self.screen.width, int(self.screen.width))):
-        #     rays.append([])  # Создание лучей на каждый пиксель
-        #     for y in np.linspace(-self.screen.height, self.screen.height, int(self.screen.height)):
-        #         """
-        #         :param x: координата экрана по X
-        #         :param y: координата экрана по y
-        #         """
-        #         direction = LO.Vector(self.screen.pos_point) + \
-        #                     self.screen.sub_vector_2 * y + \
-        #                     self.screen.sub_vector_1 * x
-        #         rays[index].append((Ray(direction.point - self.look_at_dir.point, self.look_at_dir)))
-
-        return rays
-
-
-class Canvas:
-    """
-    Полотно отрисовки.
-    :param map: Карта
-    :param camera:
-    """
-
-    def __init__(self, map: Map, camera: Camera):
-        self.map = map
-        self.camera = camera
-
-    def update(self):
-        """
-        Возвращает матрицу расстояний из Camera.send_rays
-        """
-        rays = self.camera.sent_rays()
-        distances_matrix = []
-        for i in range(int(self.camera.screen.width)):
-            distances_matrix.append([])
-            for j in range(int(self.camera.screen.height)):
-                distances = rays[i][j].intersect(self.map)
-                if all(distance is None or distance > self.camera.draw_distance for distance in distances):
-                    distances_matrix[i].append(None)
-                else:
-                    distances_matrix[i].append(min(filter(lambda x: x is not None, distances)))  # фильтр None-ов
-
-
-class Console(Canvas):
-    """
-    Отрисовка символами матрицы
-
-    Список символов "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'. "
-
-    Конвертация матрицы расстояний в символы
-    """
+import LowObjects as LO
+import UtilityObjects as UO
 
 
 class Parameters:
@@ -296,43 +108,43 @@ class ParametersBoundedPlane(Parameters):
         self.sub_vector_2 = self.sub_vector_2.rotation_eiler(x_angle, y_angle, z_angle)
 
 
-class ParametersCube(Parameters):
-    """
-    Empty
-    """
-
-    def __init__(self, pos_point: LO.Point, vector_normal: LO.Vector, alpha_1: float, alpha_2: float,
-                 width: float):
-        super().__init__(pos_point, vector_normal)
-        self.width = width
-        self.mass_edges: list[BoundedPlane][3]
-        # Реализовать инициализация массива граней через точку, смещённую по OX, Oy, OZ (выбрать)
-        pass
-
-    def move(self, move_point: LO.Point):
-        pass
-        # self.pos_point += move_point
-        #
-        # for edge in self.mass_edges:
-        # {
-        #     edge.pos_point += move_point
-        # }
-
-    def scaling(self, value):
-        pass
-        # self.width *= value
-        # for edge in self.mass_edges:
-        # {
-        #     edge.scaling(value)
-        # }
-
-    def rotate(self, x_angle, y_angle, z_angle):
-        pass
-        # self.vector_norm.rotation_eiler(x_angle, y_angle, z_angle)
-        # for edge in self.mass_edges:
-        # {
-        #     edge.rotation_eiler(x_angle, y_angle, z_angle)
-        # }
+# class ParametersCube(Parameters):
+#     """
+#     Empty
+#     """
+#
+#     def __init__(self, pos_point: LO.Point, vector_normal: LO.Vector, alpha_1: float, alpha_2: float,
+#                  width: float):
+#         super().__init__(pos_point, vector_normal)
+#         self.width = width
+#         self.mass_edges: list[BoundedPlane][3]
+#         # Реализовать инициализация массива граней через точку, смещённую по OX, Oy, OZ (выбрать)
+#         pass
+#
+#     def move(self, move_point: LO.Point):
+#         pass
+#         # self.pos_point += move_point
+#         #
+#         # for edge in self.mass_edges:
+#         # {
+#         #     edge.pos_point += move_point
+#         # }
+#
+#     def scaling(self, value):
+#         pass
+#         # self.width *= value
+#         # for edge in self.mass_edges:
+#         # {
+#         #     edge.scaling(value)
+#         # }
+#
+#     def rotate(self, x_angle, y_angle, z_angle):
+#         pass
+#         # self.vector_norm.rotation_eiler(x_angle, y_angle, z_angle)
+#         # for edge in self.mass_edges:
+#         # {
+#         #     edge.rotation_eiler(x_angle, y_angle, z_angle)
+#         # }
 
 
 class ParametersSphere(Parameters):
@@ -397,7 +209,7 @@ class Object:
         """
         return self.__contains__(point)
 
-    def intersect(self, ray: Ray) -> float or None:
+    def intersect(self, ray: UO.Ray) -> float or None:
         """
         Точка пересечения
         """
@@ -430,7 +242,7 @@ class Plane(Object):
         """
         return sum(self.vector_normal[i] * (self.pos_point[i] - point[i]) for i in range(3))
 
-    def intersect(self, ray: Ray) -> None or float:
+    def intersect(self, ray: UO.Ray) -> None or float:
         """
         ю
         :param ray:
@@ -442,13 +254,6 @@ class Plane(Object):
         if t0 < 0:
             return None
         return t0 * ray.dir_vector.length()
-
-    def nearest_point(self) -> LO.Point:
-        """
-        Возвращает ближайшую к центру точку
-        :return: ближайшая к центру точка
-        """
-        pass
 
 
 class BoundedPlane(ParametersBoundedPlane):
@@ -478,6 +283,12 @@ class BoundedPlane(ParametersBoundedPlane):
         """
         pass
 
+    def intersect(self, ray: UO.Ray) -> None or float:
+        """
+
+        :param ray:
+        """
+
 
 class Sphere(Object):
     """
@@ -489,7 +300,7 @@ class Sphere(Object):
         self.radius = radius
         # self.parameters = parameters(get_equation)
 
-    def intersect(self, ray: Ray):
+    def intersect(self, ray: UO.Ray):
         """
         Метод нахождения точки пересечения с лучем
 
