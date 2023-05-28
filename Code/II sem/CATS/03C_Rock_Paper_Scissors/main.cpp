@@ -1,195 +1,133 @@
 #include <fstream>
-#include <vector>
+#define strg std::string
 
 /*
  * Идея следующая — сделать List (Set) для каждого предмета и после запроса проходить по этому листу для первого игрока и искать предмет второго.
  * Если он найден — победа первого. Если нет, то переходим ко второму игроку. Если и у него не найден, то ничья.
  */
 
-const unsigned short max_count_items = 2440 + 1; // 'z' * 20 = 2440
+/*
+ * Проблем с индексацией быть не должно (см. hash)
+ */
+
+const unsigned short max_count_items = ('z' - 'a' + 1) * 20;
 
 struct Set
 {
 private:
+    template<typename T>
     struct List
     {
     private:
         struct Node
         {
-            std::string val;
+            T val;
             Node* next = nullptr;
 
-            explicit Node(const std::string& val)
+            explicit Node(const T& val)
             {
-                this-> val = val;
+                this->val = T(val);
             }
         };
 
-        Node* begin = nullptr;
-
     public:
 
-        std::string item = "NONE";
+        strg name= "HASH";
+        Node* begin_Node = nullptr;
 
-        void push(const std::string& val)
+        List()
+        = default;
+
+        explicit List(const strg& name)
         {
-            if (this->begin == nullptr)
-            {
-                this->begin = new Node(val);
-            }
-
-            Node* cur = begin;
-            bool state = true;
-            if (cur->val != val)
-            {
-                while (cur->next != nullptr)
-                {
-                    cur = cur->next;
-                    if (cur->val == val)
-                    {
-                        state = false;
-                        break;
-                    }
-                }
-                if (state)
-                {
-                    cur->next = new Node(val);
-                }
-            }
+            this->name = name;
         }
 
-        bool find(const std::string& val)
+        void push(const T& val)
         {
-            Node* cur = begin;
-            if (cur->val == val)
+            if (this->begin_Node == nullptr)
+            {
+                begin_Node = new Node(val);
+                return;
+            }
+            Node* cur = this->begin_Node;
+            while(cur-> next != nullptr)
+            {
+                cur = cur->next;
+            }
+            cur->next = new Node(val);
+        }
+
+        bool find(const T& val)
+        {
+            Node* cur = this->begin_Node;
+            if (cur->val != val)
+            {
+                while(cur->next != nullptr && cur->next->val != val)
+                {
+                    if (cur->next->val == val)
+                    {
+                        return true;
+                    }
+                    cur = cur->next;
+                }
+                return false;
+            }
+            else
             {
                 return true;
             }
-            while (cur->next != nullptr)
-            {
-                cur = cur->next;
-                if (cur->val == val)
-                {
-                    return true;
-                }
-            }
-            return false;
         }
     };
 
-    unsigned int hash(const std::string& obj)
+    unsigned short hash(const strg& val)
     {
-        unsigned int sum = 0;
-        for(char i : obj)
+        unsigned short sum = 0;
+
+        for (const unsigned char sym:val)
         {
-            sum += i;
+            sum += sym - 'a' + 1;
         }
-        return sum;
+
+        return sum - 1;
+    }
+
+    List<List<strg>> space[max_count_items];
+
+    auto find(const strg& val)
+    {
+        unsigned short val_dom = hash(val);
+
+        auto* cur = space[val_dom].begin_Node;
+        while(cur->val.name != val)
+        {
+            cur = cur->next;
+        }
+
+        return cur;
     }
 
 public:
-//    std::vector<List> space(max_count_items);
-    List space[max_count_items];
-    void push(const std::string& item1, const std::string& item2)
+
+    void init(const strg& name)
     {
-        int val1 = hash(item1);
-        if (space[val1].item == item1)
-        {
-            space[val1].push(item2);
-        }
-        else
-        {
-            bool state = false;
-//            throw std::runtime_error("Хеш-функция не подходит на моменте init");
-            for(unsigned int index = val1 + 1; index < max_count_items; ++index)
-            {
-                if (space[val1].item == item1)
-                {
-                    space[val1].push(item2);
-                    state = true;
-                    break;
-                }
-            }
-            if (!state)
-            {
-                for(unsigned int index = 0; index < val1; ++index)
-                {
-                    if (space[val1].item == item1)
-                    {
-                        space[val1].push(item2);
-                        break;
-                    }
-                }
-            }
-        }
+        unsigned short val_name = hash(name);
+        space[val_name].push(List<strg>(name));
     }
 
-    void init(const std::string& item)
+    void push(const strg& dom, const strg& sub)
     {
-        unsigned int val1 = hash(item);
-        if(space[val1].item == "NONE")
-        {
-            space[val1].item = item;
-        }
-        else
-        {
-            bool state = false;
-//            throw std::runtime_error("Хеш-функция не подходит на моменте init");
-            for(unsigned int index = val1 + 1; index < max_count_items; ++index)
-            {
-                if(space[val1].item == "NONE")
-                {
-                    space[val1].item = item;
-                    state = true;
-                    break;
-                }
-            }
-            if (!state)
-            {
-                for(unsigned int index = 0; index < val1; ++index)
-                {
-                    if(space[val1].item == "NONE")
-                    {
-                        space[val1].item = item;
-                        break;
-                    }
-                }
-            }
-
-        }
+        find(dom)->val.push(sub);
     }
 
-    bool find(const std::string& item1, const std::string& item2)
+    bool find(const strg& dom, const strg& sub)
     {
-        int val1 = hash(item1);
-        if (space[val1].item == item1)
-        {
-            return space[val1].find(item2);
-        }
-        else
-        {
-            bool state = false;
-            for(unsigned int index = val1 + 1; index < max_count_items; ++index)
-            {
-                if (space[val1].item == item1)
-                {
-                    return space[val1].find(item2);
-                }
-            }
-            for(unsigned int index = 0; index < val1; ++index)
-            {
-                if (space[val1].item == item1)
-                {
-                    return space[val1].find(item2);
-                }
-            }
-        }
+        return find(dom)->val.find(sub);
     }
 };
-
-
-
-
+/*
+ * В теории можно сделать Set Set-ов
+ */
 
 int main()
 {
@@ -202,20 +140,20 @@ int main()
 
     for(int index = 0; index < count_items; index++)
     {
-        std::string item;
+        strg item;
         inf >> item;
         mass.init(item);
-    } // проименование
+    } // Проименование
 
     inf >> count_pairs;
 
 
     for(int index = 0; index < count_pairs; index++)
     {
-        std::string item1, item2;
+        strg item1, item2;
         inf >> item1 >> item2;
         mass.push(item1, item2);
-    }
+    } // Добавление пар предметов
 
     inf >> count_games;
 
@@ -237,7 +175,7 @@ int main()
         {
             outf << "0 ";
         }
-    }
+    } // Сравнение
 
 
     /*
