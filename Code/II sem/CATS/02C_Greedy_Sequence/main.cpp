@@ -6,6 +6,10 @@
 // "Если наименьших чисел более двух, следует выбрать числа с наименьшими номерами в последовательности".
 // И ЕСЛИ ТАКИХ МИНИМАЛЬНЫХ ЧИСЕЛ ДВОЕ, ТО ОНИ ПО-ЛЮБОМУ ПОПАДУТ В "ГОЛОВУ"!
 
+// Сравнивать по-индексам
+
+// Компаратор: Сортировка по возрастанию по значению, потом по индексу
+
 void siftUpMin(int mass [], int massIndexes[], int massOrigin[], int index)
 {
     while(mass[index] < mass[(index - 1) / 2])
@@ -29,7 +33,7 @@ void siftDownMin(int mass [], int massIndexes[],int massOrigin[], int index, con
         {
             subIndex = rightIndex;
         } // Выбор наименьшего ребёнка
-        if(mass[index] <= mass[subIndex])
+        if(mass[index] < mass[subIndex])
         {
             break;
         } // Если всё в порядке

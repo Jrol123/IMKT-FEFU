@@ -1,10 +1,5 @@
-#include <iostream>
-#include <algorithm>
+#include <queue>
 #include <fstream>
-
-/*
- * TL на 2-м тесте
- */
 
 int main()
 {
@@ -12,33 +7,25 @@ int main()
     unsigned int countPeople, countTotalSip;
     inf >> countPeople >> countTotalSip;
 
-    unsigned int massPeople[countPeople];
-    unsigned int totalThirst = 0;
+    std::priority_queue<long long> thirstMass;
+
+//    unsigned int massPeople[countPeople];
+    unsigned long long totalThirst = 0;
     for(int index = 0; index < countPeople; ++index)
     {
-        inf >> massPeople[index];
-        totalThirst += massPeople[index];
+        int num = 0;
+        inf >> num;
+        thirstMass.push(num);
+        totalThirst += num;
     }
     inf.close();
 
-    sort(massPeople, massPeople + countPeople, std::greater<unsigned int>());
-
     for(unsigned int countSips = 0; (countSips < countTotalSip) & (totalThirst > 0); ++countSips)
     {
-        totalThirst -= massPeople[0];
-        massPeople[0] /= 10;
-        totalThirst += massPeople[0];
-        while (massPeople[0] > massPeople[1] && totalThirst > 0)
-        {
-            totalThirst -= massPeople[0];
-            massPeople[0] /= 10;
-            totalThirst += massPeople[0];
-            countSips ++;
-            if(countSips >= countTotalSip)
-                break;
-        }
-
-        sort(massPeople, massPeople + countPeople, std::greater<unsigned int>());
+        long long thirstAmount = thirstMass.top();
+        totalThirst -= thirstAmount - (thirstAmount / 10);
+        thirstMass.pop();
+        thirstMass.push(thirstAmount / 10);
     }
 
     std::ofstream outf ("output.txt");
