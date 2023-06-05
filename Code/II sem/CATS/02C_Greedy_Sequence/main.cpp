@@ -1,14 +1,25 @@
 #include <fstream>
 
-// необходимо сделать устойчивую кучу?
-
-// Честно, я не понимаю зачем тут вообще нужно сохранение индексов.
-// "Если наименьших чисел более двух, следует выбрать числа с наименьшими номерами в последовательности".
-// И ЕСЛИ ТАКИХ МИНИМАЛЬНЫХ ЧИСЕЛ ДВОЕ, ТО ОНИ ПО-ЛЮБОМУ ПОПАДУТ В "ГОЛОВУ"!
-
 // Сравнивать по-индексам
 
 // Компаратор: Сортировка по возрастанию по значению, потом по индексу
+
+// попробовать std::pair
+
+bool comparator(const int (&massIndexes)[], const int (&massOrigin)[], const int& indexLeft, const int& indexRight, const int& left, const int& right)
+{
+    if (left < right)
+        return true;
+    if (right < left)
+        return false;
+
+    int trueIndexLeft = massOrigin[massIndexes[indexLeft]];
+    int trueIndexRight = massOrigin[massIndexes[indexRight]];
+    if (trueIndexLeft < trueIndexRight)
+        return true;
+
+    return false;
+}
 
 void siftUpMin(int mass [], int massIndexes[], int massOrigin[], int index)
 {
@@ -29,11 +40,13 @@ void siftDownMin(int mass [], int massIndexes[],int massOrigin[], int index, con
         int rightIndex = 2 * index + 2;
 
         int subIndex = leftIndex;
-        if(rightIndex < countEl and mass[rightIndex] < mass[leftIndex])
+        if(rightIndex < countEl and (mass[rightIndex] < mass[leftIndex] ||
+        (mass[rightIndex] == mass[leftIndex] && massOrigin[massIndexes[rightIndex]] < massOrigin[massIndexes[leftIndex]])))
         {
             subIndex = rightIndex;
         } // Выбор наименьшего ребёнка
-        if(mass[index] < mass[subIndex])
+        if(mass[index] < mass[subIndex] ||
+        (mass[index] == mass[subIndex] && massOrigin[massIndexes[index]] < massOrigin[massIndexes[subIndex]]))
         {
             break;
         } // Если всё в порядке
@@ -81,6 +94,8 @@ int main()
 
     buildHeapMin(heap_min, mass_indexes, mass_origin, count_elements);
 
+    int lastIndex = count_elements - 1;
+
     for(int i = 0; i < count_operations; ++i)
     {
         int sum = 0; // 2 * 10^4
@@ -92,9 +107,15 @@ int main()
         }
 
         const unsigned int end_index = count_elements - 2;
-        heap_min[end_index] = sum;
+        lastIndex ++;
 
-        siftUpMin(heap_min, mass_indexes, mass_origin, end_index);
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ОШИБКА !!!!!!!!!!!!!!!!!!!!!!!!!
+        heap_min[end_index] = sum;
+        mass_indexes[end_index] = end_index;
+        mass_origin[end_index] = lastIndex;
+
+        if (i + 1 != count_operations)
+            siftUpMin(heap_min, mass_indexes, mass_origin, end_index);
 //        std::push_heap(&heap_min[0], &heap_min[end_index + 1], std::greater<int>());
         count_elements --;
     }
