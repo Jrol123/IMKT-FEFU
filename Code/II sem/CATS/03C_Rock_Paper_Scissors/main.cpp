@@ -7,9 +7,7 @@
  */
 
 /*
- * Проблем с индексацией быть не должно (см. Set.space)
- *
- * Проверить выход за границы
+ * При минимуме и максимуме всё нормально
  */
 
 const unsigned short max_count_items = ('z' - 'a' + 1) * 20;
@@ -60,25 +58,24 @@ private:
             cur->next = new Node(val);
         }
 
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ПРОБЛЕМА !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         bool find(const T& val)
         {
-            Node* cur = this->begin_Node;
-            if (cur->val != val)
-            {
-                while(cur->next != nullptr && cur->next->val != val)
-                {
-                    if (cur->next->val == val)
-                    {
-                        return true;
-                    }
-                    cur = cur->next;
-                }
+            // shokolad
+            if (this->begin_Node == nullptr)
                 return false;
-            }
-            else
-            {
+            Node* cur = this->begin_Node;
+            if (cur->val == val)
                 return true;
+            while(cur->next != nullptr)
+            {
+                if (cur->next->val == val)
+                {
+                    return true;
+                }
+                cur = cur->next;
             }
+            return false;
         }
     };
 
@@ -98,7 +95,7 @@ private:
 
     auto find(const strg& val)
     {
-        unsigned short val_dom = hash(val);
+        unsigned short val_dom = hash(val); // t
 
         auto* cur = space[val_dom].begin_Node;
         while(cur->val.name != val)
@@ -163,8 +160,9 @@ int main()
 
     for(int index = 0; index < count_games; index++)
     {
-        std::string item1, item2;
+        strg item1, item2;
         inf >> item1 >> item2;
+        // Shokolad-Shokolad
         if(mass.find(item1, item2))
         {
             outf << "1 ";
