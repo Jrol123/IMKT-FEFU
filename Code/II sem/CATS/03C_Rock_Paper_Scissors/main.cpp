@@ -6,10 +6,6 @@
  * Если он найден — победа первого. Если нет, то переходим ко второму игроку. Если и у него не найден, то ничья.
  */
 
-/*
- * При минимуме и максимуме всё нормально
- */
-
 const unsigned short max_count_items = ('z' - 'a' + 1) * 20;
 
 struct Set
@@ -58,7 +54,6 @@ private:
             cur->next = new Node(val);
         }
 
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ПРОБЛЕМА !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         bool find(const T& val)
         {
             // shokolad
@@ -162,7 +157,6 @@ int main()
     {
         strg item1, item2;
         inf >> item1 >> item2;
-        // Shokolad-Shokolad
         if(mass.find(item1, item2))
         {
             outf << "1 ";
