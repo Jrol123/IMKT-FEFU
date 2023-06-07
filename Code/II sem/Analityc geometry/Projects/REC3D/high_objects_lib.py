@@ -1,13 +1,14 @@
 """
 Библиотека с "высокоуровневыми" объектами
+
+Note:
+    Векторы не нормализованы (а зря).
 """
 import sys
 import math
 from abc import abstractmethod
 
-from low_objects_lib import Vector
-from low_objects_lib import Point
-from low_objects_lib import Ray
+from low_objects_lib import Point, Vector, Ray
 
 
 class Object:
