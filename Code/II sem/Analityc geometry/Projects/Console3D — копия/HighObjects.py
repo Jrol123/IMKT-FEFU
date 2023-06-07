@@ -144,7 +144,9 @@ class Camera:
                 dir_vector = dir_vector - LO.Vector(self.position_point)
                 dir_vector.pos_point = LO.Point(dir_vector.pos_point.x(), dir_vector.pos_point.y() / (15 / 48),
                                                 dir_vector.pos_point.z())
-                rays[index].append(Ray(self.position_point, dir_vector.normalize()))
+                r = Ray(self.position_point, dir_vector.normalize())
+                # Неправильно инициализируется вектор после нормализации
+                rays[index].append(r)
 
         return rays
 
@@ -429,9 +431,8 @@ class BoundedPlane(ParametersBoundedPlane):
         :param height:
         """
         y_dir = LO.VectorSpace.basis[1]
-        if vector_normal.pos_point == y_dir.pos_point \
-                or vector_normal.pos_point == -1 * y_dir.pos_point:
-            _dir = LO.VectorSpace.basis[0]
+        if (vector_normal.pos_point == y_dir.pos_point) or (vector_normal.pos_point == -1 * y_dir.pos_point):
+            y_dir = LO.VectorSpace.basis[0]
 
         u = (vector_normal ** y_dir).normalize()
         v = (vector_normal ** u).normalize()

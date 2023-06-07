@@ -90,8 +90,18 @@ class Point(Coordinates):
         elif isinstance(other, Coordinates) or isinstance(other, list):
             return math.sqrt(sum([(self.coords[i] - other[i]) ** 2 for i in range(0, 2 + 1)]))
 
+    def __eq__(self, other):
+        return (self[i] == other[i] for i in range(0, 2 + 1))
+
+    def __ne__(self, other):
+        return (self[i] != other[i] for i in range(0, 2 + 1))
+
     def __str__(self):
         return f"Point({self[0]}, {self[1]}, {self[2]})"
+
+    def __truediv__(self, other):
+        if isinstance(other, float):
+            return Point(*(self[i] / other for i in range(0, 2 + 1)))
 
 
 class Vector(Coordinates):
@@ -185,6 +195,15 @@ class Vector(Coordinates):
         else:
             TypeError("Wrong type !")
 
+    def __bool__(self):
+        return bool(self.pos_point)
+
+    def __eq__(self, other: "Vector"):
+        return self.pos_point == other.pos_point and (self[i] == other[i] for i in range(0, 2 + 1))
+
+    def __ne__(self, other: "Vector"):
+        return self.pos_point != other.pos_point
+
     def sum_vector(self, other):
         """
         __add__
@@ -238,10 +257,9 @@ class Vector(Coordinates):
         Нормализация вектора
         :return: Нормализованный вектор
         """
-        len_vector = self.length()
-        if round(len_vector, Round_Num) == 1:
+        if round(self.length(), Round_Num) == 1:
             return self
-        return Vector(self.pos_point, *(self[i] / len_vector for i in range(0, 2 + 1)))
+        return Vector(self.pos_point, *(self[i] / self.length() for i in range(0, 2 + 1)))
 
     def length(self) -> float:
         """
