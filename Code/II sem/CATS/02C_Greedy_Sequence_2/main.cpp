@@ -1,4 +1,6 @@
 #include <fstream>
+#include <queue>
+#include <algorithm>
 
 // Сравнивать по-индексам
 
@@ -6,17 +8,16 @@
 
 // попробовать std::pair
 
-int comparator(const std::pair<int, int>& v1, const std::pair<int, int>& v2)
+bool comparator(const std::pair<int, int>& v1, const std::pair<int, int>& v2)
 {
     if (v1.first < v2.first)
-        return 1;
+        return false;
     if (v1.first > v2.first)
-        return -1;
+        return true;
     if (v1.second < v2.second)
-        return 1;
+        return false;
     if (v1.second > v2.second)
-        return -1;
-    return 0;
+        return true;
 }
 
 int main()
@@ -31,10 +32,10 @@ int main()
     for(int i = 0; i < count_elements; ++i)
     {
         inf >> heap_min[i].first;
-        heap_min[i].second = i;
+        heap_min[i].second = i + 1;
     }
     inf.close();
-    std::make_heap(heap_min[0], heap_min[count_elements - 1], comparator())
+    std::make_heap(&heap_min[0], &heap_min[count_elements], comparator);
 
     int lastIndex = count_elements - 1;
 
@@ -44,7 +45,7 @@ int main()
         for(int j = 0; j < 2; ++j)
         {
             sum += heap_min[0].first;
-            std::pop_heap(heap_min[0], heap_min[count_elements - 1 - j], comparator());
+            std::pop_heap(&heap_min[0], &heap_min[count_elements - j], comparator);
 //            std::pop_heap(&heap_min[0], &heap_min[count_elements - j], std::greater<int>());
         }
 
@@ -55,7 +56,7 @@ int main()
         heap_min[end_index] = std::pair<int, int>(sum, lastIndex);
 
         if (i + 1 != count_operations)
-            std::push_heap(heap_min[0], heap_min[end_index + 1], comparator());
+            std::push_heap(&heap_min[0], &heap_min[end_index + 1], comparator);
 //        std::push_heap(&heap_min[0], &heap_min[end_index + 1], std::greater<int>());
         count_elements --;
     }
