@@ -5,7 +5,7 @@ Plane, Sphere
 import configparser
 import math
 import sys
-
+import keyboard
 import numpy as np
 import LowObjects as LO
 
@@ -104,7 +104,7 @@ class Camera:
         self.fov = fov / 2 * math.pi / 180
         self.vfov = self.fov * (self.height / self.width)
 
-        self.screen = BoundedPlane(self.position_point + self.look_at_dir.pos_point / math.tan(self.fov),
+        self.screen = BoundedPlane(self.position_point + self.look_at_dir.point / math.tan(self.fov),
                                    self.look_at_dir, math.tan(self.fov),
                                    math.tan(self.vfov))  # Реализуем, если у нас look_at_dir = Vector
         # BP перпендикулярен камере
@@ -142,10 +142,10 @@ class Camera:
                 dir_vector = LO.Vector(self.screen.pos_point) + \
                              self.screen.v * param_vert + self.screen.u * param_hor
                 dir_vector = dir_vector - LO.Vector(self.position_point)
-                dir_vector.coords[1] /= (15 / 48)
+                dir_vector.point.coords[0] /= (15 / 48)
                 # dir_vector.pos_point = LO.Point(dir_vector.pos_point.x(), dir_vector.pos_point.y() / (15 / 48),
                 #                                 dir_vector.pos_point.z())
-                r = Ray(self.position_point, dir_vector.normalize())
+                r = Ray(self.position_point, dir_vector.norm())
                 # Неправильно инициализируется вектор после нормализации
                 rays[index].append(r)
 
@@ -170,6 +170,7 @@ class Canvas:
         """
         rays = self.camera.send_rays()
         dist_matrix = []
+        print(len(rays))
         for i in range(self.camera.height):
             dist_matrix.append([])
             for j in range(self.camera.width):
@@ -317,16 +318,6 @@ class ParametersSphere(Parameters):
         super().__init__(pos_point, vector_normal)
         self.radius = radius
 
-    def function(self, point: LO.Point):
-        """
-        Функция сферы
-        :param point:
-        :return:
-        """
-        return (point.x() - self.pos_point.x()) ** 2 + (point.y() - self.pos_point.y()) ** 2 + (
-                point.z() - self.pos_point.z()) ** 2 \
-            == self.radius ** 2
-
     def scaling(self, value: float):
         """
         САМО-ОПЕРАЦИЯ
@@ -432,11 +423,11 @@ class BoundedPlane(ParametersBoundedPlane):
         :param height:
         """
         y_dir = LO.VectorSpace.basis[1]
-        if (vector_normal.pos_point == y_dir.pos_point) or (vector_normal.pos_point == -1 * y_dir.pos_point):
+        if (vector_normal.point == y_dir.point) or (vector_normal.point == -1 * y_dir.point):
             y_dir = LO.VectorSpace.basis[0]
 
-        u = (vector_normal ** y_dir).normalize()
-        v = (vector_normal ** u).normalize()
+        u = (vector_normal ** y_dir).norm()
+        v = (vector_normal ** u).norm()
 
         super().__init__(pos_point, vector_normal, u, v, width, height)
 
@@ -733,10 +724,7 @@ class Sphere(ParametersSphere):
 
         b = 2 * (ray.dir_vector * LO.Vector(ray.init_point - self.pos_point))
 
-        c = (ray.init_point.x() - self.pos_point.x()) ** 2 + \
-            (ray.init_point.y() - self.pos_point.y()) ** 2 + \
-            (ray.init_point.z() - self.pos_point.z()) ** 2 - \
-            self.radius ** 2
+        c = sum((ray.init_point.coords[i] - self.pos_point.coords[i]) ** 2 for i in range(0, 2 + 1)) - self.radius ** 2
 
         discriminant = b ** 2 - 4 * a * c
 
@@ -746,11 +734,11 @@ class Sphere(ParametersSphere):
             # Смотрим пересечение с поверхностью
             # Выбираем минимальный положительный
             if t2 < 0 <= t1 or 0 < t1 <= t2:
-                return t1 * ray.dir_vector.length()
+                return t1 * ray.dir_vector.len()
             elif t1 < 0 <= t2 or 0 < t2 <= t1:
-                return t2 * ray.dir_vector.length()
+                return t2 * ray.dir_vector.len()
 
         elif discriminant == 0:
             t0 = -b / (2 * a)
             if t0 >= 0:
-                return t0 * ray.dir_vector.length()
+                return t0 * ray.dir_vector.len()
