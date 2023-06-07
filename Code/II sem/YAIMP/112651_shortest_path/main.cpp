@@ -80,7 +80,7 @@ int main()
 
     short first_city, second_city;
     input >> first_city >> second_city;
-    graph[first_city - 1]. = 0;
+    graph[first_city - 1] = 0;
 
     output << graph[second_city - 1].get_cost() << std::endl;
 
