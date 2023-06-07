@@ -2,12 +2,6 @@
 #include <queue>
 #include <algorithm>
 
-// Сравнивать по-индексам
-
-// Компаратор: Сортировка по возрастанию по значению, потом по индексу
-
-// попробовать std::pair
-
 bool comparator(const std::pair<int, int>& v1, const std::pair<int, int>& v2)
 {
     if (v1.first < v2.first)
@@ -46,18 +40,15 @@ int main()
         {
             sum += heap_min[0].first;
             std::pop_heap(&heap_min[0], &heap_min[count_elements - j], comparator);
-//            std::pop_heap(&heap_min[0], &heap_min[count_elements - j], std::greater<int>());
         }
 
         const unsigned int end_index = count_elements - 2;
         lastIndex ++;
 
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ОШИБКА !!!!!!!!!!!!!!!!!!!!!!!!!
         heap_min[end_index] = std::pair<int, int>(sum, lastIndex);
 
         if (i + 1 != count_operations)
             std::push_heap(&heap_min[0], &heap_min[end_index + 1], comparator);
-//        std::push_heap(&heap_min[0], &heap_min[end_index + 1], std::greater<int>());
         count_elements --;
     }
 
