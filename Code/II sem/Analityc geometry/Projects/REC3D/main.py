@@ -1,10 +1,11 @@
 """
 Рабочее пространство
 """
-from low_objects_lib import Point, Vector, Map
-from vision_lib import Camera, Console
-from high_objects_lib import BoundedPlane, Plane, Sphere, Cube
-from action_lib import launch
+# from low_objects_lib import Point, Vector, Map
+# from vision_lib import Camera, Console
+# from high_objects_lib import BoundedPlane, Plane, Sphere, Cube
+# from action_lib import launch
+from __init__ import Point, Vector, Map, Camera, Console, Plane, BoundedPlane, Sphere, Cube, launch
 
 
 cam = Camera(Point(-2, 0, 0), Vector(1, 0, 0), 90, 20)

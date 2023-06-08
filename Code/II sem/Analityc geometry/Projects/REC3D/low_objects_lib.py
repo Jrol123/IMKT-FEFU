@@ -1,60 +1,100 @@
 """
 Эта библиотека содержит в себе реализацию низкоуровневых объектов для движка
 
-Note:
-    VectorSpace может быть получен через Vector, для упрощения работы.
-    Существуют лишь радиус-векторы.
-    При изменении базиса векторы не перестраиваются.
-    Можно сделать считывание базиса в конфиге.
+Notes:
+    Для упрощения работы, VectorSpace может быть получен через Vector. \n
+    Существуют лишь радиус-векторы. \n
+    При изменении базиса векторы не перестраиваются. \n
+    Можно сделать считывание базиса в конфиге. \n
+    Можно попробовать добавить 4-е измерение \n
 
 Attributes
 ----------
-VectorSpace.basis() : [Point, Point, Point]
+VectorSpace.basis : [Point, Point, Point]
     Базис всего пространства
+
+Classes
+------
+Point
+    Точка.
+
+Vector
+    Вектор.
+
+VectorSpace
+    Пространство, относительно которого будут строиться вектора.
+
+Map
+    Множество объектов.
+
+Ray
+    Луч.
 """
+
 import math
 
 
 class Point:
-    def __init__(self, x, y, z):
-        self.coords = [x, y, z]
-    
+    """
+    Класс для представления точки в трехмерном пространстве.
+
+    *более подробное описание
+
+    :ivar coords: Координаты точки.
+    :type coords: list[float].
+
+    """
+
+    def __init__(self, *obj: float):
+        """
+        Инициализация класса
+
+        :param obj: Список координат точки в формате (x, y, z).
+        :type obj: tuple[float]
+        :raise AttributeError: Если были введены не 3 координаты
+        """
+        if len(obj) == 3 and all(isinstance(obj[i], (int, float)) for i in range(0, 2 + 1)):
+            self.coords = list(obj)
+        else:
+            raise AttributeError("Необходимо передавать 3 координаты в формате (x, y, z).")
+
     def __str__(self):
         return "Point({:.4f}, {:.4f}, {:.4f})".format(*self.coords)
-    
+
     def __bool__(self):
         return bool(sum(self.coords))
-    
+
     def __eq__(self, other):
         return self.coords == other.coords
-    
+
     def __ne__(self, other):
         return self.coords != other.coords
-    
+
     def __add__(self, other):
         return Point(*[self.coords[i] + other.coords[i]
                        for i in range(3)])
-    
+
     def __mul__(self, other):
         assert isinstance(other, (int, float))
-        
+
         return Point(*[self.coords[i] * other
                        for i in range(3)])
-    
+
     def __sub__(self, other):
         return self.__add__(-1 * other)
-    
+
     def __rmul__(self, other):
         return self.__mul__(other)
-    
+
     def __truediv__(self, other: [int, float]):
         assert other != 0
         return self.__mul__(1 / other)
-    
+
     def distance(self, pt):
         """
         Дистанция между двумя точками
         """
+
         return math.sqrt(sum((self.coords[i] - pt.coords[i]) ** 2
                              for i in range(3)))
 

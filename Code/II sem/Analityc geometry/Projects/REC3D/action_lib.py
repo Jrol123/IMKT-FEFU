@@ -76,6 +76,7 @@ class Events:
         Обрабатываются функции,
         которые исполняются в соответствии с стеком событий.
 
+
         sc1 = Canvas()
         Trigger.trigger("OnRender", sc1)
         """
@@ -192,19 +193,24 @@ def launch(console: Console, camera_type: str = 'spectator'):
     (нажатие клавиш и перемещение мыши).
 
     :param console: Консоль
+    :type console: Console
     :param camera_type: тип камеры ('spectator' или 'player')
+    :type camera_type: str
+    :ivar init_camera: Начальное положение камеры.
+    :type init_camera: Spectator
     """
     assert camera_type in ('spectator', 'player')
     if camera_type == 'spectator':
         temp = console.cam
         console.cam = Spectator(temp.pos, temp.look_dir,
-                                temp.fov * 360 / math.pi, temp.draw_dist)
+                                temp.fov * 360 / math.pi, temp.draw_dist)  # конвертация в градусы
         del temp
         init_camera = console.cam
 
         def close_console():
             """
             Закрытие консоли
+
             """
             print("Work was stopped with exit code 1")
             sys.exit()
@@ -213,6 +219,7 @@ def launch(console: Console, camera_type: str = 'spectator'):
         def reset_camera():
             """
             Перевод камеры в начальное положение
+
             """
             # Почему-то работает только с поворотом камеры. И то не всегда
             console.cam = init_camera
@@ -224,6 +231,8 @@ def launch(console: Console, camera_type: str = 'spectator'):
             Функция — триггер
 
             :param action: ключевое слово
+            :type action: str
+
             """
             console.cam = Events.trigger(action, console.cam)
             console.draw()
