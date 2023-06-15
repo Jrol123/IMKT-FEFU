@@ -4,14 +4,17 @@
 
 bool comparator(const std::pair<int, int>& v1, const std::pair<int, int>& v2)
 {
+    // Сравнение значение.
+    if (v1.first > v2.first)
+        return true;
     if (v1.first < v2.first)
         return false;
-    if (v1.first > v2.first)
+
+    // Сравнение индексов.
+    if (v1.second > v2.second)
         return true;
     if (v1.second < v2.second)
         return false;
-    if (v1.second > v2.second)
-        return true;
 }
 
 int main()
@@ -49,10 +52,19 @@ int main()
         count_elements --;
     }
 
+
+    // Восстановление оригинального порядка.
+    std::sort(&heap_min[0], &heap_min[count_elements - 1],
+              [](const std::pair<int, int> &a,const std::pair<int, int> &b){return a.second < b.second;});
+
     std::ofstream outf ("output.txt");
 
     for(int i = 0; i < count_elements; i++)
     {
         outf << heap_min[i].first << " ";
     }
+
+    outf.close();
+
+    return 0;
 }
