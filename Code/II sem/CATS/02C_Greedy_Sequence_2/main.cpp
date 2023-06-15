@@ -31,9 +31,7 @@ int main()
     inf.close();
     std::make_heap(&heap_min[0], &heap_min[count_elements], comparator);
 
-    int lastIndex = count_elements - 1;
-
-    for(int i = 0; i < count_operations; ++i)
+    for(int i = 1; i < count_operations + 1; ++i)
     {
         int sum = 0; // 2 * 10^4
         for(int j = 0; j < 2; ++j)
@@ -43,11 +41,10 @@ int main()
         }
 
         const unsigned int end_index = count_elements - 2;
-        lastIndex ++;
 
-        heap_min[end_index] = std::pair<int, int>(sum, lastIndex);
+        heap_min[end_index] = std::pair<int, int>(sum, count_elements + i);
 
-        if (i + 1 != count_operations)
+        if (i < count_operations)
             std::push_heap(&heap_min[0], &heap_min[end_index + 1], comparator);
         count_elements --;
     }
