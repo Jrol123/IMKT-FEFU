@@ -12,10 +12,11 @@ float f(float x)
     return pow(x, 3) + 3 * pow(x, 2) - 9 * x - 5 + 5 * sin(x) - 5 * cos(x);
 }
 
-float goldPropMethod(bool state, float a = leftB, float b = rightB)
+float goldPropMethod(const bool& state, float a = leftB, float b = rightB)
 {
-    // false - min
-    // true - max
+    // state = false - min
+    // state = true - max
+
     float x1 = b - ((b - a) / goldProportion);
     float x2 = a + ((b - a) / goldProportion);
 
@@ -32,7 +33,7 @@ float goldPropMethod(bool state, float a = leftB, float b = rightB)
 
     if(fabs(b - a) <= epsilon)
     {
-        return (a + b) / 2;
+        return (a + b) / 2; // Если погрешность <= epsilon
     }
     return goldPropMethod(state, a, b);
 }
@@ -41,7 +42,7 @@ int main()
 {
     for(int i = 0; i <= 1; i ++)
     {
-        cout << i << endl;
+        cout << i + 1 << endl;
         float res = goldPropMethod(i);
         cout << "x = " << res << endl << "y = " << f(res) << endl << endl;
     }
