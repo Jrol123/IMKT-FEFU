@@ -1,77 +1,143 @@
-#include <fstream>
+#include <iostream>
 #include <vector>
-#define vec std::vector
-/*
- * Попробовать вставить
+#include <algorithm>
+using namespace std;
+
+/**
+ * @brief Венгерский алгоритм для поиска минимального решения.
+ *
+ * @param count_problems Количество задач.
+ * @param init_matrix Начальная матрица.
+ * @return Матрицу координат пересечений.
  */
+vector<pair<int, int>> Kuhn_Mankres(const unsigned int& count_problems, const vector <vector <int>>& init_matrix)
+{
+    /// Минимальные значения для строк
+    vector<int> min_row(count_problems, 0);
+    /// Минимальные значения для столбцов.
+    vector<int> min_column(count_problems, 0);
+    /// Индексы выделенных строк.
+    vector<int> marked_indexes(count_problems, -1);
+
+    for (int row = 0; row < count_problems; row++)
+    {
+        /// Индексы выделенных столбцов.
+        vector<int> visited_column(count_problems, -1);
+        /// Минимальные значения для невыделенных столбцов.
+        vector<int> unmarked_column_min(count_problems, __INT_MAX__);
+        /// Посещённые столбцы.
+        vector<bool> visited(count_problems, false);
+
+        /// Выделенная строка.
+        int marked_row = row;
+        /// Выделенный столбец.
+        int marked_column = -1;
+        /// Столбец с наименьшим значением.
+        int min_index_column;
+
+        // Пока не обошли все столбцы.
+        while (marked_row != -1)
+        {
+            min_index_column = -1;
+
+            // Поиск минимальных значений для столбцов.
+            for (int column = 0; column < count_problems; column++)
+            {
+                if (visited[column])
+                    continue;
+
+                /**
+                 * @brief Разница между элементом и минимальным значением.
+                 *
+                 * Используется для определения того, насколько выгодно назначить работнику некоторую задачу.
+                 */
+                int delta = init_matrix[marked_row][column] - min_row[marked_row] - min_column[column];
+
+                // Сохраняем минимальное значение для текущего столбца.
+                if (delta < unmarked_column_min[column])
+                {
+                    unmarked_column_min[column] = delta;
+                    visited_column[column] = marked_column;
+                }
+
+                // Поиск наименьшего значения.
+                if (min_index_column == -1 || delta < unmarked_column_min[min_index_column])
+                    min_index_column = column;
+            }
+
+            // Изменение меток.
+            int diff = unmarked_column_min[min_index_column];
+
+            // Изменение метки строк и столбцов
+            for (int column = 0; column < count_problems; column++)
+            {
+                if(!visited[column])
+                    unmarked_column_min[column] -= diff;
+
+                min_row[marked_indexes[column]] += diff;
+                min_column[column] -= diff;
+            }
+
+            // Выделяем новую строку и столбец
+            min_row[row] += diff;
+            visited[min_index_column] = true;
+            marked_column = min_index_column;
+            marked_row = marked_indexes[min_index_column];
+        }
+
+        // Обновление выделенных строк.
+        for (; visited_column[min_index_column] != -1; min_index_column = visited_column[min_index_column])
+            marked_indexes[min_index_column] = marked_indexes[visited_column[min_index_column]];
+        marked_indexes[min_index_column] = row;
+    }
+
+    /// Вектор пар назначений.
+    vector<pair<int, int>> pair_comb;
+
+    // Вывод
+    for (int j = 0; j < count_problems; j++)
+    {
+        if (marked_indexes[j] != -1)
+        {
+            pair_comb.push_back(pair<int, int>(marked_indexes[j], j));
+        }
+    }
+
+    return pair_comb;
+}
 
 int main()
 {
-    std::ifstream inf("input.txt");
+    // Инициализация.
 
-    int count_RC;
-    inf >> count_RC;
-    vec<vec<int>> matrix_smezhn_const (count_RC, vec<int>(count_RC));
-    vec<vec<int>> matrix_smezhn_work (count_RC, vec<int>(count_RC));
+    /// Количество задач.
+    unsigned int count_problems;
+    /// Матрица.
+    vector <vector <int>> matrix;
 
-    for(int row = 0; row < count_RC; row++)
+    cin >> count_problems;
+
+    // Ввод матрицы.
+    for (int row = 0; row < count_problems; row++)
     {
-        for(int collumn = 0; collumn < count_RC; collumn++)
+        matrix.push_back(vector<int>());
+
+        for (int column = 0; column < count_problems; column++)
         {
-            int element;
-            inf >> element;
-            matrix_smezhn_const[row][collumn] = element;
-            matrix_smezhn_work[row][collumn] = element;
+            int tmp;
+            cin >> tmp;
+            matrix[row].push_back(--tmp);
         }
     }
-    inf.close();
+    /// Вектор пар назначений.
+    vector<pair<int, int>> pair_comb = Kuhn_Mankres(count_problems, matrix);
+    /// Конечный результат.
+    unsigned int result = 0;
 
-    int state_checks [2][count_RC]; // 0 - столбцы, 1 - строки
-    for(int st = 0; st < 2; st++)
+    // Вывод.
+    for (unsigned int index = 0; index < pair_comb.size(); index++)
     {
-        for(int t = 0; t < count_RC; t++)
-        {
-            state_checks[st][t] = 0;
-        }
-    } // Инициализация state_checks
-
-    for(int row = 0; row < count_RC; row++)
-    {
-        int min_num = INT_MAX;
-        for(int collumn = 0; collumn < count_RC; collumn++)
-        {
-            min_num = std::min(min_num, matrix_smezhn_work[row][collumn]);
-        }
-        for(int collumn = 0; collumn < count_RC; collumn++)
-        {
-            matrix_smezhn_work[row][collumn] -= min_num;
-        }
-    } // Построчное отнимание минимумов
-
-
-    for(int collumn = 0; collumn < count_RC; collumn++)
-    {
-        int min_num = INT_MAX;
-        bool state = true;
-        for(int row = 0; row < count_RC; row++)
-        {
-            min_num = std::min(min_num, matrix_smezhn_work[row][collumn]);
-            if (min_num == 0)
-            {
-                state = false;
-                break;
-            }
-        }
-        if (state)
-        {
-            for (int row = 0; row < count_RC; row++)
-            {
-                matrix_smezhn_work[row][collumn] -= min_num;
-            }
-        }
-    } // Постолбцовое отнимание минимумов
-
-
-
-    std::ofstream outf("output.txt");
+        result += matrix[pair_comb[index].first][pair_comb[index].second] + 1;
+    }
+    cout << result << endl;
 }
