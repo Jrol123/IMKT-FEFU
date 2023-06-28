@@ -1,0 +1,108 @@
+\doxysection{Шаблон структуры DSF\texorpdfstring{$<$}{<} type \texorpdfstring{$>$}{>}}
+\hypertarget{struct_d_s_f}{}\label{struct_d_s_f}\index{DSF$<$ type $>$@{DSF$<$ type $>$}}
+
+
+Класс \doxylink{struct_d_s_f}{DSF} (Disjoint Set Forest) для упорядочивания множеств.  
+
+
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_d_s_f_ade7ffd167ec176ca04fc5378bb5af5af}{DSF}} (const unsigned int \&size, const \mbox{\hyperlink{main_8cpp_a7db67fdc1e9339c40e82544750de892f}{vec}}$<$ type $>$ \&elements)
+\begin{DoxyCompactList}\small\item\em Конструктор класса \doxylink{struct_d_s_f}{DSF}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_d_s_f_ac801062fd34d83ed6acac691d9f9451b}{combine}} (const unsigned int \&child\+\_\+index, const unsigned int \&parent\+\_\+index)
+\begin{DoxyCompactList}\small\item\em Метод для объединения множеств. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{struct_d_s_f_a3f66f87b6ea3cab7863900008c66fd7a}{get}} (const unsigned int \&index\+\_\+item)
+\begin{DoxyCompactList}\small\item\em Метод для получения номера множества элемента. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+\subsubsection*{template$<$typename type$>$\newline
+struct DSF$<$ type $>$}
+Класс \doxylink{struct_d_s_f}{DSF} (Disjoint Set Forest) для упорядочивания множеств. 
+
+\doxylink{struct_d_s_f}{DSF} позволяет объединять множества и определять, в каком множестве находится элемент.
+
+
+\begin{DoxyTemplParams}{Параметры шаблона}
+{\em type} & Тип элементов множества. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Конструктор(ы)}
+\Hypertarget{struct_d_s_f_ade7ffd167ec176ca04fc5378bb5af5af}\label{struct_d_s_f_ade7ffd167ec176ca04fc5378bb5af5af} 
+\index{DSF$<$ type $>$@{DSF$<$ type $>$}!DSF@{DSF}}
+\index{DSF@{DSF}!DSF$<$ type $>$@{DSF$<$ type $>$}}
+\doxysubsubsection{\texorpdfstring{DSF()}{DSF()}}
+{\footnotesize\ttfamily template$<$typename type $>$ \\
+\mbox{\hyperlink{struct_d_s_f}{DSF}}$<$ type $>$\mbox{\hyperlink{struct_d_s_f}{\+::\+DSF}} (\begin{DoxyParamCaption}\item[{const unsigned int \&}]{size,  }\item[{const \mbox{\hyperlink{main_8cpp_a7db67fdc1e9339c40e82544750de892f}{vec}}$<$ type $>$ \&}]{elements }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Конструктор класса \doxylink{struct_d_s_f}{DSF}. 
+
+Изначально у каждого элемента своё множества.
+
+
+\begin{DoxyParams}{Аргументы}
+{\em size} & Количество элементов в множестве. \\
+\hline
+{\em elements} & Вектор элементов множества. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Методы}
+\Hypertarget{struct_d_s_f_ac801062fd34d83ed6acac691d9f9451b}\label{struct_d_s_f_ac801062fd34d83ed6acac691d9f9451b} 
+\index{DSF$<$ type $>$@{DSF$<$ type $>$}!combine@{combine}}
+\index{combine@{combine}!DSF$<$ type $>$@{DSF$<$ type $>$}}
+\doxysubsubsection{\texorpdfstring{combine()}{combine()}}
+{\footnotesize\ttfamily template$<$typename type $>$ \\
+void \mbox{\hyperlink{struct_d_s_f}{DSF}}$<$ type $>$\+::combine (\begin{DoxyParamCaption}\item[{const unsigned int \&}]{child\+\_\+index,  }\item[{const unsigned int \&}]{parent\+\_\+index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Метод для объединения множеств. 
+
+Индексы вводятся относительно пользователя (начиная с 1-\/цы).
+
+
+\begin{DoxyParams}{Аргументы}
+{\em child\+\_\+index} & Индекс элемента, чьё множество нужно добавить в множество parent\+\_\+index. \\
+\hline
+{\em parent\+\_\+index} & Индекс элемента, в множество которого добавляется множество child\+\_\+index. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPrecond}{Предусловие}
+0 \texorpdfstring{$<$}{<} \texorpdfstring{$<$}{<} index \texorpdfstring{$<$}{<}= size 
+\end{DoxyPrecond}
+\Hypertarget{struct_d_s_f_a3f66f87b6ea3cab7863900008c66fd7a}\label{struct_d_s_f_a3f66f87b6ea3cab7863900008c66fd7a} 
+\index{DSF$<$ type $>$@{DSF$<$ type $>$}!get@{get}}
+\index{get@{get}!DSF$<$ type $>$@{DSF$<$ type $>$}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily template$<$typename type $>$ \\
+int \mbox{\hyperlink{struct_d_s_f}{DSF}}$<$ type $>$\+::get (\begin{DoxyParamCaption}\item[{const unsigned int \&}]{index\+\_\+item }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Метод для получения номера множества элемента. 
+
+Индекс вводится относительно пользователя (начиная с 1-\/цы).
+
+
+\begin{DoxyParams}{Аргументы}
+{\em index\+\_\+item} & Индекс элемента, номер множества которого нужно получить. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+int — Номер множества, в котором находится элемент. 
+\end{DoxyReturn}
+\begin{DoxyPrecond}{Предусловие}
+0 \texorpdfstring{$<$}{<} index \texorpdfstring{$<$}{<}= size 
+\end{DoxyPrecond}
+
+
+Объявления и описания членов структуры находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{main_8cpp}{main.\+cpp}}\end{DoxyCompactItemize}
