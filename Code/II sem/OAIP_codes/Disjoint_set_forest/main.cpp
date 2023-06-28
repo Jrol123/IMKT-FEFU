@@ -106,7 +106,7 @@ public:
      *
      * @param child_index Индекс элемента, чьё множество нужно добавить в множество parent_index.
      * @param parent_index Индекс элемента, в множество которого добавляется множество child_index.
-     * @pre 0 < < index <= size
+     * @pre 0 < index <= size
      */
     void combine(const unsigned int &child_index, const unsigned int &parent_index)
     {
