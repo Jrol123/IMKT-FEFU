@@ -47,11 +47,7 @@ int main()
     vector<int> color_vertex(count_vertex);
     color_vertex[0] = 1;
     dfs(graph, color_vertex, 0, count_vertex);
-    // for (int i = 0; i < count_vertex; i++)
-    //     if (visited[i])
-    //         k++;
 
-    // cout << k;
     if (is_bipartite)
         cout << "YES";
 
