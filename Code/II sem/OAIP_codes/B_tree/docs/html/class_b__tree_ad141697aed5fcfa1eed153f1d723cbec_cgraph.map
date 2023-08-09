@@ -1,0 +1,8 @@
+<map id="B_tree::insert" name="B_tree::insert">
+<area shape="rect" id="Node000001" title="Вставляет ключ в дерево." alt="" coords="5,29,105,56"/>
+<area shape="rect" id="Node000002" href="$class_b__tree.html#abfaace0670b44a4f90f9f0b4c10c084f" title=" " alt="" coords="153,29,301,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,40,138,40,138,45,105,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="197,30,192,21,196,11,208,5,227,3,248,6,259,13,256,17,247,11,227,8,209,10,200,15,197,20,202,28"/>
+<area shape="rect" id="Node000003" href="$class_b__tree.html#a82d02b85aeca2c8e8a05655cd734a0d5" title=" " alt="" coords="349,29,474,56"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="301,40,334,40,334,45,301,45"/>
+</map>

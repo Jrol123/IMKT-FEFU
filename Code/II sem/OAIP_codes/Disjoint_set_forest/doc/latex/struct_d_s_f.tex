@@ -8,12 +8,28 @@
 \doxysubsubsection*{Открытые члены}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{struct_d_s_f_ade7ffd167ec176ca04fc5378bb5af5af}{DSF}} (const unsigned int \&size, const \mbox{\hyperlink{main_8cpp_a7db67fdc1e9339c40e82544750de892f}{vec}}$<$ type $>$ \&elements)
+\mbox{\hyperlink{struct_d_s_f_ade7ffd167ec176ca04fc5378bb5af5af}{DSF}} (const unsigned int \&\mbox{\hyperlink{struct_d_s_f_a4f7d9e20f25775c805d37d536bfe20cb}{size}}, const \mbox{\hyperlink{main_8cpp_a7db67fdc1e9339c40e82544750de892f}{vec}}$<$ type $>$ \&elements)
 \begin{DoxyCompactList}\small\item\em Конструктор класса \doxylink{struct_d_s_f}{DSF}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{struct_d_s_f_ac801062fd34d83ed6acac691d9f9451b}{combine}} (const unsigned int \&child\+\_\+index, const unsigned int \&parent\+\_\+index)
 \begin{DoxyCompactList}\small\item\em Метод для объединения множеств. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{struct_d_s_f_a3f66f87b6ea3cab7863900008c66fd7a}{get}} (const unsigned int \&index\+\_\+item)
 \begin{DoxyCompactList}\small\item\em Метод для получения номера множества элемента. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Закрытые члены}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{struct_d_s_f_afd551b959887f0fb19ad373223429fd7}{check\+\_\+bounds}} (const unsigned int \&index)
+\begin{DoxyCompactList}\small\item\em Функция для проверки вводимых пользователем индексов на соответствие пределам. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_d_s_f_acf7622de6bf237f69bcbe588217a96e4}{combine\+\_\+private}} (const unsigned int \&child\+\_\+index, const unsigned int \&parent\+\_\+index)
+\begin{DoxyCompactList}\small\item\em Вспомогательный метод для объединения множеств. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{struct_d_s_f_a2acb9ab4bfa885e1ca3010d38655c588}{get\+\_\+private}} (const unsigned int \&index\+\_\+item)
+\begin{DoxyCompactList}\small\item\em Вспомогательный метод для получения номера множества элемента. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Закрытые данные}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{main_8cpp_a7db67fdc1e9339c40e82544750de892f}{vec}}$<$ \mbox{\hyperlink{main_8cpp_ae6ec1cef77aa5035053f6078b3a2b76c}{pr}}$<$ unsigned int, type $>$ $>$ \mbox{\hyperlink{struct_d_s_f_a51f114abd2c6aadf4bb7197444a8ec13}{mass\+\_\+elements}}
+\begin{DoxyCompactList}\small\item\em Массив множеств. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{struct_d_s_f_a4f7d9e20f25775c805d37d536bfe20cb}{size}}
+\begin{DoxyCompactList}\small\item\em Количество элементов. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Подробное описание}
@@ -54,6 +70,32 @@ struct DSF$<$ type $>$}
 
 
 \doxysubsection{Методы}
+\Hypertarget{struct_d_s_f_afd551b959887f0fb19ad373223429fd7}\label{struct_d_s_f_afd551b959887f0fb19ad373223429fd7} 
+\index{DSF$<$ type $>$@{DSF$<$ type $>$}!check\_bounds@{check\_bounds}}
+\index{check\_bounds@{check\_bounds}!DSF$<$ type $>$@{DSF$<$ type $>$}}
+\doxysubsubsection{\texorpdfstring{check\_bounds()}{check\_bounds()}}
+{\footnotesize\ttfamily template$<$typename type $>$ \\
+bool \mbox{\hyperlink{struct_d_s_f}{DSF}}$<$ type $>$\+::check\+\_\+bounds (\begin{DoxyParamCaption}\item[{const unsigned int \&}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Функция для проверки вводимых пользователем индексов на соответствие пределам. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em index} & Вводимый пользователем индекс. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+bool — Находится ли индекс в допустимых пределах. 
+\end{DoxyReturn}
+Граф вызова функции\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{struct_d_s_f_afd551b959887f0fb19ad373223429fd7_icgraph}
+\end{center}
+\end{figure}
 \Hypertarget{struct_d_s_f_ac801062fd34d83ed6acac691d9f9451b}\label{struct_d_s_f_ac801062fd34d83ed6acac691d9f9451b} 
 \index{DSF$<$ type $>$@{DSF$<$ type $>$}!combine@{combine}}
 \index{combine@{combine}!DSF$<$ type $>$@{DSF$<$ type $>$}}
@@ -75,8 +117,47 @@ void \mbox{\hyperlink{struct_d_s_f}{DSF}}$<$ type $>$\+::combine (\begin{DoxyPar
 \hline
 \end{DoxyParams}
 \begin{DoxyPrecond}{Предусловие}
-0 \texorpdfstring{$<$}{<} \texorpdfstring{$<$}{<} index \texorpdfstring{$<$}{<}= size 
+0 \texorpdfstring{$<$}{<} index \texorpdfstring{$<$}{<}= size 
 \end{DoxyPrecond}
+Граф вызовов\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{struct_d_s_f_ac801062fd34d83ed6acac691d9f9451b_cgraph}
+\end{center}
+\end{figure}
+Граф вызова функции\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{struct_d_s_f_ac801062fd34d83ed6acac691d9f9451b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{struct_d_s_f_acf7622de6bf237f69bcbe588217a96e4}\label{struct_d_s_f_acf7622de6bf237f69bcbe588217a96e4} 
+\index{DSF$<$ type $>$@{DSF$<$ type $>$}!combine\_private@{combine\_private}}
+\index{combine\_private@{combine\_private}!DSF$<$ type $>$@{DSF$<$ type $>$}}
+\doxysubsubsection{\texorpdfstring{combine\_private()}{combine\_private()}}
+{\footnotesize\ttfamily template$<$typename type $>$ \\
+void \mbox{\hyperlink{struct_d_s_f}{DSF}}$<$ type $>$\+::combine\+\_\+private (\begin{DoxyParamCaption}\item[{const unsigned int \&}]{child\+\_\+index,  }\item[{const unsigned int \&}]{parent\+\_\+index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Вспомогательный метод для объединения множеств. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em child\+\_\+index} & Индекс элемента, чьё множество нужно добавить в множество parent\+\_\+index. \\
+\hline
+{\em parent\+\_\+index} & Индекс элемента, в множество которого добавляется множество child\+\_\+index. \\
+\hline
+\end{DoxyParams}
+Граф вызова функции\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{struct_d_s_f_acf7622de6bf237f69bcbe588217a96e4_icgraph}
+\end{center}
+\end{figure}
 \Hypertarget{struct_d_s_f_a3f66f87b6ea3cab7863900008c66fd7a}\label{struct_d_s_f_a3f66f87b6ea3cab7863900008c66fd7a} 
 \index{DSF$<$ type $>$@{DSF$<$ type $>$}!get@{get}}
 \index{get@{get}!DSF$<$ type $>$@{DSF$<$ type $>$}}
@@ -101,7 +182,84 @@ int — Номер множества, в котором находится эл
 \begin{DoxyPrecond}{Предусловие}
 0 \texorpdfstring{$<$}{<} index \texorpdfstring{$<$}{<}= size 
 \end{DoxyPrecond}
+Граф вызовов\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{struct_d_s_f_a3f66f87b6ea3cab7863900008c66fd7a_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{struct_d_s_f_a2acb9ab4bfa885e1ca3010d38655c588}\label{struct_d_s_f_a2acb9ab4bfa885e1ca3010d38655c588} 
+\index{DSF$<$ type $>$@{DSF$<$ type $>$}!get\_private@{get\_private}}
+\index{get\_private@{get\_private}!DSF$<$ type $>$@{DSF$<$ type $>$}}
+\doxysubsubsection{\texorpdfstring{get\_private()}{get\_private()}}
+{\footnotesize\ttfamily template$<$typename type $>$ \\
+int \mbox{\hyperlink{struct_d_s_f}{DSF}}$<$ type $>$\+::get\+\_\+private (\begin{DoxyParamCaption}\item[{const unsigned int \&}]{index\+\_\+item }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
 
+
+
+Вспомогательный метод для получения номера множества элемента. 
+
+\begin{DoxyRefDesc}{Эвристика}
+\item[\mbox{\hyperlink{heur__heur000001}{Эвристика}}]Используется эвристика сжатия пути. ~\newline
+Заключается в обновлении ссылок на родительские узлы таким образом, чтобы они указывали непосредственно на корневой узел. ~\newline
+Более подробно описано на сайте\+: ~\newline
+\href{https://neerc.ifmo.ru/wiki/index.php?title=\%D0\%A1\%D0\%9D\%D0\%9C_(\%D1\%80\%D0\%B5\%D0\%B0\%D0\%BB\%D0\%B8\%D0\%B7\%D0\%B0\%D1\%86\%D0\%B8\%D1\%8F_\%D1\%81_\%D0\%BF\%D0\%BE\%D0\%BC\%D0\%BE\%D1\%89\%D1\%8C\%D1\%8E_\%D0\%BB\%D0\%B5\%D1\%81\%D0\%B0_\%D0\%BA\%D0\%BE\%D1\%80\%D0\%BD\%D0\%B5\%D0\%B2\%D1\%8B\%D1\%85_\%D0\%B4\%D0\%B5\%D1\%80\%D0\%B5\%D0\%B2\%D1\%8C\%D0\%B5\%D0\%B2)}{\texttt{ https\+://neerc.\+ifmo.\+ru/wiki/index.\+php?title=СНМ\+\_\+(реализация\+\_\+с\+\_\+помощью\+\_\+леса\+\_\+корневых\+\_\+деревьев)}}\end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Ошибка}
+\item[\mbox{\hyperlink{bug__bug000001}{Ошибка}}]\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}{Аргументы}
+{\em index\+\_\+item} & Индекс элемента, номер множества которого нужно получить. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+int — Номер множества, в котором находится элемент. 
+\end{DoxyReturn}
+Граф вызовов\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=168pt]{struct_d_s_f_a2acb9ab4bfa885e1ca3010d38655c588_cgraph}
+\end{center}
+\end{figure}
+Граф вызова функции\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{struct_d_s_f_a2acb9ab4bfa885e1ca3010d38655c588_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Данные класса}
+\Hypertarget{struct_d_s_f_a51f114abd2c6aadf4bb7197444a8ec13}\label{struct_d_s_f_a51f114abd2c6aadf4bb7197444a8ec13} 
+\index{DSF$<$ type $>$@{DSF$<$ type $>$}!mass\_elements@{mass\_elements}}
+\index{mass\_elements@{mass\_elements}!DSF$<$ type $>$@{DSF$<$ type $>$}}
+\doxysubsubsection{\texorpdfstring{mass\_elements}{mass\_elements}}
+{\footnotesize\ttfamily template$<$typename type $>$ \\
+\mbox{\hyperlink{main_8cpp_a7db67fdc1e9339c40e82544750de892f}{vec}}$<$\mbox{\hyperlink{main_8cpp_ae6ec1cef77aa5035053f6078b3a2b76c}{pr}}$<$unsigned int, type$>$ $>$ \mbox{\hyperlink{struct_d_s_f}{DSF}}$<$ type $>$\+::mass\+\_\+elements\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Массив множеств. 
+
+Реализован как множество пар. ~\newline
+Номер множества — элемент. \Hypertarget{struct_d_s_f_a4f7d9e20f25775c805d37d536bfe20cb}\label{struct_d_s_f_a4f7d9e20f25775c805d37d536bfe20cb} 
+\index{DSF$<$ type $>$@{DSF$<$ type $>$}!size@{size}}
+\index{size@{size}!DSF$<$ type $>$@{DSF$<$ type $>$}}
+\doxysubsubsection{\texorpdfstring{size}{size}}
+{\footnotesize\ttfamily template$<$typename type $>$ \\
+unsigned int \mbox{\hyperlink{struct_d_s_f}{DSF}}$<$ type $>$\+::size\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Количество элементов. 
+
+Нужно для проверки на выход за рамки массива. 
 
 Объявления и описания членов структуры находятся в файле\+:\begin{DoxyCompactItemize}
 \item 

@@ -1,0 +1,8 @@
+<map id="DSF::get" name="DSF::get">
+<area shape="rect" id="Node000001" title="Метод для получения номера множества элемента." alt="" coords="5,43,79,69"/>
+<area shape="rect" id="Node000002" href="$struct_d_s_f.html#afd551b959887f0fb19ad373223429fd7" title="Функция для проверки вводимых пользователем индексов на соответствие пределам." alt="" coords="127,5,266,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,45,124,33,125,39,80,50"/>
+<area shape="rect" id="Node000003" href="$struct_d_s_f.html#a2acb9ab4bfa885e1ca3010d38655c588" title="Вспомогательный метод для получения номера множества элемента." alt="" coords="138,80,255,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="80,62,125,73,124,79,79,67"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="169,81,165,71,168,62,179,56,196,53,216,56,226,64,223,68,214,61,196,59,181,61,172,65,170,71,174,78"/>
+</map>

@@ -1,0 +1,147 @@
+\doxysection{Шаблон класса B\+\_\+tree\texorpdfstring{$<$}{<} type \texorpdfstring{$>$}{>}}
+\hypertarget{class_b__tree}{}\label{class_b__tree}\index{B\_tree$<$ type $>$@{B\_tree$<$ type $>$}}
+
+
+Класс Б-\/дерева.  
+
+
+
+
+Граф связей класса B\+\_\+tree\texorpdfstring{$<$}{<} type \texorpdfstring{$>$}{>}\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{class_b__tree__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Классы}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_b__tree_1_1_node}{Node}}
+\begin{DoxyCompactList}\small\item\em Вершина Б-\/дерева. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_b__tree_a1395c2865171e3c2bc8ac33bdc53c8b6}{B\+\_\+tree}} (const type \&key, const unsigned int \&\mbox{\hyperlink{class_b__tree_aaed1600b3c2239ce3f01966bfd764532}{t}}=2)
+\item 
+void \mbox{\hyperlink{class_b__tree_ad141697aed5fcfa1eed153f1d723cbec}{insert}} (const unsigned int \&key)
+\begin{DoxyCompactList}\small\item\em Вставляет ключ в дерево. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_b__tree_abfaace0670b44a4f90f9f0b4c10c084f}{insert\+\_\+non\+Full}} (\mbox{\hyperlink{struct_b__tree_1_1_node}{Node}} \texorpdfstring{$\ast$}{*}cur, const unsigned int \&key)
+\item 
+void \mbox{\hyperlink{class_b__tree_a82d02b85aeca2c8e8a05655cd734a0d5}{split\+\_\+child}} (\mbox{\hyperlink{struct_b__tree_1_1_node}{Node}} \texorpdfstring{$\ast$}{*}cur, int index)
+\item 
+void \mbox{\hyperlink{class_b__tree_a7552fe11bce941dd1fdc13aaba71a0d6}{find\+\_\+key}} (int key)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Закрытые данные}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \mbox{\hyperlink{class_b__tree_aaed1600b3c2239ce3f01966bfd764532}{t}} = 2
+\begin{DoxyCompactList}\small\item\em Минимальная степень дерева. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_b__tree_1_1_node}{Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_b__tree_a3a268d16db2d64374b1f74df0905eada}{root}} = nullptr
+\begin{DoxyCompactList}\small\item\em Указатель на корень дерева. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+\subsubsection*{template$<$typename type$>$\newline
+class B\+\_\+tree$<$ type $>$}
+Класс Б-\/дерева. 
+
+
+\begin{DoxyTemplParams}{Параметры шаблона}
+{\em type} & Тип данных. Лучше всего работать с чем-\/то, что поддерживает операции сравнения. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Конструктор(ы)}
+\Hypertarget{class_b__tree_a1395c2865171e3c2bc8ac33bdc53c8b6}\label{class_b__tree_a1395c2865171e3c2bc8ac33bdc53c8b6} 
+\index{B\_tree$<$ type $>$@{B\_tree$<$ type $>$}!B\_tree@{B\_tree}}
+\index{B\_tree@{B\_tree}!B\_tree$<$ type $>$@{B\_tree$<$ type $>$}}
+\doxysubsubsection{\texorpdfstring{B\_tree()}{B\_tree()}}
+{\footnotesize\ttfamily template$<$typename type $>$ \\
+\mbox{\hyperlink{class_b__tree}{B\+\_\+tree}}$<$ type $>$\mbox{\hyperlink{class_b__tree}{\+::\+B\+\_\+tree}} (\begin{DoxyParamCaption}\item[{const type \&}]{key,  }\item[{const unsigned int \&}]{t = {\ttfamily 2} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Методы}
+\Hypertarget{class_b__tree_a7552fe11bce941dd1fdc13aaba71a0d6}\label{class_b__tree_a7552fe11bce941dd1fdc13aaba71a0d6} 
+\index{B\_tree$<$ type $>$@{B\_tree$<$ type $>$}!find\_key@{find\_key}}
+\index{find\_key@{find\_key}!B\_tree$<$ type $>$@{B\_tree$<$ type $>$}}
+\doxysubsubsection{\texorpdfstring{find\_key()}{find\_key()}}
+{\footnotesize\ttfamily template$<$typename type $>$ \\
+void \mbox{\hyperlink{class_b__tree}{B\+\_\+tree}}$<$ type $>$\+::find\+\_\+key (\begin{DoxyParamCaption}\item[{int}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_b__tree_ad141697aed5fcfa1eed153f1d723cbec}\label{class_b__tree_ad141697aed5fcfa1eed153f1d723cbec} 
+\index{B\_tree$<$ type $>$@{B\_tree$<$ type $>$}!insert@{insert}}
+\index{insert@{insert}!B\_tree$<$ type $>$@{B\_tree$<$ type $>$}}
+\doxysubsubsection{\texorpdfstring{insert()}{insert()}}
+{\footnotesize\ttfamily template$<$typename type $>$ \\
+void \mbox{\hyperlink{class_b__tree}{B\+\_\+tree}}$<$ type $>$\+::insert (\begin{DoxyParamCaption}\item[{const unsigned int \&}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Вставляет ключ в дерево. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em key} & ключ, который нужно вставить. \\
+\hline
+\end{DoxyParams}
+Граф вызовов\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_b__tree_ad141697aed5fcfa1eed153f1d723cbec_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_b__tree_abfaace0670b44a4f90f9f0b4c10c084f}\label{class_b__tree_abfaace0670b44a4f90f9f0b4c10c084f} 
+\index{B\_tree$<$ type $>$@{B\_tree$<$ type $>$}!insert\_nonFull@{insert\_nonFull}}
+\index{insert\_nonFull@{insert\_nonFull}!B\_tree$<$ type $>$@{B\_tree$<$ type $>$}}
+\doxysubsubsection{\texorpdfstring{insert\_nonFull()}{insert\_nonFull()}}
+{\footnotesize\ttfamily template$<$typename type $>$ \\
+void \mbox{\hyperlink{class_b__tree}{B\+\_\+tree}}$<$ type $>$\+::insert\+\_\+non\+Full (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_b__tree_1_1_node}{Node}} \texorpdfstring{$\ast$}{*}}]{cur,  }\item[{const unsigned int \&}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Граф вызовов\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=321pt]{class_b__tree_abfaace0670b44a4f90f9f0b4c10c084f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_b__tree_a82d02b85aeca2c8e8a05655cd734a0d5}\label{class_b__tree_a82d02b85aeca2c8e8a05655cd734a0d5} 
+\index{B\_tree$<$ type $>$@{B\_tree$<$ type $>$}!split\_child@{split\_child}}
+\index{split\_child@{split\_child}!B\_tree$<$ type $>$@{B\_tree$<$ type $>$}}
+\doxysubsubsection{\texorpdfstring{split\_child()}{split\_child()}}
+{\footnotesize\ttfamily template$<$typename type $>$ \\
+void \mbox{\hyperlink{class_b__tree}{B\+\_\+tree}}$<$ type $>$\+::split\+\_\+child (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_b__tree_1_1_node}{Node}} \texorpdfstring{$\ast$}{*}}]{cur,  }\item[{int}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Данные класса}
+\Hypertarget{class_b__tree_a3a268d16db2d64374b1f74df0905eada}\label{class_b__tree_a3a268d16db2d64374b1f74df0905eada} 
+\index{B\_tree$<$ type $>$@{B\_tree$<$ type $>$}!root@{root}}
+\index{root@{root}!B\_tree$<$ type $>$@{B\_tree$<$ type $>$}}
+\doxysubsubsection{\texorpdfstring{root}{root}}
+{\footnotesize\ttfamily template$<$typename type $>$ \\
+\mbox{\hyperlink{struct_b__tree_1_1_node}{Node}}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_b__tree}{B\+\_\+tree}}$<$ type $>$\+::root = nullptr\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Указатель на корень дерева. 
+
+\Hypertarget{class_b__tree_aaed1600b3c2239ce3f01966bfd764532}\label{class_b__tree_aaed1600b3c2239ce3f01966bfd764532} 
+\index{B\_tree$<$ type $>$@{B\_tree$<$ type $>$}!t@{t}}
+\index{t@{t}!B\_tree$<$ type $>$@{B\_tree$<$ type $>$}}
+\doxysubsubsection{\texorpdfstring{t}{t}}
+{\footnotesize\ttfamily template$<$typename type $>$ \\
+unsigned int \mbox{\hyperlink{class_b__tree}{B\+\_\+tree}}$<$ type $>$\+::t = 2\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Минимальная степень дерева. 
+
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_b__tree_8cpp}{B\+\_\+tree.\+cpp}}\end{DoxyCompactItemize}

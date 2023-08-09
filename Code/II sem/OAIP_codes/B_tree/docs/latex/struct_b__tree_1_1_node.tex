@@ -1,0 +1,99 @@
+\doxysection{Структура B\+\_\+tree\texorpdfstring{$<$}{<} type \texorpdfstring{$>$}{>}\+::Node}
+\hypertarget{struct_b__tree_1_1_node}{}\label{struct_b__tree_1_1_node}\index{B\_tree$<$ type $>$::Node@{B\_tree$<$ type $>$::Node}}
+
+
+Вершина Б-\/дерева.  
+
+
+
+
+Граф связей класса B\+\_\+tree\texorpdfstring{$<$}{<} type \texorpdfstring{$>$}{>}\+::Node\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{struct_b__tree_1_1_node__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_b__tree_1_1_node_adebfed29b1726ddfb4d922b376740df8}{Node}} (const type \&\mbox{\hyperlink{struct_b__tree_1_1_node_a6ae06422ce93cb54c101e5bb44301c4d}{key}}, const unsigned int \&size)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Открытые атрибуты}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{struct_b__tree_1_1_node_a2927b7e30436d1ad9f0611f481830108}{leaf}} = false
+\begin{DoxyCompactList}\small\item\em Является ли вершина листом. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{struct_b__tree_1_1_node_ad4e1b5e718ff24f7a332a091d3c1ece8}{n}} = 1
+\begin{DoxyCompactList}\small\item\em Количество ключей вершин. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_b__tree_8cpp_a7db67fdc1e9339c40e82544750de892f}{vec}}$<$ type $>$ \mbox{\hyperlink{struct_b__tree_1_1_node_a6ae06422ce93cb54c101e5bb44301c4d}{key}}
+\begin{DoxyCompactList}\small\item\em Ключи вершин. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_b__tree_1_1_node}{Node}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_b__tree_1_1_node_af278f16423f6e65b5ee342d76ec91300}{c}} = nullptr
+\begin{DoxyCompactList}\small\item\em Указатели на детей вершин. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+\subsubsection*{template$<$typename type$>$\newline
+struct B\+\_\+tree$<$ type $>$\+::\+Node}
+Вершина Б-\/дерева. 
+
+\doxysubsection{Конструктор(ы)}
+\Hypertarget{struct_b__tree_1_1_node_adebfed29b1726ddfb4d922b376740df8}\label{struct_b__tree_1_1_node_adebfed29b1726ddfb4d922b376740df8} 
+\index{B\_tree$<$ type $>$::Node@{B\_tree$<$ type $>$::Node}!Node@{Node}}
+\index{Node@{Node}!B\_tree$<$ type $>$::Node@{B\_tree$<$ type $>$::Node}}
+\doxysubsubsection{\texorpdfstring{Node()}{Node()}}
+{\footnotesize\ttfamily template$<$typename type $>$ \\
+\mbox{\hyperlink{class_b__tree}{B\+\_\+tree}}$<$ type $>$\+::\+Node\+::\+Node (\begin{DoxyParamCaption}\item[{const type \&}]{key,  }\item[{const unsigned int \&}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Данные класса}
+\Hypertarget{struct_b__tree_1_1_node_af278f16423f6e65b5ee342d76ec91300}\label{struct_b__tree_1_1_node_af278f16423f6e65b5ee342d76ec91300} 
+\index{B\_tree$<$ type $>$::Node@{B\_tree$<$ type $>$::Node}!c@{c}}
+\index{c@{c}!B\_tree$<$ type $>$::Node@{B\_tree$<$ type $>$::Node}}
+\doxysubsubsection{\texorpdfstring{c}{c}}
+{\footnotesize\ttfamily template$<$typename type $>$ \\
+\mbox{\hyperlink{struct_b__tree_1_1_node}{Node}}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_b__tree}{B\+\_\+tree}}$<$ type $>$\+::\+Node\+::c = nullptr}
+
+
+
+Указатели на детей вершин. 
+
+\Hypertarget{struct_b__tree_1_1_node_a6ae06422ce93cb54c101e5bb44301c4d}\label{struct_b__tree_1_1_node_a6ae06422ce93cb54c101e5bb44301c4d} 
+\index{B\_tree$<$ type $>$::Node@{B\_tree$<$ type $>$::Node}!key@{key}}
+\index{key@{key}!B\_tree$<$ type $>$::Node@{B\_tree$<$ type $>$::Node}}
+\doxysubsubsection{\texorpdfstring{key}{key}}
+{\footnotesize\ttfamily template$<$typename type $>$ \\
+\mbox{\hyperlink{_b__tree_8cpp_a7db67fdc1e9339c40e82544750de892f}{vec}}$<$type$>$ \mbox{\hyperlink{class_b__tree}{B\+\_\+tree}}$<$ type $>$\+::\+Node\+::key}
+
+
+
+Ключи вершин. 
+
+\Hypertarget{struct_b__tree_1_1_node_a2927b7e30436d1ad9f0611f481830108}\label{struct_b__tree_1_1_node_a2927b7e30436d1ad9f0611f481830108} 
+\index{B\_tree$<$ type $>$::Node@{B\_tree$<$ type $>$::Node}!leaf@{leaf}}
+\index{leaf@{leaf}!B\_tree$<$ type $>$::Node@{B\_tree$<$ type $>$::Node}}
+\doxysubsubsection{\texorpdfstring{leaf}{leaf}}
+{\footnotesize\ttfamily template$<$typename type $>$ \\
+bool \mbox{\hyperlink{class_b__tree}{B\+\_\+tree}}$<$ type $>$\+::\+Node\+::leaf = false}
+
+
+
+Является ли вершина листом. 
+
+\Hypertarget{struct_b__tree_1_1_node_ad4e1b5e718ff24f7a332a091d3c1ece8}\label{struct_b__tree_1_1_node_ad4e1b5e718ff24f7a332a091d3c1ece8} 
+\index{B\_tree$<$ type $>$::Node@{B\_tree$<$ type $>$::Node}!n@{n}}
+\index{n@{n}!B\_tree$<$ type $>$::Node@{B\_tree$<$ type $>$::Node}}
+\doxysubsubsection{\texorpdfstring{n}{n}}
+{\footnotesize\ttfamily template$<$typename type $>$ \\
+int \mbox{\hyperlink{class_b__tree}{B\+\_\+tree}}$<$ type $>$\+::\+Node\+::n = 1}
+
+
+
+Количество ключей вершин. 
+
+
+
+Объявления и описания членов структуры находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_b__tree_8cpp}{B\+\_\+tree.\+cpp}}\end{DoxyCompactItemize}

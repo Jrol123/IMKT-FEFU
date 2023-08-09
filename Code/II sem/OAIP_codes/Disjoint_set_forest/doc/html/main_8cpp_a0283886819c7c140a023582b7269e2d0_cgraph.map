@@ -1,0 +1,11 @@
+<map id="test2" name="test2">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,56,56,83"/>
+<area shape="rect" id="Node000002" href="$struct_d_s_f.html#ac801062fd34d83ed6acac691d9f9451b" title="Метод для объединения множеств." alt="" coords="104,31,208,57"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="56,62,89,55,90,60,57,67"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html#a19fba924a515fb3b17586791b8a62588" title=" " alt="" coords="133,81,179,108"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="57,72,119,85,118,90,56,77"/>
+<area shape="rect" id="Node000003" href="$struct_d_s_f.html#afd551b959887f0fb19ad373223429fd7" title="Функция для проверки вводимых пользователем индексов на соответствие пределам." alt="" coords="261,5,400,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="208,34,245,28,246,34,209,39"/>
+<area shape="rect" id="Node000004" href="$struct_d_s_f.html#acf7622de6bf237f69bcbe588217a96e4" title="Вспомогательный метод для объединения множеств." alt="" coords="256,56,404,83"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="209,49,242,54,241,59,208,54"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="B_tree.h" name="B_tree.h">
+<area shape="rect" id="Node000001" title="Объявляет класс B&#45;дерева и его функции." alt="" coords="64,5,135,32"/>
+<area shape="rect" id="Node000002" href="$_b__tree_8cpp.html" title="Реализует методы класса Б&#45;дерева" alt="" coords="5,80,90,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,46,59,81,54,78,80,43"/>
+<area shape="rect" id="Node000003" href="$main_8cpp.html" title="Файл с тестами." alt="" coords="114,80,189,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="119,43,145,78,140,81,115,46"/>
+</map>

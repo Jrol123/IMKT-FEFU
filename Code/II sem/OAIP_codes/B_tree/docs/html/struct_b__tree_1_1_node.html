@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.7"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>B_tree: Структура B_tree&lt; type &gt;::Node</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">B_tree
+   </div>
+   <div id="projectbrief">Реализация б-дерева</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.7 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="class_b__tree.html">B_tree</a></li><li class="navelem"><a class="el" href="struct_b__tree_1_1_node.html">Node</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Открытые члены</a> &#124;
+<a href="#pub-attribs">Открытые атрибуты</a> &#124;
+<a href="struct_b__tree_1_1_node-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle"><div class="title">Структура B_tree&lt; type &gt;::Node</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Вершина Б-дерева.  
+ <a href="struct_b__tree_1_1_node.html#details">Подробнее...</a></p>
+<div class="dynheader">
+Граф связей класса B_tree&lt; type &gt;::Node:</div>
+<div class="dyncontent">
+<div class="center"><img src="struct_b__tree_1_1_node__coll__graph.png" border="0" usemap="#a_b__tree_3_01type_01_4_1_1_node_coll__map" alt="Collaboration graph"/></div>
+<map name="a_b__tree_3_01type_01_4_1_1_node_coll__map" id="a_b__tree_3_01type_01_4_1_1_node_coll__map">
+<area shape="rect" title="Вершина Б&#45;дерева." alt="" coords="5,96,152,123"/>
+<area shape="rect" href="struct_b__tree_1_1_node.html" title="Вершина Б&#45;дерева." alt="" coords="5,5,152,32"/>
+<area shape="poly" title=" " alt="" coords="81,47,81,95,76,95,76,47"/>
+<area shape="poly" title=" " alt="" coords="168,10,178,19,170,26,153,29,152,24,168,22,173,19,165,15"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">см. легенду</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:adebfed29b1726ddfb4d922b376740df8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_b__tree_1_1_node.html#adebfed29b1726ddfb4d922b376740df8">Node</a> (const type &amp;<a class="el" href="struct_b__tree_1_1_node.html#a6ae06422ce93cb54c101e5bb44301c4d">key</a>, const unsigned int &amp;size)</td></tr>
+<tr class="separator:adebfed29b1726ddfb4d922b376740df8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Открытые атрибуты</h2></td></tr>
+<tr class="memitem:a2927b7e30436d1ad9f0611f481830108"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_b__tree_1_1_node.html#a2927b7e30436d1ad9f0611f481830108">leaf</a> = false</td></tr>
+<tr class="memdesc:a2927b7e30436d1ad9f0611f481830108"><td class="mdescLeft">&#160;</td><td class="mdescRight">Является ли вершина листом.  <br /></td></tr>
+<tr class="separator:a2927b7e30436d1ad9f0611f481830108"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4e1b5e718ff24f7a332a091d3c1ece8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_b__tree_1_1_node.html#ad4e1b5e718ff24f7a332a091d3c1ece8">n</a> = 1</td></tr>
+<tr class="memdesc:ad4e1b5e718ff24f7a332a091d3c1ece8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Количество ключей вершин.  <br /></td></tr>
+<tr class="separator:ad4e1b5e718ff24f7a332a091d3c1ece8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ae06422ce93cb54c101e5bb44301c4d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_b__tree_8cpp.html#a7db67fdc1e9339c40e82544750de892f">vec</a>&lt; type &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_b__tree_1_1_node.html#a6ae06422ce93cb54c101e5bb44301c4d">key</a></td></tr>
+<tr class="memdesc:a6ae06422ce93cb54c101e5bb44301c4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ключи вершин.  <br /></td></tr>
+<tr class="separator:a6ae06422ce93cb54c101e5bb44301c4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af278f16423f6e65b5ee342d76ec91300"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_b__tree_1_1_node.html">Node</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_b__tree_1_1_node.html#af278f16423f6e65b5ee342d76ec91300">c</a> = nullptr</td></tr>
+<tr class="memdesc:af278f16423f6e65b5ee342d76ec91300"><td class="mdescLeft">&#160;</td><td class="mdescRight">Указатели на детей вершин.  <br /></td></tr>
+<tr class="separator:af278f16423f6e65b5ee342d76ec91300"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename type&gt;<br />
+struct B_tree&lt; type &gt;::Node</div><p>Вершина Б-дерева. </p>
+</div><h2 class="groupheader">Конструктор(ы)</h2>
+<a id="adebfed29b1726ddfb4d922b376740df8" name="adebfed29b1726ddfb4d922b376740df8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adebfed29b1726ddfb4d922b376740df8">&#9670;&#160;</a></span>Node()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_b__tree.html">B_tree</a>&lt; type &gt;::Node::Node </td>
+          <td>(</td>
+          <td class="paramtype">const type &amp;&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned int &amp;&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Данные класса</h2>
+<a id="af278f16423f6e65b5ee342d76ec91300" name="af278f16423f6e65b5ee342d76ec91300"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af278f16423f6e65b5ee342d76ec91300">&#9670;&#160;</a></span>c</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_b__tree_1_1_node.html">Node</a>** <a class="el" href="class_b__tree.html">B_tree</a>&lt; type &gt;::Node::c = nullptr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Указатели на детей вершин. </p>
+
+</div>
+</div>
+<a id="a6ae06422ce93cb54c101e5bb44301c4d" name="a6ae06422ce93cb54c101e5bb44301c4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ae06422ce93cb54c101e5bb44301c4d">&#9670;&#160;</a></span>key</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_b__tree_8cpp.html#a7db67fdc1e9339c40e82544750de892f">vec</a>&lt;type&gt; <a class="el" href="class_b__tree.html">B_tree</a>&lt; type &gt;::Node::key</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ключи вершин. </p>
+
+</div>
+</div>
+<a id="a2927b7e30436d1ad9f0611f481830108" name="a2927b7e30436d1ad9f0611f481830108"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2927b7e30436d1ad9f0611f481830108">&#9670;&#160;</a></span>leaf</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="class_b__tree.html">B_tree</a>&lt; type &gt;::Node::leaf = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Является ли вершина листом. </p>
+
+</div>
+</div>
+<a id="ad4e1b5e718ff24f7a332a091d3c1ece8" name="ad4e1b5e718ff24f7a332a091d3c1ece8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4e1b5e718ff24f7a332a091d3c1ece8">&#9670;&#160;</a></span>n</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename type &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="class_b__tree.html">B_tree</a>&lt; type &gt;::Node::n = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Количество ключей вершин. </p>
+
+</div>
+</div>
+<hr/>Объявления и описания членов структуры находятся в файле:<ul>
+<li><a class="el" href="_b__tree_8cpp.html">B_tree.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7
+</small></address>
+</body>
+</html>

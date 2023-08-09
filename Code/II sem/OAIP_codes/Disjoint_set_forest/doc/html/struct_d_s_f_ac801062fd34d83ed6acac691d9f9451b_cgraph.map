@@ -1,0 +1,7 @@
+<map id="DSF::combine" name="DSF::combine">
+<area shape="rect" id="Node000001" title="Метод для объединения множеств." alt="" coords="5,31,110,57"/>
+<area shape="rect" id="Node000002" href="$struct_d_s_f.html#afd551b959887f0fb19ad373223429fd7" title="Функция для проверки вводимых пользователем индексов на соответствие пределам." alt="" coords="162,5,302,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,34,147,28,148,34,110,39"/>
+<area shape="rect" id="Node000003" href="$struct_d_s_f.html#acf7622de6bf237f69bcbe588217a96e4" title="Вспомогательный метод для объединения множеств." alt="" coords="158,56,306,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="110,49,143,54,142,59,109,54"/>
+</map>

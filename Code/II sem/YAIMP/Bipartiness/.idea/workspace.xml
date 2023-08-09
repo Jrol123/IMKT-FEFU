@@ -3,9 +3,9 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
-  <component name="CMakePresetLoader"><![CDATA[{
-  "useNewFormat": true
-}]]></component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
   <component name="CMakeReloadState">
     <option name="reloaded" value="true" />
   </component>
@@ -21,9 +21,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e893e65-c40a-463a-80c4-74d97d05d2a8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../394_K_nums_A/394_K_nums_A.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../394_K_nums_A/394_K_nums_A.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../394_K_nums_A/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../394_K_nums_A/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/annotated.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/annotated.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/classes.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/classes.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/files.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/files.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/functions.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/functions.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/functions_func.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/functions_func.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/globals.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/globals.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/globals_defs.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/globals_defs.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/globals_func.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/globals_func.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/main_8cpp.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/main_8cpp.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/menudata.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/menudata.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/search/all_0.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/search/all_0.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/search/all_3.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/search/all_3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/search/all_4.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/search/all_4.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/search/all_6.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/search/all_6.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/search/all_7.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/search/all_7.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/search/functions_0.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/search/functions_0.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/search/functions_3.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/search/functions_3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/search/searchdata.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/search/searchdata.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/struct_d_s_f-members.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/struct_d_s_f-members.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/struct_d_s_f.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/html/struct_d_s_f.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/latex/main_8cpp.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/latex/main_8cpp.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/latex/refman.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/latex/refman.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/latex/struct_d_s_f.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../OAIP_codes/Disjoint_set_forest/doc/latex/struct_d_s_f.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,27 +72,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Bipartiness" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Bipartiness" TARGET_NAME="Bipartiness" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Bipartiness" RUN_TARGET_NAME="Bipartiness">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -86,6 +103,7 @@
       <option name="presentableId" value="Default" />
       <updated>1687856317812</updated>
       <workItem from="1687856319289" duration="1357000" />
+      <workItem from="1687989214070" duration="41000" />
     </task>
     <servers />
   </component>

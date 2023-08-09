@@ -1,0 +1,11 @@
+<map id="DSF::combine" name="DSF::combine">
+<area shape="rect" id="Node000001" title="Метод для объединения множеств." alt="" coords="263,56,367,83"/>
+<area shape="rect" id="Node000002" href="$main_8cpp.html#ae748f067f599ee2974a917049118eab5" title="Пример использования класса DSF." alt="" coords="103,5,215,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="257,53,202,35,203,30,259,48"/>
+<area shape="rect" id="Node000003" href="$main_8cpp.html#a1440a7779ac56f47a3f355ce4a8c7da0" title="Проверка на анти&#45;переписывание всего." alt="" coords="134,56,184,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="248,72,184,72,184,67,248,67"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html#a0283886819c7c140a023582b7269e2d0" title=" " alt="" coords="134,107,184,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="259,90,185,115,183,110,257,85"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,56,55,83"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="119,72,55,72,55,67,119,67"/>
+</map>
