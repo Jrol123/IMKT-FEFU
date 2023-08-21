@@ -764,4 +764,8 @@ FodyWeavers.xsd
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 
+# Personal custom settings
+Quick CPP test project/
+
+
 # End of https://www.toptal.com/developers/gitignore/api/pycharm,webstorm,clion,visualstudio,matlab,Intelij,Flutter
