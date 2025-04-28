@@ -1,4 +1,0 @@
-﻿  A4 - Breaking digits.cpp
-D:\OneDrive\Docs (non WIN)\Материалы\ДВФУ\Код (ДВФУ)\I семестр\A4 - Breaking digits\A4 - Breaking digits\A4 - Breaking digits.cpp(16,49): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-D:\OneDrive\Docs (non WIN)\Материалы\ДВФУ\Код (ДВФУ)\I семестр\A4 - Breaking digits\A4 - Breaking digits\A4 - Breaking digits.cpp(16,49): warning C4267: инициализация: преобразование из "size_t" в "const int"; возможна потеря данных
-  A4 - Breaking digits.vcxproj -> D:\OneDrive\Docs (non WIN)\Материалы\ДВФУ\Код (ДВФУ)\I семестр\A4 - Breaking digits\x64\Debug\A4 - Breaking digits.exe

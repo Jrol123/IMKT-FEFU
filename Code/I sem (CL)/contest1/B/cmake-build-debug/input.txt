@@ -1,4 +1,0 @@
-longlongstring
-2
-short
-string

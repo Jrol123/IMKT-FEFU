@@ -1,3 +1,0 @@
-D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/Binary_search_tree/cmake-build-debug/CMakeFiles/Binary_search_tree.dir
-D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/Binary_search_tree/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/Binary_search_tree/cmake-build-debug/CMakeFiles/rebuild_cache.dir

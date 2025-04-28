@@ -1,3 +1,0 @@
-D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/C_count_points/cmake-build-debug/CMakeFiles/C_count_points.dir
-D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/C_count_points/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/C_count_points/cmake-build-debug/CMakeFiles/rebuild_cache.dir

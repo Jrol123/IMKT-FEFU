@@ -1,3 +1,0 @@
-D:/GitHub/IMKT-FEFU/Code/I sem (CL)/CATS/G_Serg/cmake-build-debug/CMakeFiles/G_Serg.dir
-D:/GitHub/IMKT-FEFU/Code/I sem (CL)/CATS/G_Serg/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/GitHub/IMKT-FEFU/Code/I sem (CL)/CATS/G_Serg/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -1,3 +1,0 @@
-C:/Users/artem/OneDrive/Docs (non WIN)/Materials/FEFU/Code/contest1/L/cmake-build-debug/CMakeFiles/L.dir
-C:/Users/artem/OneDrive/Docs (non WIN)/Materials/FEFU/Code/contest1/L/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/artem/OneDrive/Docs (non WIN)/Materials/FEFU/Code/contest1/L/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -1,3 +1,0 @@
-D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/B2_dot_final/cmake-build-debug/CMakeFiles/B2_dot_final.dir
-D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/B2_dot_final/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/B2_dot_final/cmake-build-debug/CMakeFiles/rebuild_cache.dir

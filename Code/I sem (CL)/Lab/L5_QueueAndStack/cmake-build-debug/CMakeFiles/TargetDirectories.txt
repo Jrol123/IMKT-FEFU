@@ -1,3 +1,0 @@
-C:/Github/IMKT-FEFU/Code/I sem (CL)/Lab/L5_QueueAndStack/cmake-build-debug/CMakeFiles/L5_QueueAndStack.dir
-C:/Github/IMKT-FEFU/Code/I sem (CL)/Lab/L5_QueueAndStack/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Github/IMKT-FEFU/Code/I sem (CL)/Lab/L5_QueueAndStack/cmake-build-debug/CMakeFiles/rebuild_cache.dir

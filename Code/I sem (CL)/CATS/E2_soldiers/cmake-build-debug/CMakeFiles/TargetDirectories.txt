@@ -1,3 +1,0 @@
-C:/Github/IMKT-FEFU/Code/I sem (CL)/CATS/E2_soldiers/cmake-build-debug/CMakeFiles/E2_soldiers.dir
-C:/Github/IMKT-FEFU/Code/I sem (CL)/CATS/E2_soldiers/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Github/IMKT-FEFU/Code/I sem (CL)/CATS/E2_soldiers/cmake-build-debug/CMakeFiles/rebuild_cache.dir

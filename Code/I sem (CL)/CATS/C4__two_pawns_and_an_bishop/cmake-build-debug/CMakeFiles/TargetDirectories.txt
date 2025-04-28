@@ -1,3 +1,0 @@
-D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/C4__two_pawns_and_an_bishop/cmake-build-debug/CMakeFiles/C4__two_pawns_and_an_bishop.dir
-D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/C4__two_pawns_and_an_bishop/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/C4__two_pawns_and_an_bishop/cmake-build-debug/CMakeFiles/rebuild_cache.dir

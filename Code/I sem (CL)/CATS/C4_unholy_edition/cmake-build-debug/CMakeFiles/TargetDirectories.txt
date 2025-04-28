@@ -1,3 +1,0 @@
-D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/C4_unholy_edition/cmake-build-debug/CMakeFiles/C4_unholy_edition.dir
-D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/C4_unholy_edition/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/C4_unholy_edition/cmake-build-debug/CMakeFiles/rebuild_cache.dir

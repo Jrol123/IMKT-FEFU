@@ -1,3 +1,0 @@
-C:/Users/artem/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/Freq_voc/cmake-build-debug/CMakeFiles/Freq_voc.dir
-C:/Users/artem/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/Freq_voc/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/artem/OneDrive/Docs (non WIN)/Materials/FEFU/Code/I sem/Freq_voc/cmake-build-debug/CMakeFiles/rebuild_cache.dir
